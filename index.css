@@ -1,0 +1,50 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #98DFF3;
+    --text: black;
+    --background: #98DFF3;
+    --primaryFocus: #3ea1b1;
+    --red: #c32222;
+    --redBg: #f14e4e;
+    --color1: #49B9CA;
+    --color2: #ffffff;
+    --color3: #d7d7d7;
+    --color4: #0e0e0e;
+    --color5: #3ea1b1;
+    --color6: #54cbdd;
+    --color8: #d8d8d8;
+    --color9: #bcbcbc;
+    --color10: #e7e7e7;
+    --color11: #fafafa;
+}
+
+.announcement {
+    padding: 8px;
+    background-color: #49B9CA;
+    border-radius: 5px;
+    box-shadow: 0 1px 8px 0 rgba(22, 22, 22, 0.2), 0 1px 4px 0 rgba(22, 22, 22, 0.2);
+    margin-bottom: 12px;
+}
+
+.postblock {
+    padding: 8px;
+    background-color: #ffffff;
+    border-radius: 5px;
+    margin-bottom: 8px;
+}
+
+.postblock .userlink {
+    display: inline-block;
+    margin: 5px 0;
+}
+
+.postblock .pfp {
+    margin-right: 3px;
+    border-radius: 3px;
+    vertical-align: middle;
+}
+
+.postblock .username {}
