@@ -36,6 +36,10 @@ body {
     margin-bottom: 8px;
 }
 
+.postblock .title {
+    font-weight: 700;
+}
+
 .postblock .userlink {
     display: inline-block;
     margin: 5px 0;
@@ -47,4 +51,6 @@ body {
     vertical-align: middle;
 }
 
-.postblock .username {}
+.postblock .pronouns {
+    color: #404040;
+}
