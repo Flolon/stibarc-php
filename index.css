@@ -54,3 +54,7 @@ body {
 .postblock .pronouns {
     color: #404040;
 }
+
+.postblock .meta span {
+    margin-right: 2px;
+}

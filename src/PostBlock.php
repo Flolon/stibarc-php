@@ -30,6 +30,14 @@ class PostBlock
             <div class="date" title="' . $this->post->date . '">
                 ' . date("m/d/y h:i:s A", $date) . '
             </div>
+            <div class="meta">
+                <span class="upvote"><span class="icon">&#8679</span>
+                ' . $this->post->upvotes .'</span>
+                <span class="downvote"><span class="icon">&#8681</span>
+                ' . $this->post->downvotes . '</span>
+                <span class="comments"><span class="icon">&#128488</span>
+                ' . $this->post->comments . '</span>
+            </div>
         </div>';
     }
 }
