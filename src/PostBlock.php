@@ -21,9 +21,10 @@ class PostBlock
         return '
         <div class="postblock">
             <div class="title">' . $this->post->title . '</div>
-            <a class="userlink" title="' . ($poster->verified ? "Verified" : $poster->username) . '">
+            <a class="userlink" title="' . $poster->username . '">
                 <img class="pfp" width="25px" src="' . $poster->pfp . '">
-                <span class="username">' . $poster->username . '
+                <span class="username">' . $poster->username . '</span>
+                ' . ($poster->verified ? '<span class="verified">&#10004;</span>' : '') . '
                 <span class="pronouns">' . ($poster->pronouns ? '(' . $poster->pronouns . ')' : "") . '</span>
                 </span>
             </a>
@@ -32,7 +33,7 @@ class PostBlock
             </div>
             <div class="meta">
                 <span class="upvote"><span class="icon">&#8679</span>
-                ' . $this->post->upvotes .'</span>
+                ' . $this->post->upvotes . '</span>
                 <span class="downvote"><span class="icon">&#8681</span>
                 ' . $this->post->downvotes . '</span>
                 <span class="comments"><span class="icon">&#128488</span>
