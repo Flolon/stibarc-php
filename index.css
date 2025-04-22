@@ -30,6 +30,7 @@ body {
 }
 
 .postblock {
+    display: block;
     padding: 8px;
     background-color: #ffffff;
     border-radius: 5px;
@@ -37,7 +38,9 @@ body {
 }
 
 .postblock .title {
+    display: block;
     font-weight: 700;
+    margin: 5px 0;
 }
 
 .postblock .userlink {
@@ -57,4 +60,11 @@ body {
 
 .postblock .meta span {
     margin-right: 2px;
+}
+
+.postblock .content {
+    margin: 12px 0;
+    word-wrap: break-word;
+    max-width: 100%;
+    white-space: pre-wrap;
 }

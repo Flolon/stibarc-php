@@ -2,7 +2,7 @@
 
 namespace STiBaRC\STiBaRC;
 
-class PostBlock
+class Post
 {
 
     public $post;
@@ -20,10 +20,9 @@ class PostBlock
 
         return '
         <div class="postblock">
-            <a class="title" href="post.php?id=' . $this->post->id . '">
-            ' . htmlspecialchars($this->post->title) . '</a>
+            <h1 class="title">' . htmlspecialchars($this->post->title) . '</h1>
             <a class="userlink" title="' . htmlspecialchars($poster->username) . '">
-                <img class="pfp" width="25px" src="' . $poster->pfp . '">
+                <img class="pfp" width="32px" src="' . $poster->pfp . '">
                 <span class="username">' . htmlspecialchars($poster->username) . '</span>
                 ' . ($poster->verified ? '<span class="verified">&#10004;</span>' : '') . '
                 <span class="pronouns">
@@ -33,13 +32,16 @@ class PostBlock
             <div class="date" title="' . $this->post->date . '">
                 ' . date("m/d/y h:i:s A", $date) . '
             </div>
+
+			<div class="content">' . htmlspecialchars($this->post->content) . '</div>
+
             <div class="meta">
                 <span class="upvote"><span class="icon">&#8679</span>
                 ' . $this->post->upvotes . '</span>
                 <span class="downvote"><span class="icon">&#8681</span>
                 ' . $this->post->downvotes . '</span>
                 <span class="comments"><span class="icon">&#128488</span>
-                ' . $this->post->comments . '</span>
+                ' . count($this->post->comments) . '</span>
             </div>
         </div>';
     }

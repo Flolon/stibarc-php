@@ -5,11 +5,13 @@ error_reporting(E_ALL);
 
 require('src/API.php');
 require('src/Nav.php');
-require('src/PostBlock.php');
+require('src/Post.php');
 
 use STiBaRC\STiBaRC;
 
 $api = new STiBaRC\API("development", true);
+
+$postId = $_GET["id"];
 
 ?>
 <!DOCTYPE html>
@@ -22,17 +24,14 @@ $api = new STiBaRC\API("development", true);
 
 <body>
 
-    <?php
+	<?php
         $nav = new STiBaRC\Nav();
         echo $nav->nav();
-    ?>
 
-    <div class="announcement"><?= htmlspecialchars($api->getAnnouncement()); ?></div>
-
-    <?php foreach ($api->getPosts() as $postData) {
-        $postHtml = new STiBaRC\PostBlock($postData);
+		$postData = $api->getPost($postId);
+        $postHtml = new STiBaRC\Post($postData);
         echo $postHtml->post();
-     } ?>
+    ?>
 
 </body>
 

@@ -98,4 +98,16 @@ class API
         }
         return $responseJSON->globalPosts;
     }
+
+    public function getPost($postId)
+    {
+        $response = $this->request($this->host . "/v4/getpost.sjs?id=" . $postId);
+
+        $responseJSON = json_decode($response);
+
+        if ($responseJSON->status !== "ok") {
+            echo $this->debug ? "Failed to fetch posts: " . $response : "";
+        }
+        return $responseJSON->post;
+    }
 }
