@@ -40,7 +40,8 @@ body {
 .postblock .title {
     display: block;
     font-weight: 700;
-    margin: 5px 0;
+    margin-top: 0;
+    margin-bottom: 5px;
 }
 
 .postblock .userlink {
