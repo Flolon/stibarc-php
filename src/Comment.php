@@ -30,9 +30,7 @@ class Comment
             <div class="date" title="' . $this->comment->date . '">
                 ' . date("m/d/y h:i:s A", $date) . '
             </div>
-			<div class="content">
-			' . htmlspecialchars($this->comment->content) . '
-			</div>
+			<div class="content">' . htmlspecialchars($this->comment->content) . '</div>
             <div class="meta">
                 <span class="upvote" title="Upvotes"><span class="icon">&#8679;</span>
                 ' . $this->comment->upvotes . '</span>

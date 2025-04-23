@@ -62,8 +62,8 @@ body {
     margin-right: 2px;
 }
 
-.postBlock .content, .comment .content {
-    margin: 12px 0;
+.postBlock .content, .commentBlock .content {
+    margin: 10px 0;
     word-wrap: break-word;
     max-width: 100%;
     white-space: pre-wrap;
