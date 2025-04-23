@@ -18,7 +18,7 @@ class Post
         $poster = $this->post->poster;
         $date = strtotime($this->post->date);
 
-        return '
+        $postHTML = '
         <div class="postblock">
             <h1 class="title">' . htmlspecialchars($this->post->title) . '</h1>
             <a class="userlink" title="' . htmlspecialchars($poster->username) . '">
@@ -46,5 +46,7 @@ class Post
                 ' . count($this->post->attachments) : '') . '</span>
             </div>
         </div>';
+
+		return $postHTML;
     }
 }

@@ -18,7 +18,7 @@ class PostBlock
         $poster = $this->post->poster;
         $date = strtotime($this->post->date);
 
-        return '
+        $postBlockHMTML = '
         <div class="postblock">
             <a class="title" href="post.php?id=' . $this->post->id . '">
             ' . htmlspecialchars($this->post->title) . '</a>
@@ -44,5 +44,7 @@ class PostBlock
                 ' . count($this->post->attachments) : '') . '</span>
             </div>
         </div>';
+        
+        return $postBlockHMTML;
     }
 }
