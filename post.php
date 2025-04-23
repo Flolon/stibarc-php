@@ -6,6 +6,7 @@ error_reporting(E_ALL);
 require('src/API.php');
 require('src/Nav.php');
 require('src/Post.php');
+require('src/Attachment.php');
 
 use STiBaRC\STiBaRC;
 
@@ -31,6 +32,13 @@ $postId = $_GET["id"];
 		$postData = $api->getPost($postId);
         $postHtml = new STiBaRC\Post($postData);
         echo $postHtml->post();
+
+		if ($postData->attachments) {
+			foreach ($postData->attachments as $attachment) {
+				$attachmentObj = new STiBaRC\Attachment($attachment);
+				echo $attachmentObj->attachmentBlock();
+			}
+		}
     ?>
 
 </body>

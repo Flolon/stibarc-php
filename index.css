@@ -40,8 +40,7 @@ body {
 .postblock .title {
     display: block;
     font-weight: 700;
-    margin-top: 0;
-    margin-bottom: 5px;
+    margin: 0;
 }
 
 .postblock .userlink {
@@ -68,4 +67,14 @@ body {
     word-wrap: break-word;
     max-width: 100%;
     white-space: pre-wrap;
+}
+
+.attachmentLink {
+    display: inline-block;
+    max-width: 100%;
+    text-decoration: none;
+}
+
+.attachment {
+    max-width: 100%;
 }
