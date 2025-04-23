@@ -84,7 +84,7 @@ class API
         if ($responseJSON->status !== "ok") {
             echo $this->debug ? "Failed to fetch announcement: " . $response : "";
         }
-        return $responseJSON->announcement;
+        return $responseJSON->announcement ?? false;
     }
 
     public function getPosts()

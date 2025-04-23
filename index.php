@@ -23,16 +23,19 @@ $api = new STiBaRC\API("development", true);
 <body>
 
     <?php
-        $nav = new STiBaRC\Nav();
-        echo $nav->nav();
-    ?>
 
-    <div class="announcement"><?= htmlspecialchars($api->getAnnouncement()); ?></div>
+    $nav = new STiBaRC\Nav();
+    echo $nav->nav();
 
-    <?php foreach ($api->getPosts() as $postData) {
+    if ($api->getAnnouncement()) {
+        echo '<div class="announcement">' . htmlspecialchars($api->getAnnouncement()) . '</div>';
+    }
+
+    foreach ($api->getPosts() as $postData) {
         $postHtml = new STiBaRC\postBlock($postData);
         echo $postHtml->post();
-     } ?>
+    }
+    ?>
 
 </body>
 
