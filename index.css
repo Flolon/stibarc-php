@@ -29,7 +29,7 @@ body {
     margin-bottom: 12px;
 }
 
-.postblock {
+.postBlock, .commentBlock {
     display: block;
     padding: 8px;
     background-color: #ffffff;
@@ -37,32 +37,32 @@ body {
     margin-bottom: 8px;
 }
 
-.postblock .title {
+.postBlock .title {
     display: block;
     font-weight: 700;
     margin: 0;
 }
 
-.postblock .userlink {
+.userlink {
     display: inline-block;
     margin: 5px 0;
 }
 
-.postblock .pfp {
+.pfp {
     margin-right: 3px;
     border-radius: 3px;
     vertical-align: middle;
 }
 
-.postblock .pronouns {
+.pronouns {
     color: #404040;
 }
 
-.postblock .meta span {
+.meta span {
     margin-right: 2px;
 }
 
-.postblock .content {
+.postBlock .content, .comment .content {
     margin: 12px 0;
     word-wrap: break-word;
     max-width: 100%;

@@ -2,7 +2,7 @@
 
 namespace STiBaRC\STiBaRC;
 
-class PostBlock
+class postBlock
 {
 
     public $post;
@@ -19,11 +19,11 @@ class PostBlock
         $date = strtotime($this->post->date);
 
         $postBlockHMTML = '
-        <div class="postblock">
+        <div class="postBlock">
             <a class="title" href="post.php?id=' . $this->post->id . '">
             ' . htmlspecialchars($this->post->title) . '</a>
             <a class="userlink" title="' . htmlspecialchars($poster->username) . '">
-                <img class="pfp" width="25px" src="' . $poster->pfp . '">
+                <img class="pfp" height="26px" src="' . $poster->pfp . '">
                 <span class="username">' . htmlspecialchars($poster->username) . '</span>
                 ' . ($poster->verified ? '<span class="verified">&#10004;</span>' : '') . '
                 <span class="pronouns">

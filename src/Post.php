@@ -19,10 +19,10 @@ class Post
         $date = strtotime($this->post->date);
 
         $postHTML = '
-        <div class="postblock">
+        <div class="postBlock">
             <h1 class="title">' . htmlspecialchars($this->post->title) . '</h1>
             <a class="userlink" title="' . htmlspecialchars($poster->username) . '">
-                <img class="pfp" width="32px" src="' . $poster->pfp . '">
+                <img class="pfp" height="35px" src="' . $poster->pfp . '">
                 <span class="username">' . htmlspecialchars($poster->username) . '</span>
                 ' . ($poster->verified ? '<span class="verified">&#10004;</span>' : '') . '
                 <span class="pronouns">

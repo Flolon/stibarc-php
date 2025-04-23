@@ -7,6 +7,7 @@ require('src/API.php');
 require('src/Nav.php');
 require('src/Post.php');
 require('src/Attachment.php');
+require('src/Comment.php');
 
 use STiBaRC\STiBaRC;
 
@@ -30,13 +31,21 @@ $postId = $_GET["id"];
         echo $nav->nav();
 
 		$postData = $api->getPost($postId);
-        $postHtml = new STiBaRC\Post($postData);
-        echo $postHtml->post();
+        $postObj = new STiBaRC\Post($postData);
+        echo $postObj->post();
 
 		if ($postData->attachments) {
 			foreach ($postData->attachments as $attachment) {
 				$attachmentObj = new STiBaRC\Attachment($attachment);
 				echo $attachmentObj->attachmentBlock();
+			}
+		}
+
+		if ($postData->comments) {
+			echo "<h2>Comments</h2>";
+			foreach ($postData->comments as $comment) {
+				$commentObj = new STiBaRC\Comment($comment);
+				echo $commentObj->comment();
 			}
 		}
     ?>

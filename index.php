@@ -30,7 +30,7 @@ $api = new STiBaRC\API("development", true);
     <div class="announcement"><?= htmlspecialchars($api->getAnnouncement()); ?></div>
 
     <?php foreach ($api->getPosts() as $postData) {
-        $postHtml = new STiBaRC\PostBlock($postData);
+        $postHtml = new STiBaRC\postBlock($postData);
         echo $postHtml->post();
      } ?>
 
