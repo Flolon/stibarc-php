@@ -14,7 +14,7 @@ class Comment
 
     public function comment()
     {
-		$poster = $this->comment->poster;
+        $poster = $this->comment->poster;
         $date = strtotime($this->comment->date);
 
         $commentHTML = '
@@ -30,7 +30,16 @@ class Comment
             <div class="date" title="' . $this->comment->date . '">
                 ' . date("m/d/y h:i:s A", $date) . '
             </div>
-			<div class="content">' . htmlspecialchars($this->comment->content) . '</div>
+			<div class="content">' . htmlspecialchars($this->comment->content) . '</div>';
+
+        if ($this->comment->attachments) {
+            foreach ($this->comment->attachments as $attachment) {
+                $attachmentObj = new Attachment($attachment, false);
+                $commentHTML .= $attachmentObj->attachmentBlock();
+            }
+        }
+
+        $commentHTML .= '
             <div class="meta">
                 <span class="upvote" title="Upvotes"><span class="icon">&#8679;</span>
                 ' . $this->comment->upvotes . '</span>
@@ -40,7 +49,7 @@ class Comment
                 ' . count($this->comment->attachments) : '') . '</span>
             </div>
         </div>';
-        
+
         return $commentHTML;
     }
 }

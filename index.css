@@ -58,12 +58,24 @@ body {
     color: #404040;
 }
 
+.date {
+    margin-bottom: 3px;
+    padding-bottom: 4px;
+    border-bottom: 1px solid #d7d7d7;
+}
+
+.meta {
+    margin-top: 3px;
+    padding-top: 4px;
+    border-top: 1px solid #d7d7d7;
+}
+
 .meta span {
     margin-right: 2px;
 }
 
 .postBlock .content, .commentBlock .content {
-    margin: 10px 0;
+    margin: 8px 0;
     word-wrap: break-word;
     max-width: 100%;
     white-space: pre-wrap;
@@ -77,4 +89,15 @@ body {
 
 .attachment {
     max-width: 100%;
+}
+
+.imgPreview, .videoPreview img, .audioPreview {
+    max-height: 75px;
+    border-radius: 5px;
+    margin-top: 5px;
+    margin-right: 5px;
+}
+
+.audioPreview {
+
 }

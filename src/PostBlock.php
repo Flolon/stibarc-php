@@ -2,14 +2,18 @@
 
 namespace STiBaRC\STiBaRC;
 
+require('Attachment.php');
+
 class postBlock
 {
 
-    public $post;
+    private $post;
+    private $showAttachments;
 
-    public function __construct($postData)
+    public function __construct($postData, $showAttachments = true)
     {
         $this->post = $postData;
+        $this->showAttachments = $showAttachments;
     }
 
     public function post()
@@ -17,9 +21,12 @@ class postBlock
 
         $poster = $this->post->poster;
         $date = strtotime($this->post->date);
+        $contentPreview = $this->post->content;
+        if (strlen($this->post->content) > 150)
+            $contentPreview = substr($this->post->content, 0, 147) . '...';
 
-        $postBlockHMTML = '
-        <div class="postBlock">
+        $postHTML = '
+        <div class="postBlock postPreview">
             <a class="title" href="post.php?id=' . $this->post->id . '">
             ' . htmlspecialchars($this->post->title) . '</a>
             <a class="userlink" title="' . htmlspecialchars($poster->username) . '">
@@ -33,6 +40,17 @@ class postBlock
             <div class="date" title="' . $this->post->date . '">
                 ' . date("m/d/y h:i:s A", $date) . '
             </div>
+            
+            <div class="content">' . htmlspecialchars($contentPreview) . '</div>
+            ';
+
+        if ($this->showAttachments && $this->post->attachments) {
+            $attachment = $this->post->attachments[0];
+            $attachmentObj = new Attachment($attachment, false);
+            $postHTML .= $attachmentObj->attachmentBlock();
+        }
+
+        $postHTML .= '
             <div class="meta">
                 <span class="upvote" title="Upvotes"><span class="icon">&#8679;</span>
                 ' . $this->post->upvotes . '</span>
@@ -43,8 +61,9 @@ class postBlock
                 ' . ($this->post->attachments ? '<span class="attachments" title="Attachemnts"><span class="icon">&#128206;</span>
                 ' . count($this->post->attachments) : '') . '</span>
             </div>
-        </div>';
-        
-        return $postBlockHMTML;
+        </div>
+        ';
+
+        return $postHTML;
     }
 }

@@ -11,6 +11,8 @@ use STiBaRC\STiBaRC;
 
 $api = new STiBaRC\API("development", true);
 
+$showAttachments = true;
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -32,7 +34,7 @@ $api = new STiBaRC\API("development", true);
     }
 
     foreach ($api->getPosts() as $postData) {
-        $postHtml = new STiBaRC\postBlock($postData);
+        $postHtml = new STiBaRC\postBlock($postData, $showAttachments);
         echo $postHtml->post();
     }
     ?>

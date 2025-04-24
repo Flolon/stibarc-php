@@ -2,10 +2,12 @@
 
 namespace STiBaRC\STiBaRC;
 
+require('Attachment.php');
+
 class Post
 {
 
-    public $post;
+    private $post;
 
     public function __construct($postData)
     {
@@ -34,7 +36,17 @@ class Post
             </div>
 
 			<div class="content">' . htmlspecialchars($this->post->content) . '</div>
+            ';
 
+        if ($this->post->attachments) {
+            foreach ($this->post->attachments as $attachment) {
+                $attachmentObj = new Attachment($attachment, true);
+                $postHTML .= $attachmentObj->attachmentBlock();
+            }
+        }
+
+
+        $postHTML .= '
             <div class="meta">
                 <span class="upvote" title="Upvotes"><span class="icon">&#8679;</span>
                 ' . $this->post->upvotes . '</span>
@@ -45,8 +57,9 @@ class Post
                 ' . ($this->post->attachments ? '<span class="attachments" title="Attachemnts"><span class="icon">&#128206;</span>
                 ' . count($this->post->attachments) : '') . '</span>
             </div>
-        </div>';
+        </div>
+        ';
 
-		return $postHTML;
+        return $postHTML;
     }
 }
