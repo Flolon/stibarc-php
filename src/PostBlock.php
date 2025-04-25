@@ -29,12 +29,13 @@ class postBlock
         <div class="postBlock postPreview">
             <a class="title" href="post.php?id=' . $this->post->id . '">
             ' . htmlspecialchars($this->post->title) . '</a>
-            <a class="userlink" title="' . htmlspecialchars($poster->username) . '">
-                <img class="pfp" height="26px" src="' . $poster->pfp . '">
+            <a class="userlink" href="user.php?username=' . $poster->username . '" 
+            title="' . htmlspecialchars($poster->username) . '">
+                <img class="pfp" width="28px" src="' . $poster->pfp . '">
                 <span class="username">' . htmlspecialchars($poster->username) . '</span>
                 ' . ($poster->verified ? '<span class="verified">&#10004;</span>' : '') . '
                 <span class="pronouns">
-                ' . ($poster->pronouns ? '(' . htmlspecialchars($poster->pronouns) . ')' : "") . '
+                ' . ($poster->displayPronouns ? '(' . htmlspecialchars($poster->pronouns) . ')' : "") . '
                 </span>
             </a>
             <div class="date" title="' . $this->post->date . '">

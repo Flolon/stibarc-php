@@ -19,12 +19,13 @@ class Comment
 
         $commentHTML = '
         <div class="commentBlock">
-            <a class="userlink" title="' . htmlspecialchars($poster->username) . '">
+            <a class="userlink" href="user.php?username=' . $poster->username . '" 
+            title="' . htmlspecialchars($poster->username) . '">
                 <img class="pfp" height="26px" src="' . $poster->pfp . '">
                 <span class="username">' . htmlspecialchars($poster->username) . '</span>
                 ' . ($poster->verified ? '<span class="verified">&#10004;</span>' : '') . '
                 <span class="pronouns">
-                ' . ($poster->pronouns ? '(' . htmlspecialchars($poster->pronouns) . ')' : "") . '
+                ' . ($poster->displayPronouns ? '(' . htmlspecialchars($poster->pronouns) . ')' : "") . '
                 </span>
             </a>
             <div class="date" title="' . $this->comment->date . '">

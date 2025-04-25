@@ -12,8 +12,6 @@ use STiBaRC\STiBaRC;
 
 $api = new STiBaRC\API($apiTarget, true);
 
-$showAttachments = true;
-
 ?>
 <!DOCTYPE html>
 <html>

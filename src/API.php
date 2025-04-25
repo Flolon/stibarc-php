@@ -13,7 +13,7 @@ class API
     private $pfp;
     private $banner;
 
-    public function __construct($environment = "development", $debug)
+    public function __construct($environment, $debug)
     {
         // debug vars
         $this->debug = $debug;
@@ -109,5 +109,17 @@ class API
             echo $this->debug ? "Failed to fetch posts: " . $response : "";
         }
         return $responseJSON->post;
+    }
+
+    public function getUser($username)
+    {
+        $response = $this->request($this->host . "/v4/getuser.sjs?username=" . $username);
+
+        $responseJSON = json_decode($response);
+
+        if ($responseJSON->status !== "ok") {
+            echo $this->debug ? "Failed to fetch user: " . $response : "";
+        }
+        return $responseJSON->user;
     }
 }

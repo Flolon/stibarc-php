@@ -5,8 +5,6 @@ namespace STiBaRC\STiBaRC;
 class Nav
 {
 
-    public $post;
-
     public function __construct()
     {
 		// starting state

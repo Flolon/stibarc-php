@@ -23,12 +23,13 @@ class Post
         $postHTML = '
         <div class="postBlock">
             <h1 class="title">' . htmlspecialchars($this->post->title) . '</h1>
-            <a class="userlink" title="' . htmlspecialchars($poster->username) . '">
-                <img class="pfp" height="35px" src="' . $poster->pfp . '">
+            <a class="userlink" href="user.php?username=' . $poster->username . '" 
+            title="' . htmlspecialchars($poster->username) . '">
+                <img class="pfp" width="35px" src="' . $poster->pfp . '">
                 <span class="username">' . htmlspecialchars($poster->username) . '</span>
                 ' . ($poster->verified ? '<span class="verified">&#10004;</span>' : '') . '
                 <span class="pronouns">
-                ' . ($poster->pronouns ? '(' . htmlspecialchars($poster->pronouns) . ')' : "") . '
+                ' . ($poster->displayPronouns ? '(' . htmlspecialchars($poster->pronouns) . ')' : "") . '
                 </span>
             </a>
             <div class="date" title="' . $this->post->date . '">

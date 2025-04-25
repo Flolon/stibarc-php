@@ -29,7 +29,7 @@ body {
     margin-bottom: 12px;
 }
 
-.postBlock, .commentBlock {
+.postBlock, .commentBlock, .userBlock {
     display: block;
     padding: 8px;
     background-color: #ffffff;
@@ -74,7 +74,7 @@ body {
     margin-right: 2px;
 }
 
-.postBlock .content, .commentBlock .content {
+.postBlock .content, .commentBlock .content, .bio {
     margin: 8px 0;
     word-wrap: break-word;
     max-width: 100%;
@@ -107,4 +107,10 @@ body {
     text-align: center;
 	line-height: 0;
     border-radius: 5px;
+}
+
+.userBlock .bio {
+	background-color: #e7e7e7;
+	padding: 8px;
+	border-radius: 5px;
 }
