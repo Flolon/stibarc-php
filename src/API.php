@@ -13,7 +13,7 @@ class API
     private $pfp;
     private $banner;
 
-    public function __construct($environment, $debug)
+    public function __construct($environment = "development", $debug)
     {
         // debug vars
         $this->debug = $debug;

@@ -3,6 +3,7 @@ ini_set('display_errors', '1');
 ini_set('display_startup_errors', '1');
 error_reporting(E_ALL);
 
+require('global.inc.php');
 require('src/API.php');
 require('src/Nav.php');
 require('src/Post.php');
@@ -10,7 +11,7 @@ require('src/Comment.php');
 
 use STiBaRC\STiBaRC;
 
-$api = new STiBaRC\API("development", true);
+$api = new STiBaRC\API($apiTarget, true);
 
 $postId = $_GET["id"];
 
