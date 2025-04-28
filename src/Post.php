@@ -29,7 +29,7 @@ class Post
                 <span class="username">' . htmlspecialchars($poster->username) . '</span>
                 ' . ($poster->verified ? '<span class="verified">&#10004;</span>' : '') . '
                 <span class="pronouns">
-                ' . ($poster->displayPronouns ? '(' . htmlspecialchars($poster->pronouns) . ')' : "") . '
+                ' . ($poster->displayPronouns && $poster->pronouns ? '(' . htmlspecialchars($poster->pronouns) . ')' : "") . '
                 </span>
             </a>
             <div class="date" title="' . $this->post->date . '">

@@ -49,7 +49,9 @@ class Attachment
 					<source src="' . $this->attachment . '"></source>
 				</video>';
 			} else {
-				$this->attachmentHTML = '<div class="videoPreview"><img loading="lazy" src="' . $this->attachment . '.thumb.webp"></div>';
+				$this->attachmentHTML = '<a class="attachmentLink videoPreview" href="' . $this->attachment . '"
+				title="Video Atachment">
+				<img loading="lazy" src="' . $this->attachment . '.thumb.webp"></a>';
 			}
 		}
 
@@ -61,7 +63,8 @@ class Attachment
 					<source src="' . $this->attachment . '"></source>
 				</audio>';
 			} else {
-				$this->attachmentHTML = '<div class="audioPreview" title="Audio Attachment">&#128266;</div>';
+				$this->attachmentHTML = '<a class="attachmentLink audioPreview" href="' . $this->attachment . '" 
+				title="Audio Attachment">&#128266;</a>';
 			}
 		}
 

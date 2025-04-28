@@ -23,14 +23,14 @@ class UserBlock
 				<span class="username">' . htmlspecialchars($user->username) . '</span>
 				' . ($user->verified ? '<span class="verified">&#10004;</span>' : '') . '
 				<span class="pronouns">
-				' . ($user->displayPronouns ? '(' . htmlspecialchars($user->pronouns) . ')' : "") . '
+				' . ($user->displayPronouns && $user->pronouns ? '(' . htmlspecialchars($user->pronouns) . ')' : "") . '
 				</span>
             </div>
 			<div>
-				' . ($user->displayName ? '<div>Name: ' . htmlspecialchars($user->name) . '</div>' : '') . '
-				' . ($user->displayBio ? '<div class="bio">' . htmlspecialchars($user->bio) . '</div>' : '') . '
-				' . ($user->displayEmail ? '<div>Email: ' . htmlspecialchars($user->email) . '</div>' : '') . '
-				' . ($user->displayBirthday ? '<div title="' . htmlspecialchars($user->birthday) . 
+				' . ($user->displayName && $user->name ? '<div>Name: ' . htmlspecialchars($user->name) . '</div>' : '') . '
+				' . ($user->displayBio && $user->bio ? '<div class="bio">' . htmlspecialchars($user->bio) . '</div>' : '') . '
+				' . ($user->displayEmail && $user->email ? '<div>Email: ' . htmlspecialchars($user->email) . '</div>' : '') . '
+				' . ($user->displayBirthday && $user->birthday ? '<div title="' . htmlspecialchars($user->birthday) . 
 				'">Birthday: ' . htmlspecialchars($user->birthday) . '</div>' : '') . '
 				' . ($user->displayBirthday ? '<div>Rank: ' . htmlspecialchars($user->rank) . '</div>' : '') . '
 			</div>
