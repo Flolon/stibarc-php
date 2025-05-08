@@ -55,7 +55,7 @@ class API
         $_SESSION = array();
     }
 
-    public function request($url)
+    public function request($url, $type = "GET", $post_data = null)
     {
         // initialize curl
         $ch = curl_init();
@@ -67,6 +67,12 @@ class API
         curl_setopt($ch, CURLOPT_URL, $url);
         // set user agent //
         curl_setopt($ch, CURLOPT_USERAGENT, 'STiBaRC PHP');
+        // send post data if post request
+        if ($type == "POST") {
+            curl_setopt($ch, CURLOPT_HTTPHEADER, [ 'Content-Type: application/json' ]);
+            curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($post_data));
+        }
+        // get response
         $result = curl_exec($ch);
         // get content header //
         $contentType = curl_getinfo($ch, CURLINFO_CONTENT_TYPE);
@@ -101,7 +107,7 @@ class API
 
     public function getPost($postId)
     {
-        $response = $this->request($this->host . "/v4/getpost.sjs?id=" . $postId);
+        $response = $this->request($this->host . "/v4/getpost.sjs", "POST", [ 'id' => $postId]);
 
         $responseJSON = json_decode($response);
 
