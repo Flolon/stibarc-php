@@ -37,6 +37,7 @@ nav ul {
 
 nav li, nav form {
     display: inline;
+    padding: 8px;
 }
 
 nav a {

@@ -36,6 +36,7 @@ $postId = $_GET["id"];
 
 		if ($postData->comments) {
 			echo "<h2>Comments</h2>";
+			
 			foreach ($postData->comments as $comment) {
 				$commentObj = new STiBaRC\Comment($comment);
 				echo $commentObj->comment();

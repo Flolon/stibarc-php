@@ -36,12 +36,13 @@ $username = $_GET["username"];
 	echo $userBlockObj->user();
 
 	if ($userData->posts) {
-		echo "<h2>Posts</h2>";
+		echo '<h2>' . count($userData->posts) . ' Posts</h2>';
 
 		foreach ($userData->posts as $postData) {
 			$postHtml = new STiBaRC\PostBlock($postData, $showAttachments);
 			echo $postHtml->post();
 		}
+
 	} else {
 		echo "<h2>No Posts</h2>";
 	}
