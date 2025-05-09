@@ -31,6 +31,7 @@ class Comment
             <div class="date" title="' . $this->comment->date . '">
                 ' . date("m/d/y h:i:s A", $date) . '
             </div>
+            <hr>
 			<div class="content">' . htmlspecialchars($this->comment->content) . '</div>';
 
         if ($this->comment->attachments) {
@@ -41,13 +42,15 @@ class Comment
         }
 
         $commentHTML .= '
+            <hr>
             <div class="meta">
-                <span class="upvote" title="Upvotes"><span class="icon">&#8679;</span>
-                ' . $this->comment->upvotes . '</span>
-                <span class="downvote" title="Downvotes"><span class="icon">&#8681;</span>
-                ' . $this->comment->downvotes . '</span>
-                ' . ($this->comment->attachments ? '<span class="attachments" title="Attachemnts"><span class="icon">&#128206;</span>
-                ' . count($this->comment->attachments) : '') . '</span>
+                <span class="upvote" title="Upvotes"><span class="icon">&#8679;</span>' 
+                . $this->comment->upvotes . '</span>
+                <span class="downvote" title="Downvotes"><span class="icon">&#8681;</span>' 
+                . $this->comment->downvotes . '</span>
+                ' . ($this->comment->attachments ? 
+                '<span class="attachments" title="Attachemnts"><span class="icon">&#128206;</span>' 
+                . count($this->comment->attachments) . '</span>' : '') . '
             </div>
         </div>';
 

@@ -35,7 +35,7 @@ class Post
             <div class="date" title="' . $this->post->date . '">
                 ' . date("m/d/y h:i:s A", $date) . '
             </div>
-
+            <hr>
 			<div class="content">' . htmlspecialchars($this->post->content) . '</div>
             ';
 
@@ -48,15 +48,17 @@ class Post
 
 
         $postHTML .= '
+        <hr>
             <div class="meta">
-                <span class="upvote" title="Upvotes"><span class="icon">&#8679;</span>
-                ' . $this->post->upvotes . '</span>
-                <span class="downvote" title="Downvotes"><span class="icon">&#8681;</span>
-                ' . $this->post->downvotes . '</span>
-                <span class="comments" title="Comments"><span class="icon">&#128488;</span>
-                ' . count($this->post->comments) . '</span>
-                ' . ($this->post->attachments ? '<span class="attachments" title="Attachemnts"><span class="icon">&#128206;</span>
-                ' . count($this->post->attachments) : '') . '</span>
+                <span class="upvote" title="Upvotes"><span class="icon">&#8679;</span>' 
+                . $this->post->upvotes . '</span>
+                <span class="downvote" title="Downvotes"><span class="icon">&#8681;</span>' 
+                . $this->post->downvotes . '</span>
+                <span class="comments" title="Comments"><span class="icon">&#128488;</span>' 
+                . count($this->post->comments) . '</span>
+                ' . ($this->post->attachments ? 
+                '<span class="attachments" title="Attachemnts"><span class="icon">&#128206;</span>' 
+                . count($this->post->attachments) . '</span>' : '') . '
             </div>
         </div>
         ';

@@ -33,11 +33,11 @@ $search_query = $_GET["q"];
 	$searchData = $api->search($search_query);
 	$resultCount =  count($searchData->users) + count($searchData->posts) ?? 0;
 
-	echo '<h2 style="margin-bottom: 0;">' . htmlspecialchars($search_query) . '</h2>';
+	echo '<h1 style="margin-bottom: 0;">' . htmlspecialchars($search_query) . '</h1>';
 	echo '<p style="margin-top: 8px;">' . $resultCount . ' Results' . '</p>';
 
 	if ($searchData->users) {
-		echo "<h3>Users</h3>";
+		echo "<h2>Users</h2>";
 
 		foreach ($searchData->users as $userData) {
 			$userHTML = new STiBaRC\UserBlock($userData);
@@ -46,7 +46,7 @@ $search_query = $_GET["q"];
 	}
 
 	if ($searchData->posts) {
-		echo "<h3>Posts</h3>";
+		echo "<h2>Posts</h2>";
 
 		foreach ($searchData->posts as $postData) {
 			$postHtml = new STiBaRC\PostBlock($postData, $showAttachments);
