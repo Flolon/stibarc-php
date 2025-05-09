@@ -5,7 +5,7 @@ namespace STiBaRC\STiBaRC;
 class Comment
 {
 
-    public $comment;
+    private $comment;
 
     public function __construct($commentData)
     {

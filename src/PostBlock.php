@@ -26,15 +26,16 @@ class PostBlock
         $title = $this->post->title;
         $contentPreview = $this->post->content;
         if (strlen($this->post->title) > $this->maxCharLength)
-            $title = substr($this->post->title, 0, $this->maxCharLength - 3) . '...';
+            $title = substr($this->post->title, 0, ($this->maxCharLength - 3)) . '...';
         if (strlen($this->post->content) > $this->maxCharLength)
-            $contentPreview = substr($this->post->content, 0, $this->maxCharLength - 3) . '...';
+            $contentPreview = substr($this->post->content, 0, ($this->maxCharLength - 3)) . '...';
 
         $postHTML = '
         <div class="postBlock postPreview">
-            <a class="title" href="post.php?id=' . $this->post->id . '" title="' . $this->post->title . '>
-            ' . htmlspecialchars($title) . '</a>
-            <a class="userlink" href="user.php?username=' . $poster->username . '" 
+            <a class="title" href="post.php?id=' . $this->post->id . '" title="' 
+            . htmlspecialchars($this->post->title) . '">' 
+            . htmlspecialchars($title) . '</a>
+            <a class="userlink" href="user.php?username=' . htmlspecialchars($poster->username) . '" 
             title="' . htmlspecialchars($poster->username) . '">
                 <img class="pfp" width="28px" src="' . $poster->pfp . '">
                 <span class="username">' . htmlspecialchars($poster->username) . '</span>

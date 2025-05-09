@@ -20,28 +20,32 @@ $username = $_GET["username"];
 <html>
 
 <head>
-    <title>STiBaRC</title>
-    <link rel="stylesheet" href="./index.css">
+	<title>STiBaRC</title>
+	<link rel="stylesheet" href="./index.css">
 </head>
 
 <body>
 
 	<?php
-        $nav = new STiBaRC\Nav();
-        echo $nav->nav();
+	$nav = new STiBaRC\Nav();
+	echo $nav->nav();
 
-		$userData = $api->getUser($username);
+	$userData = $api->getUser($username);
 
-		$userBlockObj = new STiBaRC\UserBlock($userData);
-		echo $userBlockObj->user();
+	$userBlockObj = new STiBaRC\UserBlock($userData);
+	echo $userBlockObj->user();
 
+	if ($userData->posts) {
 		echo "<h2>Posts</h2>";
-        
+
 		foreach ($userData->posts as $postData) {
 			$postHtml = new STiBaRC\PostBlock($postData, $showAttachments);
 			echo $postHtml->post();
 		}
-    ?>
+	} else {
+		echo "<h2>No Posts</h2>";
+	}
+	?>
 
 </body>
 

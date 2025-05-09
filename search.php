@@ -27,28 +27,31 @@ $search_query = $_GET["q"];
 <body>
 
 	<?php
-	$nav = new STiBaRC\Nav();
+	$nav = new STiBaRC\Nav($search_query);
 	echo $nav->nav();
 
 	$searchData = $api->search($search_query);
+	$resultCount =  count($searchData->users) + count($searchData->posts) ?? 0;
 
-	echo '<h2>' . htmlspecialchars($search_query) . '</h2>';
-	echo '<p>' . count($searchData->users) + count($searchData->posts) . ' Results' . '</p>';
+	echo '<h2 style="margin-bottom: 0;">' . htmlspecialchars($search_query) . '</h2>';
+	echo '<p style="margin-top: 8px;">' . $resultCount . ' Results' . '</p>';
 
-	if ($searchData->users)
+	if ($searchData->users) {
 		echo "<h3>Users</h3>";
 
-	foreach ($searchData->users as $userData) {
-		$userHTML = new STiBaRC\UserBlock($userData);
-		echo $userHTML->user();
+		foreach ($searchData->users as $userData) {
+			$userHTML = new STiBaRC\UserBlock($userData);
+			echo $userHTML->user();
+		}
 	}
 
-	if ($searchData->posts)
+	if ($searchData->posts) {
 		echo "<h3>Posts</h3>";
 
-	foreach ($searchData->posts as $postData) {
-		$postHtml = new STiBaRC\PostBlock($postData, $showAttachments);
-		echo $postHtml->post();
+		foreach ($searchData->posts as $postData) {
+			$postHtml = new STiBaRC\PostBlock($postData, $showAttachments);
+			echo $postHtml->post();
+		}
 	}
 	?>
 

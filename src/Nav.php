@@ -5,9 +5,11 @@ namespace STiBaRC\STiBaRC;
 class Nav
 {
 
-	public function __construct()
+	private $searchQuery;
+
+	public function __construct($searchQuery = false)
 	{
-		// starting state
+		$this->searchQuery = $searchQuery;
 	}
 
 	public function nav()
@@ -18,7 +20,8 @@ class Nav
         	<li><a href="./">Home</a></li>
         	<li>
 				<form action="search.php">
-    	    	    <input type="search" name="q" placeholder="Search">
+    	    	    <input type="search" name="q" placeholder="Search" value="' 
+					. ($this->searchQuery ? $this->searchQuery : '') . '">
 	            	<button type="submit">Search</button>
         		</form>
 			</li>
