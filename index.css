@@ -1,3 +1,5 @@
+@import url('https://unpkg.com/98.css');
+
 * {
     box-sizing: border-box;
 }
@@ -55,16 +57,16 @@ nav form {
 .announcement {
     padding: 8px;
     background-color: #49B9CA;
-    border-radius: 5px;
-    box-shadow: 0 1px 8px 0 rgba(22, 22, 22, 0.2), 0 1px 4px 0 rgba(22, 22, 22, 0.2);
+    /* border-radius: 5px;
+    box-shadow: 0 1px 8px 0 rgba(22, 22, 22, 0.2), 0 1px 4px 0 rgba(22, 22, 22, 0.2); */
     margin: 12px 0;
 }
 
 .postBlock, .commentBlock, .userBlock {
     display: block;
-    padding: 8px;
+    /* padding: 8px;
     background-color: #ffffff;
-    border-radius: 5px;
+    border-radius: 5px; */
     margin-bottom: 8px;
 }
 
@@ -90,16 +92,16 @@ nav form {
 }
 
 .date {
-    margin-bottom: 3px;
-    padding-bottom: 4px;
-    border-bottom: 1px solid #d7d7d7;
+    /* margin-bottom: 3px;
+    padding-bottom: 4px; */
+    /* border-bottom: 1px solid #d7d7d7; */
 }
 
-.meta {
+/* .meta {
     margin-top: 3px;
     padding-top: 4px;
     border-top: 1px solid #d7d7d7;
-}
+} */
 
 .meta span {
     margin-right: 2px;
@@ -124,8 +126,8 @@ nav form {
 
 .imgPreview, .videoPreview img, .audioPreview {
     max-height: 75px;
-    border-radius: 5px;
-    margin-top: 5px;
+    /* border-radius: 5px; */
+    /* margin-top: 5px; */
     margin-right: 5px;
 }
 

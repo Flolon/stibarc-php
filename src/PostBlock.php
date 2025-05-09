@@ -31,24 +31,28 @@ class PostBlock
             $contentPreview = substr($this->post->content, 0, ($this->maxCharLength - 3)) . '...';
 
         $postHTML = '
-        <div class="postBlock postPreview">
-            <a class="title" href="post.php?id=' . $this->post->id . '" title="' 
-            . htmlspecialchars($this->post->title) . '">' 
-            . htmlspecialchars($title) . '</a>
-            <a class="userlink" href="user.php?username=' . htmlspecialchars($poster->username) . '" 
-            title="' . htmlspecialchars($poster->username) . '">
-                <img class="pfp" width="28px" src="' . $poster->pfp . '">
-                <span class="username">' . htmlspecialchars($poster->username) . '</span>
-                ' . ($poster->verified ? '<span class="verified">&#10004;</span>' : '') . '
-                <span class="pronouns">
-                ' . ($poster->displayPronouns && $poster->pronouns ? '(' . htmlspecialchars($poster->pronouns) . ')' : "") . '
-                </span>
-            </a>
-            <div class="date" title="' . $this->post->date . '">
-                ' . date("m/d/y h:i:s A", $date) . '
+        <div class="postBlock postPreview window">
+            <div class="title-bar">
+                <a class="title-bar-text title" href="post.php?id=' . $this->post->id . '" title="' 
+                . htmlspecialchars($this->post->title) . '">' 
+                . htmlspecialchars($title) . '</a>
             </div>
-            
-            <div class="content">' . htmlspecialchars($contentPreview) . '</div>
+            <div class="window-body">
+                <a class="userlink" href="user.php?username=' . htmlspecialchars($poster->username) . '" 
+                title="' . htmlspecialchars($poster->username) . '">
+                    <img class="pfp" width="28px" src="' . $poster->pfp . '">
+                    <span class="username">' . htmlspecialchars($poster->username) . '</span>
+                    ' . ($poster->verified ? '<span class="verified">&#10004;</span>' : '') . '
+                    <span class="pronouns">
+                    ' . ($poster->displayPronouns && $poster->pronouns ? '(' . htmlspecialchars($poster->pronouns) . ')' : "") . '
+                    </span>
+                </a>
+                <div class="date" title="' . $this->post->date . '">
+                    ' . date("m/d/y h:i:s A", $date) . '
+                </div>
+
+                <hr>
+                <div class="content">' . htmlspecialchars($contentPreview) . '</div>
             ';
 
         if ($this->showAttachments && $this->post->attachments) {
@@ -58,16 +62,18 @@ class PostBlock
         }
 
         $postHTML .= '
-            <div class="meta">
-                <span class="upvote" title="Upvotes"><span class="icon">&#8679;</span>
+            <hr>
+        </div>
+            <div class="status-bar meta">
+                <span class="status-bar-field upvote" title="Upvotes"><span class="icon">&#8679;</span>
                 ' . $this->post->upvotes . '</span>
-                <span class="downvote" title="Downvotes"><span class="icon">&#8681;</span>
+                <span class="status-bar-field downvote" title="Downvotes"><span class="icon">&#8681;</span>
                 ' . $this->post->downvotes . '</span>
-                <span class="comments" title="Comments"><span class="icon">&#128488;</span>
+                <span class="status-bar-field comments" title="Comments"><span class="icon">&#128488;</span>
                 ' . $this->post->comments . '</span>
-                ' . ($this->post->attachments ? '<span class="attachments" title="Attachemnts"><span class="icon">&#128206;</span>
-                ' . count($this->post->attachments) : '') . '</span>
-            </div>
+                ' . ($this->post->attachments ? '<span class="status-bar-field attachments" title="Attachemnts"><span class="icon">&#128206;</span>
+                ' . count($this->post->attachments) . '</span>' : '') . '
+                </div>
         </div>
         ';
 
