@@ -18,7 +18,7 @@ class Nav
         	<li><a href="./">Home</a></li>
         	<li>
 				<form action="search.php">
-    	    	    <input type="search" name="q">
+    	    	    <input type="search" name="q" placeholder="Search">
 	            	<button type="submit">Search</button>
         		</form>
 			</li>

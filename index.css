@@ -21,6 +21,36 @@ body {
     --color11: #fafafa;
 }
 
+nav {
+    width: 100%;
+    overflow: hidden;
+    background-color: #49B9CA;
+    margin-bottom: 8px;
+    border-radius: 5px;
+}
+
+nav ul {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+}
+
+nav li, nav form {
+    display: inline;
+}
+
+nav a {
+    display: inline-block;
+    /* color: #000000; */
+    /* text-decoration: none; */
+    padding: 8px 10px;
+    margin: 0 5px;
+}
+
+nav form {
+    display: inline-block;
+}
+
 .announcement {
     padding: 8px;
     background-color: #49B9CA;

@@ -9,11 +9,13 @@ class PostBlock
 
     private $post;
     private $showAttachments;
+    private $maxCharLength;
 
-    public function __construct($postData, $showAttachments = true)
+    public function __construct($postData, $showAttachments = true, $maxCharLength = 150)
     {
         $this->post = $postData;
         $this->showAttachments = $showAttachments;
+        $this->maxCharLength = $maxCharLength;
     }
 
     public function post()
@@ -21,14 +23,17 @@ class PostBlock
 
         $poster = $this->post->poster;
         $date = strtotime($this->post->date);
+        $title = $this->post->title;
         $contentPreview = $this->post->content;
-        if (strlen($this->post->content) > 150)
-            $contentPreview = substr($this->post->content, 0, 147) . '...';
+        if (strlen($this->post->title) > $this->maxCharLength)
+            $title = substr($this->post->title, 0, $this->maxCharLength - 3) . '...';
+        if (strlen($this->post->content) > $this->maxCharLength)
+            $contentPreview = substr($this->post->content, 0, $this->maxCharLength - 3) . '...';
 
         $postHTML = '
         <div class="postBlock postPreview">
-            <a class="title" href="post.php?id=' . $this->post->id . '">
-            ' . htmlspecialchars($this->post->title) . '</a>
+            <a class="title" href="post.php?id=' . $this->post->id . '" title="' . $this->post->title . '>
+            ' . htmlspecialchars($title) . '</a>
             <a class="userlink" href="user.php?username=' . $poster->username . '" 
             title="' . htmlspecialchars($poster->username) . '">
                 <img class="pfp" width="28px" src="' . $poster->pfp . '">
