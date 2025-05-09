@@ -57,7 +57,7 @@ nav form {
     background-color: #49B9CA;
     border-radius: 5px;
     box-shadow: 0 1px 8px 0 rgba(22, 22, 22, 0.2), 0 1px 4px 0 rgba(22, 22, 22, 0.2);
-    margin-bottom: 12px;
+    margin: 12px 0;
 }
 
 .postBlock, .commentBlock, .userBlock {
