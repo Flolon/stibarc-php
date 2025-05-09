@@ -31,13 +31,13 @@ class PostBlock
             $contentPreview = substr($this->post->content, 0, ($this->maxCharLength - 3)) . '...';
 
         $postHTML = '
-        <div class="postBlock postPreview window">
+        <div class="postBlock postPreview window active" style="max-width: 100%; --window-background-color: #3ea1b1;">
             <div class="title-bar">
                 <a class="title-bar-text title" href="post.php?id=' . $this->post->id . '" title="' 
                 . htmlspecialchars($this->post->title) . '">' 
                 . htmlspecialchars($title) . '</a>
             </div>
-            <div class="window-body">
+            <div class="window-body has-space">
                 <a class="userlink" href="user.php?username=' . htmlspecialchars($poster->username) . '" 
                 title="' . htmlspecialchars($poster->username) . '">
                     <img class="pfp" width="28px" src="' . $poster->pfp . '">
