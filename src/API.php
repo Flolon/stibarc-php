@@ -55,7 +55,7 @@ class API
         $_SESSION = array();
     }
 
-    public function request($url, $type = "GET", $post_data = null)
+    public function request($url, $type = "GET", $post_data = [])
     {
         // initialize curl
         $ch = curl_init();
@@ -69,15 +69,20 @@ class API
         curl_setopt($ch, CURLOPT_USERAGENT, 'STiBaRC PHP');
         // send post data if post request
         if ($type == "POST") {
-            curl_setopt($ch, CURLOPT_HTTPHEADER, [ 'Content-Type: application/json' ]);
+            curl_setopt($ch, CURLOPT_HTTPHEADER, ['Content-Type: application/json']);
             curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($post_data));
         }
         // get response
         $result = curl_exec($ch);
+        // get errors
+        $curl_errno = curl_errno($ch);
+        $curl_error = curl_error($ch);
         // get content header //
         $contentType = curl_getinfo($ch, CURLINFO_CONTENT_TYPE);
         // close curl
         curl_close($ch);
+        if ($curl_errno > 0)
+            echo "cURL Error ($curl_errno): $curl_error\n";
         return $result;
     }
 
@@ -107,7 +112,7 @@ class API
 
     public function getPost($postId)
     {
-        $response = $this->request($this->host . "/v4/getpost.sjs", "POST", [ 'id' => $postId]);
+        $response = $this->request($this->host . "/v4/getpost.sjs", "POST", ['id' => $postId]);
 
         $responseJSON = json_decode($response);
 
@@ -119,7 +124,7 @@ class API
 
     public function getUser($username)
     {
-        $response = $this->request($this->host . "/v4/getuser.sjs?username=" . $username);
+        $response = $this->request($this->host . "/v4/getuser.sjs", "POST", ["username" => $username]);
 
         $responseJSON = json_decode($response);
 
@@ -127,5 +132,17 @@ class API
             echo $this->debug ? "Failed to fetch user: " . $response : "";
         }
         return $responseJSON->user;
+    }
+
+    public function search($query)
+    {
+        $response = $this->request($this->host . "/v4/search.sjs", "POST", [ 'query' => $query]);
+
+        $responseJSON = json_decode($response);
+
+        if ($responseJSON->status !== "ok") {
+            echo $this->debug ? "Failed to fetch posts: " . $response : "";
+        }
+        return $responseJSON->results;
     }
 }

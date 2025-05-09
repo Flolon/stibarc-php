@@ -4,7 +4,7 @@ namespace STiBaRC\STiBaRC;
 
 require('Attachment.php');
 
-class postBlock
+class PostBlock
 {
 
     private $post;

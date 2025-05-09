@@ -33,12 +33,12 @@ $username = $_GET["username"];
 		$userData = $api->getUser($username);
 
 		$userBlockObj = new STiBaRC\UserBlock($userData);
-		echo $userBlockObj->userBlock();
+		echo $userBlockObj->user();
 
 		echo "<h2>Posts</h2>";
         
 		foreach ($userData->posts as $postData) {
-			$postHtml = new STiBaRC\postBlock($postData, $showAttachments);
+			$postHtml = new STiBaRC\PostBlock($postData, $showAttachments);
 			echo $postHtml->post();
 		}
     ?>

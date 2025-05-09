@@ -12,7 +12,7 @@ class UserBlock
         $this->userData = $userData;
     }
 
-    public function userBlock()
+    public function user()
     {
 		$user = $this->userData;
 

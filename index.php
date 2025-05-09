@@ -33,7 +33,7 @@ $api = new STiBaRC\API($apiTarget, true);
     }
 
     foreach ($api->getPosts() as $postData) {
-        $postHtml = new STiBaRC\postBlock($postData, $showAttachments);
+        $postHtml = new STiBaRC\PostBlock($postData, $showAttachments);
         echo $postHtml->post();
     }
     ?>
