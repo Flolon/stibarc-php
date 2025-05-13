@@ -57,6 +57,14 @@ nav form {
     display: inline-block;
 }
 
+.errorBlock {
+    background-color: #fafafa;
+    color: #c32222;
+    padding: 6px;
+    margin: 6px 0;
+    border-radius: 5px;
+}
+
 .announcement {
     padding: 8px;
     background-color: #49B9CA;

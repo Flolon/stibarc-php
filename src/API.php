@@ -12,6 +12,7 @@ class API
     private $username;
     private $pfp;
     private $banner;
+    private $private;
 
     public function __construct($environment, $debug)
     {
@@ -37,17 +38,16 @@ class API
                 break;
         }
 
-        // $this->session = $_SESSION["sess"];
-        // $this->username = $_SESSION["username"];
-        // $this->pfp = $_SESSION["pfp"] || $this->cdn . "/pfp/default.png";
-        // $this->banner = $_SESSION["banner"];
-
-        // $this->connect();
+        $this->session = $_SESSION["sess"] ?? null;
+        $this->username = $_SESSION["username"] ?? null;
+        $this->pfp = $_SESSION["pfp"] ?? $this->cdn . "/pfp/default.png";
+        $this->banner = $_SESSION["banner"] ?? $this->cdn . "/banner/default.png";
+        $this->private = $_SESSION["private"] ?? null;
     }
 
     public function __destruct()
     {
-        $this->clearSess();
+        // object destruct
     }
 
     public function clearSess()
@@ -69,7 +69,7 @@ class API
         curl_setopt($ch, CURLOPT_USERAGENT, 'STiBaRC PHP');
         // send post data if post request
         if ($type == "POST") {
-            curl_setopt($ch, CURLOPT_HTTPHEADER, ['Content-Type: application/json']);
+            curl_setopt($ch, CURLOPT_HTTPHEADER, ['Content-Type: application/json', 'Origin: https://stibarc.com']);
             curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($post_data));
         }
         // get response
@@ -117,7 +117,7 @@ class API
         $responseJSON = json_decode($response);
 
         if ($responseJSON->status !== "ok") {
-            echo $this->debug ? "Failed to fetch posts: " . $response : "";
+            echo $this->debug ? "Failed to fetch post: " . $response : "";
         }
         return $responseJSON->post ?? false;
     }
@@ -136,13 +136,81 @@ class API
 
     public function search($query)
     {
-        $response = $this->request($this->host . "/v4/search.sjs", "POST", [ 'query' => $query]);
+        $response = $this->request($this->host . "/v4/search.sjs", "POST", ['query' => $query]);
 
         $responseJSON = json_decode($response);
 
         if ($responseJSON->status !== "ok") {
-            echo $this->debug ? "Failed to fetch posts: " . $response : "";
+            echo $this->debug ? "Failed to fetch search results: " . $response : "";
         }
         return $responseJSON->results ?? false;
+    }
+
+    public function logout()
+    {
+        $response = $this->request($this->host . "/v4/logout.sjs", "POST", ['session' => $this->session]);
+
+        $responseJSON = json_decode($response);
+
+        if ($responseJSON->status !== "ok") {
+            echo $this->debug ? "Failed to logout: " . $response : "";
+        }
+        $this->clearSess();
+        return $responseJSON ?? false;
+    }
+
+    public function login($username, $password)
+    {
+        $response = $this->request(
+            $this->host . "/v4/login.sjs",
+            "POST",
+            [
+                'username' => $username,
+                'password' => $password
+            ]
+        );
+
+        $responseJSON = json_decode($response);
+
+        $errorText = false;
+        if ($responseJSON->status !== "ok") {
+            switch ($responseJSON->errorCode) {
+                case "totpr":
+                    $errorText = "2FA code required";
+                case "iuop":
+                    $errorText = "Invalid username or password";
+                case "itotp":
+                    $errorText = "Invalid 2FA code";
+                case "banned":
+                    $errorText = "User is banned";
+                default:
+                    $errorText = "Failed to login";
+            }
+        }
+        if (!$errorText) {
+            $this->session = $responseJSON->session;
+            $this->username = $responseJSON->username;
+            $this->pfp = $responseJSON->pfp;
+            $this->banner = $responseJSON->banner;
+            $this->private = $responseJSON->private;
+            $_SESSION["sess"] = $this->session;
+            $_SESSION["username"] = $this->username;
+            $_SESSION["pfp"] = $this->pfp;
+            $_SESSION["banner"] = $this->banner;
+            $_SESSION["private"] = $this->private;
+            return [
+                "error" => false,
+                "session" => $this->session,
+                "username" => $this->username,
+                "pfp" => $this->pfp,
+                "banner" => $this->banner,
+                "private" => $this->private
+            ];
+        } else {
+            return [
+                "error" => $responseJSON->error,
+                "errorText" => $errorText
+            ];
+        }
     }
 }

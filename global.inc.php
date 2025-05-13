@@ -1,6 +1,7 @@
 <?php
+session_start();
 
 // API to use
-$apiTarget = "production";
+$apiTarget = "development";
 // show attachments in post previews
 $showAttachments = true;
