@@ -42,7 +42,7 @@ $search_query = $_GET["q"];
 
 		foreach ($searchData->users as $userData) {
 			$userHTML = new STiBaRC\UserBlock($userData);
-			echo $userHTML->user();
+			echo $userHTML->userBlock();
 		}
 	}
 
