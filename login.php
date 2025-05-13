@@ -6,6 +6,7 @@ error_reporting(E_ALL);
 require('global.inc.php');
 require('src/API.php');
 require('src/Nav.php');
+require('src/Footer.php');
 
 use STiBaRC\STiBaRC;
 
@@ -54,6 +55,11 @@ if (!empty($_POST)) {
         <input name="password" type="password" placeholder="Password">
         <button type="submit">Login</button>
     </form>
+
+    <?php
+    $footer = new STiBaRC\Footer();
+    echo $footer->footer();
+    ?>
 
 </body>
 

@@ -6,6 +6,7 @@ error_reporting(E_ALL);
 require('global.inc.php');
 require('src/API.php');
 require('src/Nav.php');
+require('src/Footer.php');
 require('src/Post.php');
 require('src/Comment.php');
 
@@ -42,6 +43,9 @@ $postId = $_GET["id"];
 				echo $commentObj->comment();
 			}
 		}
+
+		$footer = new STiBaRC\Footer();
+		echo $footer->footer();
     ?>
 
 </body>

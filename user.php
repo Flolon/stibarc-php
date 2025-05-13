@@ -6,6 +6,7 @@ error_reporting(E_ALL);
 require('global.inc.php');
 require('src/API.php');
 require('src/Nav.php');
+require('src/Footer.php');
 require('src/UserBlock.php');
 require('src/PostBlock.php');
 
@@ -46,6 +47,9 @@ $username = $_GET["username"];
 	} else {
 		echo "<h2>No Posts</h2>";
 	}
+
+	$footer = new STiBaRC\Footer();
+    echo $footer->footer();
 	?>
 
 </body>

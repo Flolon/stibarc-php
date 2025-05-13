@@ -5,7 +5,6 @@ error_reporting(E_ALL);
 
 require('global.inc.php');
 require('src/API.php');
-require('src/Nav.php');
 
 use STiBaRC\STiBaRC;
 
@@ -33,7 +32,7 @@ if ($loggedOut) {
 <body>
 
     <h2>Logging out</h2>
-    <?= $error ? '<div class="errorBlock">' . $error . '</div>' : '' ?>
+    <?= $error ? '<div class="errorBlock">' . $error . '</div>' : ''; ?>
 
 </body>
 

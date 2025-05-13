@@ -57,6 +57,16 @@ nav form {
     display: inline-block;
 }
 
+footer {
+    width: 100%;
+    overflow: hidden;
+    background-color: #49B9CA;
+    margin: 24px 0 8px 0;
+    padding: 8px;
+    border-radius: 5px;
+    text-align: center;
+}
+
 .errorBlock {
     background-color: #fafafa;
     color: #c32222;

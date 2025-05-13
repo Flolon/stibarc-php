@@ -6,6 +6,7 @@ error_reporting(E_ALL);
 require('global.inc.php');
 require('src/API.php');
 require('src/Nav.php');
+require('src/Footer.php');
 require('src/PostBlock.php');
 
 use STiBaRC\STiBaRC;
@@ -36,6 +37,9 @@ $api = new STiBaRC\API($apiTarget, true);
         $postHtml = new STiBaRC\PostBlock($postData, $showAttachments);
         echo $postHtml->post();
     }
+
+    $footer = new STiBaRC\Footer();
+    echo $footer->footer();
     ?>
 
 </body>
