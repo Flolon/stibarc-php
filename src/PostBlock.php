@@ -32,8 +32,8 @@ class PostBlock
 
         $postHTML = '
         <div class="postBlock postPreview">
-            <a class="title" href="post.php?id=' . $this->post->id . '" title="' 
-            . htmlspecialchars($this->post->title) . '">' 
+            <a class="title" href="post.php?id=' . $this->post->id . '" title="'
+            . htmlspecialchars($this->post->title) . '">'
             . htmlspecialchars($title) . '</a>
             <a class="userlink" href="user.php?username=' . htmlspecialchars($poster->username) . '" 
             title="' . htmlspecialchars($poster->username) . '">
@@ -46,7 +46,8 @@ class PostBlock
             </a>
             <div class="date" title="' . $this->post->date . '">
                 ' . date("m/d/y h:i:s A", $date) . '
-            </div>
+            </div>'
+            . ($this->post->edited ? '<span class="badge" title="Edited Post"><i>Edited</i></span>' : "") . '
             <hr>
             <div class="content">' . htmlspecialchars($contentPreview) . '</div>
             ';
@@ -60,15 +61,16 @@ class PostBlock
         $postHTML .= '
         <hr>
             <div class="meta">
-                <span class="upvote" title="Upvotes"><span class="icon">&#8679;</span>' 
-                . $this->post->upvotes . '</span>
-                <span class="downvote" title="Downvotes"><span class="icon">&#8681;</span>' 
-                . $this->post->downvotes . '</span>
-                <span class="comments" title="Comments"><span class="icon">&#128488;</span>' 
-                . $this->post->comments . '</span>
-                ' . ($this->post->attachments ? 
-                '<span class="attachments" title="Attachemnts"><span class="icon">&#128206;</span>' 
-                . count($this->post->attachments) . '</span>' : '') . '
+                <span class="upvote" title="Upvotes"><span class="icon">&#8679;</span>'
+            . $this->post->upvotes . '</span>
+                <span class="downvote" title="Downvotes"><span class="icon">&#8681;</span>'
+            . $this->post->downvotes . '</span>
+                <span class="comments" title="Comments"><span class="icon">&#128488;</span>'
+            . $this->post->comments . '</span>
+                ' . ($this->post->attachments ?
+                '<span class="attachments" title="Attachemnts"><span class="icon">&#128206;</span>'
+                . count($this->post->attachments) . '</span>' : '')
+            . ($this->post->private ? '<span class="icon" title="Private Post">&#128274;</span>' : "") . '
             </div>
         </div>
         ';

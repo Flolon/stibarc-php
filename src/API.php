@@ -100,7 +100,7 @@ class API
 
     public function getPosts()
     {
-        $response = $this->request($this->host . "/v4/getposts.sjs");
+        $response = $this->request($this->host . "/v4/getposts.sjs", "POST", ["session" => $this->session]);
 
         $responseJSON = json_decode($response);
 
@@ -112,7 +112,10 @@ class API
 
     public function getPost($postId)
     {
-        $response = $this->request($this->host . "/v4/getpost.sjs", "POST", ['id' => $postId]);
+        $response = $this->request($this->host . "/v4/getpost.sjs", "POST", [
+            "id" => $postId,
+            "session" => $this->session
+        ]);
 
         $responseJSON = json_decode($response);
 
@@ -124,7 +127,10 @@ class API
 
     public function getUser($username)
     {
-        $response = $this->request($this->host . "/v4/getuser.sjs", "POST", ["username" => $username]);
+        $response = $this->request($this->host . "/v4/getuser.sjs", "POST", [
+            "username" => $username,
+            "session" => $this->session
+        ]);
 
         $responseJSON = json_decode($response);
 
@@ -136,7 +142,7 @@ class API
 
     public function search($query)
     {
-        $response = $this->request($this->host . "/v4/search.sjs", "POST", ['query' => $query]);
+        $response = $this->request($this->host . "/v4/search.sjs", "POST", ["query" => $query]);
 
         $responseJSON = json_decode($response);
 
@@ -148,7 +154,7 @@ class API
 
     public function logout()
     {
-        $response = $this->request($this->host . "/v4/logout.sjs", "POST", ['session' => $this->session]);
+        $response = $this->request($this->host . "/v4/logout.sjs", "POST", ["session" => $this->session]);
 
         $responseJSON = json_decode($response);
 

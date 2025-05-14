@@ -17,7 +17,7 @@ body {
     --color6: #54cbdd;
     --color8: #d8d8d8;
     --color9: #bcbcbc;
-    --color10: #e7e7e7;
+    --color10: #020202;
     --color11: #fafafa;
 }
 
@@ -122,6 +122,12 @@ footer {
 
 .meta span {
     margin-right: 4px;
+}
+
+.badge {
+    background-color: #d8d8d8;
+    padding: 1px 5px;
+    border-radius: 4px;
 }
 
 .postBlock .content, .commentBlock .content, .bio {

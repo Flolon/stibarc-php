@@ -7,7 +7,7 @@ require('global.inc.php');
 require('src/API.php');
 require('src/Nav.php');
 require('src/Footer.php');
-require('src/UserBlock.php');
+require('src/User.php');
 require('src/PostBlock.php');
 
 use STiBaRC\STiBaRC;
@@ -35,7 +35,7 @@ $search_query = $_GET["q"];
 	$resultCount =  count($searchData->users) + count($searchData->posts) ?? 0;
 
 	echo '<h1 style="margin-bottom: 0;">' . htmlspecialchars($search_query) . '</h1>';
-	echo '<p style="margin-top: 8px;">' . $resultCount . ' Results' . '</p>';
+	echo '<p style="margin-top: 12px;">' . $resultCount . ' Results' . '</p>';
 
 	if ($searchData->users) {
 		echo "<h2>Users</h2>";

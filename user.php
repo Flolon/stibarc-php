@@ -7,7 +7,7 @@ require('global.inc.php');
 require('src/API.php');
 require('src/Nav.php');
 require('src/Footer.php');
-require('src/UserBlock.php');
+require('src/User.php');
 require('src/PostBlock.php');
 
 use STiBaRC\STiBaRC;
