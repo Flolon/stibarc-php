@@ -32,7 +32,7 @@ class UserBlock
 				' . ($user->displayEmail && $user->email ? '<div>Email: ' . htmlspecialchars($user->email) . '</div>' : '') . '
 				' . ($user->displayBirthday && $user->birthday ? '<div title="' . htmlspecialchars($user->birthday) .
 			'">Birthday: ' . htmlspecialchars($user->birthday) . '</div>' : '') . '
-				' . ($user->displayBirthday ? '<div>Rank: ' . htmlspecialchars($user->rank) . '</div>' : '') . '
+				<div>Rank: ' . htmlspecialchars($user->rank) . '</div>
 			</div>
 		</div>';
 
