@@ -68,8 +68,8 @@ class UserBlock
 					</span>
 				</a>
 				<div>
-					' . ($user->displayName && $user->name ? '<div>Name: ' . htmlspecialchars($user->name) . '</div>' : '') . '
-					' . ($user->displayBio && $user->bio ? '<div class="bio">' . htmlspecialchars($user->bio) . '</div>' : '') . '
+					' . (isset($user->displayName) && $user->displayName && $user->name ? '<div>Name: ' . htmlspecialchars($user->name) . '</div>' : '') . '
+					' . (isset($user->displayBio) && $user->displayBio && $user->bio ? '<div class="bio">' . htmlspecialchars($user->bio) . '</div>' : '') . '
 				</div>
 			</div>';
 
