@@ -29,9 +29,8 @@ $api = new STiBaRC\API($apiTarget, true);
     $nav = new STiBaRC\Nav();
     echo $nav->nav();
 
-    if ($api->getAnnouncement()) {
+    if ($api->getAnnouncement())
         echo '<div class="announcement">' . htmlspecialchars($api->getAnnouncement()) . '</div>';
-    }
 
     foreach ($api->getPosts() as $postData) {
         $postHtml = new STiBaRC\PostBlock($postData, $showAttachments);

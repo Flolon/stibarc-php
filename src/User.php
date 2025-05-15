@@ -33,6 +33,9 @@ class UserBlock
 				' . ($user->displayBirthday && $user->birthday ? '<div title="' . htmlspecialchars($user->birthday) .
 			'">Birthday: ' . htmlspecialchars($user->birthday) . '</div>' : '') . '
 				<div>Rank: ' . htmlspecialchars($user->rank) . '</div>
+				<div><span>' . count($user->followers) . ' Followers</span>
+				<span> | </span>
+				<span>' . count($user->following) . ' Following</span></div>
 			</div>
 		</div>';
 
