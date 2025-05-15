@@ -125,7 +125,9 @@ class API
 
     public function getPost($postId)
     {
-        $body = [];
+        $body = [
+            "id" => $postId
+        ];
         if ($this->session)
             $body["session"] = $this->session;
 
