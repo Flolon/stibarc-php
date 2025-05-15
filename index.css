@@ -40,7 +40,8 @@ nav ul {
     list-style-type: none;
 }
 
-nav li, nav form {
+nav li,
+nav form {
     display: inline;
     padding: 8px;
 }
@@ -83,7 +84,9 @@ footer {
     margin: 12px 0;
 }
 
-.postBlock, .commentBlock, .userBlock {
+.postBlock,
+.commentBlock,
+.userBlock {
     display: block;
     padding: 8px;
     background-color: #ffffff;
@@ -130,7 +133,14 @@ footer {
     border-radius: 4px;
 }
 
-.postBlock .content, .commentBlock .content, .bio {
+.followCounts span {
+    margin-right: 4px;
+    cursor: help;
+}
+
+.postBlock .content,
+.commentBlock .content,
+.bio {
     margin: 8px 0;
     word-wrap: break-word;
     max-width: 100%;
@@ -147,7 +157,9 @@ footer {
     max-width: 100%;
 }
 
-.imgPreview, .videoPreview img, .audioPreview {
+.imgPreview,
+.videoPreview img,
+.audioPreview {
     max-height: 75px;
     border-radius: 5px;
     margin-top: 4px;
@@ -161,12 +173,12 @@ footer {
     max-width: 100%;
     vertical-align: middle;
     text-align: center;
-	line-height: 0;
+    line-height: 0;
     border-radius: 5px;
 }
 
 .userBlock .bio {
-	background-color: #e7e7e7;
-	padding: 8px;
-	border-radius: 5px;
+    background-color: #e7e7e7;
+    padding: 8px;
+    border-radius: 5px;
 }
