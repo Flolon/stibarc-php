@@ -60,6 +60,12 @@ class API
         $this->private = null;
     }
 
+    public function setSess($session)
+    {
+        $this->session = $session;
+        $_SESSION["sess"] = $this->session;
+    }
+
     public function request($url, $type = "GET", $post_data = [])
     {
         // initialize curl
@@ -115,10 +121,6 @@ class API
 
         if ($responseJSON->status !== "ok") {
             echo $this->debug ? "Failed to fetch posts: " . $response : "";
-            // if ($responseJSON->errorCode == "is") {
-            //     $this->clearSess();
-            //     // $this->getPosts();
-            // }
         }
         return $responseJSON->globalPosts;
     }
@@ -175,23 +177,6 @@ class API
         return $responseJSON->results ?? false;
     }
 
-    public function logout()
-    {
-        $body = [
-            "session" => $this->session
-        ];
-
-        $response = $this->request($this->host . "/v4/logout.sjs", "POST", $body);
-
-        $responseJSON = json_decode($response);
-
-        if ($responseJSON->status !== "ok") {
-            echo $this->debug ? "Failed to logout: " . $response : "";
-        }
-        $this->clearSess();
-        return $responseJSON ?? false;
-    }
-
     public function login($username, $password)
     {
         $body = [
@@ -224,6 +209,68 @@ class API
             $this->pfp = $responseJSON->pfp;
             $this->banner = $responseJSON->banner;
             $this->private = $responseJSON->private;
+            $_SESSION["sess"] = $this->session;
+            $_SESSION["username"] = $this->username;
+            $_SESSION["pfp"] = $this->pfp;
+            $_SESSION["banner"] = $this->banner;
+            $_SESSION["private"] = $this->private;
+            return [
+                "error" => false,
+                "session" => $this->session,
+                "username" => $this->username,
+                "pfp" => $this->pfp,
+                "banner" => $this->banner,
+                "private" => $this->private
+            ];
+        } else {
+            return [
+                "error" => $responseJSON->error,
+                "errorText" => $errorText
+            ];
+        }
+    }
+
+    public function logout()
+    {
+        $body = [
+            "session" => $this->session
+        ];
+
+        $response = $this->request($this->host . "/v4/logout.sjs", "POST", $body);
+
+        $responseJSON = json_decode($response);
+
+        if ($responseJSON->status !== "ok") {
+            echo $this->debug ? "Failed to logout: " . $response : "";
+        }
+        $this->clearSess();
+        return $responseJSON ?? false;
+    }
+
+    public function getPrivateData()
+    {
+        $body = [
+            "session" => $this->session
+        ];
+
+        $response = $this->request($this->host . "/v4/getprivatedata.sjs", "POST", $body);
+
+        $responseJSON = json_decode($response);
+
+        $errorText = false;
+        if ($responseJSON->status !== "ok") {
+            switch ($responseJSON->errorCode) {
+                case "is":
+                    $errorText = "Invalid Session";
+                default:
+                    $errorText = "Failed to login";
+            }
+        }
+        if (!$errorText) {
+            $this->username = $responseJSON->user->username;
+            $this->pfp = $responseJSON->user->pfp;
+            $this->banner = $responseJSON->user->banner;
+            $this->private = $responseJSON->user->private;
             $_SESSION["sess"] = $this->session;
             $_SESSION["username"] = $this->username;
             $_SESSION["pfp"] = $this->pfp;

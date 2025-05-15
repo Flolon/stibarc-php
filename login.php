@@ -49,12 +49,15 @@ if (!empty($_POST)) {
     ?>
 
     <h2>Login</h2>
-    <form method="POST">
+    <form method="POST" style="margin-bottom: 12px;">
         <?= $error ? '<div class="errorBlock">' . $error . '</div>' : ''; ?>
         <input name="username" placeholder="Username" autofocus>
         <input name="password" type="password" placeholder="Password">
         <button type="submit">Login</button>
     </form>
+    <a href="https://stibarc.com/oauth/?client_id=b5543b27a9fac3ad509d0168cee7d8cf&response_type=token&scope=all">
+        <img src="./img/Login-with-STiBaRC.png" alt="Login with STiBaRC" title="Login with STiBaRC OAuth">
+    </a>
 
     <?php
     $footer = new STiBaRC\Footer();
