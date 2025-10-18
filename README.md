@@ -1,4 +1,4 @@
-# STiBaRC PHP Client
+# STiBaRC PHP Web Client
 
 > A WIP
 
