@@ -54,6 +54,17 @@ nav a {
     margin: 0 5px;
 }
 
+.logo {
+    text-decoration: none;
+    padding: 0;
+}
+
+.logo img {
+    display: inline-block;
+    vertical-align: middle;
+    border: 0;
+}
+
 nav form {
     display: inline-block;
 }
@@ -160,6 +171,7 @@ footer {
 .imgPreview,
 .videoPreview img,
 .audioPreview {
+    display: inline-block;
     max-height: 75px;
     border-radius: 5px;
     margin-top: 4px;

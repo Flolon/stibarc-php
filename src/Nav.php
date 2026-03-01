@@ -17,7 +17,7 @@ class Nav
 		$navHTML = '
         <nav class="mainNav">
           <ul>
-        	<li><a href="./">Home</a></li>
+		  	<li class="logo"><a href="./"><img src="./img/logo_32.png" height="24px" alt="STiBaRC Home"></a></li>
         	<li>
 				<form action="search.php">
     	    	    <input type="search" name="q" placeholder="Search" value="'
