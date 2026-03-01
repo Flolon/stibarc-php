@@ -11,7 +11,7 @@ class Footer
 	{
 		$footerHTML = '
 		    <footer>
-				<span>&copy; 2025 STiBaRC</span>
+				<span>&copy; ' . date("Y") . ' STiBaRC</span>
 			</footer>
         ';
 		return $footerHTML;
