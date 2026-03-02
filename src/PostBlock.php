@@ -37,13 +37,14 @@ class PostBlock
             . htmlspecialchars($title) . '</a>
             <a class="userlink" href="user.php?username=' . htmlspecialchars($poster->username) . '" 
             title="' . htmlspecialchars($poster->username) . '">
-                <img class="pfp" width="28px" src="' . $poster->pfp . '">
+                <img class="pfp" width="30px" src="' . $poster->pfp . '" alt="User pfp">
                 <span class="username">' . htmlspecialchars($poster->username) . '</span>
-                ' . ($poster->verified ? '<span class="verified">&#10004;</span>' : '') . '
-                <span class="pronouns">
-                ' . ($poster->displayPronouns && $poster->pronouns ? '(' . htmlspecialchars($poster->pronouns) . ')' : "") . '
-                </span>
+                ' . ($poster->verified ? '<span class="verified" title="Verified user">
+                <img class="icon" src="./img/icon/verified.png" height="14px" alt="Verified"></span>' : '') . '
             </a>
+            <span class="pronouns" title="Pronouns">
+                ' . ($poster->displayPronouns && $poster->pronouns ? '(' . htmlspecialchars($poster->pronouns) . ')' : "") . '
+            </span>
             <div class="date" title="' . $this->post->date . '">
                 ' . date("m/d/y h:i:s A", $date) . '
             </div>'
@@ -61,16 +62,16 @@ class PostBlock
         $postHTML .= '
         <hr>
             <div class="meta">
-                <span class="upvote" title="Upvotes"><span class="icon">&#8679;</span>'
+                <span class="upvote" title="Upvotes"><img class="icon" src="./img/icon/up_arrow.png" height="14px" alt="Upvotes">'
             . $this->post->upvotes . '</span>
-                <span class="downvote" title="Downvotes"><span class="icon">&#8681;</span>'
+                <span class="downvote" title="Downvotes"><img class="icon" src="./img/icon/down_arrow.png" height="14px" alt="Downvotes">'
             . $this->post->downvotes . '</span>
-                <span class="comments" title="Comments"><span class="icon">&#128488;</span>'
+                <span class="comments" title="Comments"><img class="icon" src="./img/icon/comment.png" height="14px" alt="Comments">'
             . $this->post->comments . '</span>
                 ' . ($this->post->attachments ?
                 '<span class="attachments" title="Attachemnts"><span class="icon">&#128206;</span>'
                 . count($this->post->attachments) . '</span>' : '')
-            . ($this->post->private ? '<span class="icon" title="Private Post">&#128274;</span>' : "") . '
+            . ($this->post->private ? '<img class="icon" src="./img/icon/lock.png" height="14px" alt="Private Post" title="Private Post">' : "") . '
             </div>
         </div>
         ';

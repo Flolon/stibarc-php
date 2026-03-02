@@ -27,10 +27,11 @@ class UserBlock
 		$userHTML = '
         <div class="userBlock">
 			<div class="userlink" title="' . htmlspecialchars($user->username) . '">
-				<img class="pfp" width="50px" src="' . $user->pfp . '">
+				<a href="' . $user->pfp . '" target="_blank"><img class="pfp" width="50px" src="' . $user->pfp . '" alt="User pfp"></a>
 				<span class="username">' . htmlspecialchars($user->username) . '</span>
-				' . ($user->verified ? '<span class="verified">&#10004;</span>' : '') . '
-				<span class="pronouns">
+				' . ($user->verified ? '<span class="verified" title="Verified user">
+				<img class="icon" src="./img/icon/verified.png" height="14px" alt="Verified"></span>' : '') . '
+				<span class="pronouns" title="Pronouns">
 				' . ($user->displayPronouns && $user->pronouns ? '(' . htmlspecialchars($user->pronouns) . ')' : "") . '
 				</span>
             </div>
@@ -60,13 +61,14 @@ class UserBlock
 		$userHTML = '
 			<div class="userBlock">
 				<a class="userlink" href="./user.php?username=' . htmlspecialchars($user->username) . '">
-					<img class="pfp" width="50px" src="' . $user->pfp . '">
+					<img class="pfp" width="50px" src="' . $user->pfp . '" alt="User pfp">
 					<span class="username">' . htmlspecialchars($user->username) . '</span>
-					' . ($user->verified ? '<span class="verified">&#10004;</span>' : '') . '
-					<span class="pronouns">
-					' . ($user->displayPronouns && $user->pronouns ? '(' . htmlspecialchars($user->pronouns) . ')' : "") . '
-					</span>
+					' . ($user->verified ? '<span class="verified" title="Verified user">
+					<img class="icon" src="./img/icon/verified.png" height="14px" alt="Verified"></span>' : '') . '
 				</a>
+				<span class="pronouns" title="Pronouns">
+				' . ($user->displayPronouns && $user->pronouns ? '(' . htmlspecialchars($user->pronouns) . ')' : "") . '
+				</span>
 				<div>
 					' . (isset($user->displayName) && $user->displayName && $user->name ? '<div>Name: ' . htmlspecialchars($user->name) . '</div>' : '') . '
 					' . (isset($user->displayBio) && $user->displayBio && $user->bio ? '<div class="bio">' . htmlspecialchars($user->bio) . '</div>' : '') . '

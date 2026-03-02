@@ -23,10 +23,10 @@ class API
         switch ($environment) {
             default:
             case "development":
-                // $this->host = "https://api-dev.stibarc.com";
-                // $this->cdn = "https://cdn-dev.stibarc.com";
-                $this->host = "https://betaapi.stibarc.com";
-                $this->cdn = "https://betacdn.stibarc.com";
+                $this->host = "https://api-dev.stibarc.com";
+                $this->cdn = "https://cdn-dev.stibarc.com";
+                // $this->host = "https://betaapi.stibarc.com";
+                // $this->cdn = "https://betacdn.stibarc.com";
                 break;
             case "staging":
                 $this->host = "https://api-staging.stibarc.com";
@@ -48,6 +48,16 @@ class API
     public function __destruct()
     {
         // object destruct
+    }
+
+    public function apiHost()
+    {
+        return $this->host;
+    }
+
+    public function cdnHost()
+    {
+        return $this->cdn;
     }
 
     public function clearSess()

@@ -30,15 +30,15 @@ class Attachment
 			$type = "img";
 			if ($this->isPost) {
 				$this->attachmentHTML = '
-				<a class="attachmentLink" href="' . $this->attachment . '">
-					<img class="attachment" loading="lazy" src="' . $this->attachment . '.thumb.webp">
+				<a class="attachmentLink" href="' . $this->attachment . '" target="_blank">
+					<img class="attachment" loading="lazy" src="' . $this->attachment . '.thumb.webp" alt="Image attachment">
 				</a>';
 			} else {
 				$this->attachmentHTML = '
-				<a class="attachmentLink" href="' . $this->attachment . '">
-					<img class="imgPreview" loading="lazy" src="' . $this->attachment . '.thumb.webp">
-				</a>';			}
-
+				<a class="attachmentLink" href="' . $this->attachment . '" target="_blank">
+					<img class="imgPreview" loading="lazy" src="' . $this->attachment . '.thumb.webp" alt="Image attachment">
+				</a>';
+			}
 		}
 
 		if (in_array($ext, $videos)) {
@@ -50,8 +50,8 @@ class Attachment
 				</video>';
 			} else {
 				$this->attachmentHTML = '<a class="attachmentLink videoPreview" href="' . $this->attachment . '"
-				title="Video Atachment">
-				<img loading="lazy" src="' . $this->attachment . '.thumb.webp"></a>';
+				title="Video attachment" target="_blank">
+				<img loading="lazy" src="' . $this->attachment . '.thumb.webp" alt="Video attachment"></a>';
 			}
 		}
 
@@ -63,8 +63,8 @@ class Attachment
 					<source src="' . $this->attachment . '"></source>
 				</audio>';
 			} else {
-				$this->attachmentHTML = '<a class="attachmentLink audioPreview" href="' . $this->attachment . '" 
-				title="Audio Attachment">&#128266;</a>';
+				$this->attachmentHTML = '<a class="attachmentLink" href="' . $this->attachment . '" 
+				title="Audio attachment" target="_blank"><img class="icon audioPreview" src="./img/icon/audio.png" height="32px" alt="Audio attachment"></a>';
 			}
 		}
 
