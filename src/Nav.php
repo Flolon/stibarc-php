@@ -29,7 +29,7 @@ class Nav
 		if (empty($_SESSION['sess'])) {
 			$navHTML .= '<li><a href="./login.php">Login</a></li>';
 		} else {
-			$navHTML .= '<li><a href="./logout.php" title="Logged in as ' . $_SESSION['username'] . '">Logout</a></li>';
+			$navHTML .= '<li class="right"><a href="./logout.php" title="Logged in as ' . $_SESSION['username'] . '">Logout</a></li>';
 		}
 		$navHTML .= '
           </ul>
