@@ -32,13 +32,13 @@ nav {
     background-color: #49B9CA;
     margin-bottom: 8px;
     border-radius: 5px;
+    position: relative;
 }
 
 nav ul {
     margin: 0;
     padding: 0;
     list-style-type: none;
-    position: relative;
 }
 
 nav li,
@@ -58,7 +58,7 @@ nav a {
 nav .right {
     position: absolute;
     right: 0;
-    padding: 1px 0;
+    top: 0;
 }
 
 .logo {
