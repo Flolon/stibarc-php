@@ -76,6 +76,47 @@ nav form {
     display: inline-block;
 }
 
+input {
+    padding: 4px 5px;
+    border-radius: 5px;
+    border: 1px solid #d7d7d7;
+    background-color: #ffffff;
+}
+
+input:focus {
+    border-color: #3ea1b1;
+    outline: none;
+}
+
+button {
+    padding: 4px 8px;
+    border-radius: 5px;
+    border: 1px solid #d7d7d7;
+    background-color: #f6f6f6;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #ffffff;
+}
+
+button:focus {
+    border-color: #3ea1b1;
+    outline: none;
+}
+
+button.primary {
+    color: #ffffff;
+    background-color: #3ea1b1;
+    border-color: #27788e;
+}
+
+button.primary:hover {
+    background-color: #49B9CA;
+}
+
+main {}
+
 footer {
     width: 100%;
     overflow: hidden;
@@ -87,7 +128,7 @@ footer {
 }
 
 .errorBlock {
-    background-color: #fafafa;
+    background-color: #fdf1f2;
     color: #c32222;
     padding: 6px;
     margin: 6px 0;
@@ -100,6 +141,37 @@ footer {
     border-radius: 5px;
     box-shadow: 0 1px 8px 0 rgba(22, 22, 22, 0.2), 0 1px 4px 0 rgba(22, 22, 22, 0.2);
     margin: 12px 0;
+}
+
+.login {
+    padding: 8px;
+    background-color: #ffffff;
+    border-radius: 5px;
+    margin: 12px auto 0 auto;
+    text-align: center;
+}
+
+.login form {
+    margin-bottom: 12px;
+}
+
+form .row {
+    margin: 8px auto;
+    max-width: 325px;
+}
+
+form .row label {
+    float: left;
+    margin-bottom: 4px;
+}
+
+form .row input {
+    margin-bottom: 4px;
+}
+
+.loginWith {
+    display: inline-block;
+    margin: 6px auto;
 }
 
 .postBlock,
