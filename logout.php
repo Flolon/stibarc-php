@@ -5,6 +5,8 @@ error_reporting(E_ALL);
 
 require('global.inc.php');
 require('src/API.php');
+require('src/Nav.php');
+require('src/Footer.php');
 
 use STiBaRC\STiBaRC;
 
@@ -31,8 +33,18 @@ if ($loggedOut) {
 
 <body>
 
-    <h2>Logging out</h2>
+    <?php
+    $nav = new STiBaRC\Nav();
+    echo $nav->nav();
+    ?>
+
+    <h2>Logging out...</h2>
     <?= $error ? '<div class="errorBlock">' . $error . '</div>' : ''; ?>
+
+    <?php
+    $footer = new STiBaRC\Footer();
+    echo $footer->footer();
+    ?>
 
 </body>
 
