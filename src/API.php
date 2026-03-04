@@ -301,4 +301,50 @@ class API
             ];
         }
     }
+
+    public function vote($postId, $target, $vote, $commentId = false)
+    {
+
+        $body = [
+            "session" => $this->session,
+            "id" => $postId,
+            "target" => $target,
+            "vote" => $vote
+        ];
+
+        if ($commentId)
+            $body["commentId"] = $commentId;
+
+        $response = $this->request($this->host . "/v4/vote.sjs", "POST", $body);
+
+        $responseJSON = json_decode($response);
+
+        $errorText = false;
+        if ($responseJSON->status !== "ok") {
+            switch ($responseJSON->errorCode) {
+                case "banned":
+                case "is":
+                    $errorText = "Invalid Session";
+                case "pnfod":
+                    $errorText = "Post not found";
+                case "cnfod":
+                    $errorText = "Comment not found";
+                default:
+                    $errorText = "Failed to vote";
+            }
+        }
+
+        if (!$errorText) {
+            return [
+                "action" => $responseJSON->action,
+                "upvotes" => $responseJSON->upvotes,
+                "downvotes" => $responseJSON->downvotes
+            ];
+        } else {
+            return [
+                "error" => $responseJSON->error,
+                "errorText" => $errorText
+            ];
+        }
+    }
 }

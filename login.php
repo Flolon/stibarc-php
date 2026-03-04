@@ -23,7 +23,7 @@ if (!empty($_POST)) {
 
         $loginResponse = $api->login($username, $password);
 
-        if ($loginResponse['error'] && $loginResponse['errorText']) {
+        if (!empty($loginResponse['error']) && !empty($loginResponse['errorText'])) {
             $error = $loginResponse['errorText'] . ' : ' . $loginResponse['error'];
         } else {
             header('Location: ./');

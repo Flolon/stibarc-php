@@ -237,7 +237,7 @@ form .row input {
     margin-top: 3px;
 }
 
-.meta span {
+.meta span, .meta a {
     margin-right: 4px;
 }
 
