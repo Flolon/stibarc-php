@@ -33,8 +33,9 @@ class Nav
 			$navHTML .= '<li class="navUser" title="Logged in as '
 				. htmlspecialchars($_SESSION['username']) . '"><a href="./user.php?username='
 				. htmlspecialchars($_SESSION['username']) . '"><img class="pfp" src="'
-				. $_SESSION['pfp'] . '" height="26px" width="26px"><span>'
+				. $_SESSION['pfp'] . '" height="25px" width="25px"><span>'
 				. htmlspecialchars($_SESSION['username']) . '</span></a></li>
+				<li class="spacer">|</li>
 			<li><a href="./logout.php">Logout</a></li>';
 		}
 		$navHTML .= '

@@ -66,12 +66,16 @@ nav .right {
 	float: right;
 }
 
-nav .right a {
-	margin-top: 2px;
+nav .spacer {
+	margin: 0;
 }
 
 .navUser {
 	padding: 3px 0;
+}
+
+.navUser .pfp {
+	margin-right: 5px;
 }
 
 .logo {
