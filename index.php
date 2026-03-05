@@ -32,9 +32,33 @@ $api = new STiBaRC\API($apiTarget, true);
 	if ($api->getAnnouncement())
 		echo '<div class="announcement">' . htmlspecialchars($api->getAnnouncement()) . '</div>';
 
-	foreach ($api->getPosts() as $postData) {
+	if (!empty($_GET["lastSeenGlobalPost"])) {
+		$lastSeenGlobalPost = $_GET["lastSeenGlobalPost"];
+	} else {
+		$lastSeenGlobalPost = false;
+	}
+
+	foreach ($api->getPosts(lastSeenGlobalPost: $lastSeenGlobalPost) as $postData) {
 		$postHtml = new STiBaRC\PostBlock($postData, $showAttachments);
 		echo $postHtml->post();
+		$lastSeenGlobalPost = $postData->id;
+	}
+	// } else {
+	// 	$config["lastSeenGlobalPost"] = $lastSeenGlobalPost;
+	// 	foreach ($api->getPosts($config) as $postData) {
+	// 		$postHtml = new STiBaRC\PostBlock($postData, $showAttachments);
+	// 		echo $postHtml->post();
+	// 		$lastSeenGlobalPost = $postData->id;
+	// 	}
+	// }
+
+	if ($lastSeenGlobalPost) {
+		echo '
+	<div class="centerBlock">
+		<a class="button primary" href="?lastSeenGlobalPost=' . $lastSeenGlobalPost - 20 . '"><</a>
+		<a class="button primary" href="?lastSeenGlobalPost=' . $lastSeenGlobalPost . '">></a>
+	</div>		
+		';
 	}
 
 	$footer = new STiBaRC\Footer();

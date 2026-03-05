@@ -31,7 +31,7 @@ class PostBlock
 			$contentPreview = substr($this->post->content, 0, ($this->maxCharLength - 3)) . '...';
 
 		$postHTML = '
-		<div class="postBlock postPreview">
+		<div class="postBlock postPreview" id="post-'. $this->post->id . '">
 			<a class="title" href="post.php?id=' . $this->post->id . '" title="'
 			. htmlspecialchars($this->post->title) . '">'
 			. htmlspecialchars($title) . '</a>

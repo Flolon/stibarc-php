@@ -119,9 +119,20 @@ class API
 		return $responseJSON->announcement ?? false;
 	}
 
-	public function getPosts()
+	public function getPosts($postsToReturn = 20, $returnTotalPosts = true, $returnGlobal = true, $returnFollowed = true, $useLastSeenGlobal = true, $useLastSeenFollowed = true, $lastSeenGlobalPost = false, $lastSeenFollowedPost = false)
 	{
-		$body = [];
+		$body = [
+			"postsToReturn" => $postsToReturn,
+			"returnTotalPosts" => $returnTotalPosts,
+			"returnGlobal" => $returnGlobal,
+		];
+
+		if ($lastSeenGlobalPost && $useLastSeenGlobal)
+			$body["lastSeenGlobalPost"] = $lastSeenGlobalPost;
+		if ($this->session && $lastSeenFollowedPost && $useLastSeenFollowed)
+			$body["lastSeenFollowedPost"] = $lastSeenFollowedPost;
+		if ($this->session && $returnFollowed)
+			$body["returnFollowed"] = $returnFollowed;
 		if ($this->session)
 			$body["session"] = $this->session;
 
