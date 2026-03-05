@@ -20,12 +20,44 @@ if (!empty($_GET["id"])) {
 	header('Location: ./404.php?url=' . $_SERVER['REQUEST_URI']);
 }
 
+$postData = $api->getPost($postId);
+
+$maxCharLength = 150;
+$title = htmlspecialchars($postData->title);
+$contentPreview = htmlspecialchars($postData->content);
+if (strlen($postData->title) > $maxCharLength)
+	$title = htmlspecialchars(substr($postData->title, 0, ($maxCharLength - 3)) . '...');
+if (strlen($postData->content) > $maxCharLength)
+	$contentPreview = htmlspecialchars(substr($postData->content, 0, ($maxCharLength - 3)) . '...');
 ?>
 <!DOCTYPE html>
-<html>
-
+<html lang="en">
 <head>
-	<title>STiBaRC</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<title><?= $title ?> | STiBaRC</title>
+	<meta property="description" content="<?= $contentPreview ?>" />
+	<!-- Open Graph -->
+	<meta property="og:title" content="<?= $title ?> | STiBaRC" />
+	<meta property="og:description" content="<?= $contentPreview ?>" />
+	<meta property="og:type" content="website" />
+	<meta property="og:url" content="<?= htmlspecialchars($url, ENT_QUOTES, 'UTF-8') ?>" />
+	<meta name="twitter:site" content="STiBaRC" />
+	<meta name="twitter:title" content="<?= $title ?>" />
+	<meta name="twitter:description" content="<?= $contentPreview ?>" />
+	<?php if ($postData->attachments) {
+		$attachment = $postData->attachments[0];
+		$attachmentObj = new STiBaRC\Attachment($attachment, true);
+		$attachmentObj->type;
+	?>
+		<meta property="og:<?= $type ?>" content="<?= $attachment ?>" />
+		<meta name="twitter:card" content="summary_large_image" />
+		<meta name="twitter:image" content="<?= $attachment ?>" />
+	<?php } else { ?>
+		<meta name="twitter:card" content="summary" />
+		<meta name="twitter:image" content="<?= $postData->poster->pfp ?>" />
+	<?php } ?>
 	<link rel="stylesheet" href="./index.css">
 </head>
 
@@ -35,7 +67,6 @@ if (!empty($_GET["id"])) {
 	$nav = new STiBaRC\Nav();
 	echo $nav->nav();
 
-	$postData = $api->getPost($postId);
 	$postObj = new STiBaRC\Post($postData);
 	echo $postObj->post();
 

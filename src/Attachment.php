@@ -5,29 +5,33 @@ namespace STiBaRC\STiBaRC;
 class Attachment
 {
 
-	private $attachment;
-	private $localFileName;
+	public $attachment;
 	private $attachmentHTML;
 	private $isPost;
+	public $type;
 
 	public function __construct($attachment, $isPost = false)
 	{
 		$this->attachment = $attachment;
 		$this->isPost = $isPost;
-	}
-
-	public function attachmentBlock()
-	{
-
 		// file types
 		$images = array("png", "jpg", "gif", "webp", "svg");
 		$videos = array("mov", "mp4", "webm");
 		$audios = array("spx", "m3a", "m4a", "wma", "wav", "mp3");
-		$parts = ($this->localFileName !== null) ? explode(".", $this->localFileName) : explode(".", $this->attachment);
+		$parts = explode(".", $this->attachment);
 		$ext = $parts[count($parts) - 1];
 
-		if (in_array($ext, $images)) {
-			$type = "img";
+		if (in_array($ext, $images))
+			$this->type = "image";
+		if (in_array($ext, $videos))
+			$this->type = "video";
+		if (in_array($ext, $audios))
+			$this->type = "audio";
+	}
+
+	public function attachmentBlock()
+	{
+		if ($this->type === "image") {
 			if ($this->isPost) {
 				$this->attachmentHTML = '
 				<a class="attachmentLink" href="' . $this->attachment . '" target="_blank">
@@ -41,8 +45,7 @@ class Attachment
 			}
 		}
 
-		if (in_array($ext, $videos)) {
-			$type = "video";
+		if ($this->type === "video") {
 			if ($this->isPost) {
 				$this->attachmentHTML = '
 				<video class="attachment" controls poster="' . $this->attachment . '.thumb.webp">
@@ -55,8 +58,7 @@ class Attachment
 			}
 		}
 
-		if (in_array($ext, $audios)) {
-			$type = "audio";
+		if ($this->type === "audio") {
 			if ($this->isPost) {
 				$this->attachmentHTML = '
 				<audio class="attachment" controls>
