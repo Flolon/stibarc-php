@@ -52,7 +52,7 @@ nav ul {
 nav li,
 nav form {
 	display: inline;
-	padding: 0 8px;
+	margin: 0 8px;
 }
 
 nav a {
@@ -64,6 +64,13 @@ nav a {
 
 nav .right {
 	float: right;
+}
+
+nav .right a {
+	margin-top: 2px;
+}
+
+.navUser {
 }
 
 .logo {
@@ -220,6 +227,7 @@ form .row input {
 }
 
 .pfp {
+	background-color: #3ea1b1;
 	margin-right: 3px;
 	border-radius: 3px;
 	vertical-align: middle;

@@ -347,4 +347,40 @@ class API
 			];
 		}
 	}
+
+	public function followUser($username)
+	{
+
+		$body = [
+			"session" => $this->session,
+			"username" => $username
+		];
+
+		$response = $this->request($this->host . "/v4/followuser.sjs", "POST", $body);
+
+		$responseJSON = json_decode($response);
+
+		$errorText = false;
+		if ($responseJSON->status !== "ok") {
+			switch ($responseJSON->errorCode) {
+				case "unf":
+					$errorText = "User not found";
+				case "banned":
+				case "is":
+					$errorText = "Invalid Session";
+				default:
+					$errorText = "Failed to follow user";
+			}
+		}
+		if (!$errorText) {
+			return [
+				"action" => $responseJSON->action,
+			];
+		} else {
+			return [
+				"error" => $responseJSON->error,
+				"errorText" => $errorText
+			];
+		}
+	}
 }

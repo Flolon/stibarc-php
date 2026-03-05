@@ -25,7 +25,7 @@ class Post
 			<h1 class="title">' . htmlspecialchars($this->post->title) . '</h1>
 			<a class="userlink" href="user.php?username=' . htmlspecialchars($poster->username) . '" 
 			title="' . htmlspecialchars($poster->username) . '">
-				<img class="pfp" width="30px" src="' . $poster->pfp . '" alt="Pfp">
+				<img class="pfp" width="30px" height="30px" src="' . $poster->pfp . '">
 				<span class="username">' . htmlspecialchars($poster->username) . '</span>
 				' . ($poster->verified ? '<span class="verified" title="Verified user">
 				<img class="icon" src="./img/icon/verified.png" height="14px" alt="Verified"></span>' : '') . '
