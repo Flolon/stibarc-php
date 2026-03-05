@@ -312,7 +312,7 @@ class API
 			"vote" => $vote
 		];
 
-		if ($commentId)
+		if ($target == "comment" && $commentId)
 			$body["commentId"] = $commentId;
 
 		$response = $this->request($this->host . "/v4/vote.sjs", "POST", $body);

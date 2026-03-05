@@ -19,33 +19,49 @@ $api = new STiBaRC\API($apiTarget, true);
 <html>
 
 <head>
-    <title>STiBaRC</title>
-    <link rel="stylesheet" href="./index.css">
+	<title>STiBaRC</title>
+	<link rel="stylesheet" href="./index.css">
 </head>
 
 <body>
 
-    <?php
-    $nav = new STiBaRC\Nav();
-    echo $nav->nav();
+	<?php
+	$nav = new STiBaRC\Nav();
+	echo $nav->nav();
 
-    if (empty($_SESSION['sess'])) {
-        header('Location: ./login.php');
-    }
+	if (empty($_SESSION['sess'])) {
+		header('Location: ./login.php');
+	}
 
-    if ($_GET["action"] == "vote") {
-        $vote = $api->vote($_GET["post"], $_GET["target"], $_GET["vote"]);
-        if (!empty($vote['error']) && !empty($vote['errorText'])) {
-            $error = $vote['errorText'] . ' : ' . $vote['error'];
-            echo '<div class="errorBlock">' . $error . '</div>';
-        } else {
-            print_r($vote);
-        }
-    }
+	if ($_GET["action"] == "vote") {
+		$commentId = false;
+		if (!empty($_GET["commentId"]))
+			$commentId = $_GET["commentId"];
 
-    $footer = new STiBaRC\Footer();
-    echo $footer->footer();
-    ?>
+		$vote = $api->vote($_GET["id"], $_GET["target"], $_GET["vote"], $commentId);
+
+		if (!empty($vote['error']) && !empty($vote['errorText'])) {
+			$error = $vote['errorText'] . ' : ' . $vote['error'];
+			echo '<div class="errorBlock">' . $error . '</div>';
+		} else {
+			if ($commentId)
+				header('Location: ./post.php?id=' . $_GET["id"] . '#comment-' . $commentId);
+			else
+				header('Location: ./post.php?id=' . $_GET["id"]);
+		}
+	}
+
+	?>
+
+	<div class="centerBlock">
+		<a class="button primary" href="./">Home</a>
+	</div>
+
+	<?php
+
+	$footer = new STiBaRC\Footer();
+	echo $footer->footer();
+	?>
 
 </body>
 

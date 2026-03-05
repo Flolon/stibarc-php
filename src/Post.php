@@ -52,12 +52,10 @@ class Post
 		$postHTML .= '
 		<hr>
 			<div class="meta">
-				<a class="upvote" title="Upvotes" href="./do.php?post='.$this->post->id.'&action=vote&target=post&vote=upvote"><img class="icon" src="./img/icon/up_arrow.png" height="14px" alt="Upvotes">'
+				<a class="upvote" title="Upvotes" href="./do.php?id=' . $this->post->id . '&action=vote&target=post&vote=upvote"><img class="icon" src="./img/icon/up_arrow.png" height="14px" alt="Upvotes">'
 			. $this->post->upvotes . '</a>
-				<a class="downvote" title="Downvotes" href="./do.php?post='.$this->post->id.'&action=vote&target=post&vote=downvote"><img class="icon" src="./img/icon/down_arrow.png" height="14px" alt="Downvotes">'
+				<a class="downvote" title="Downvotes" href="./do.php?id=' . $this->post->id . '&action=vote&target=post&vote=downvote"><img class="icon" src="./img/icon/down_arrow.png" height="14px" alt="Downvotes">'
 			. $this->post->downvotes . '</a>
-				<span class="comments" title="Comments"><img class="icon" src="./img/icon/comment.png" height="14px" alt="Comments">'
-			. count($this->post->comments) . '</span>
 				' . ($this->post->attachments ?
 				'<span class="attachments" title="Attachemnts"><span class="icon">&#128206;</span>'
 				. count($this->post->attachments) . '</span>' : '')

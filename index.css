@@ -71,6 +71,7 @@ nav .right a {
 }
 
 .navUser {
+	padding: 3px 0;
 }
 
 .logo {
@@ -100,31 +101,38 @@ input:focus {
 	outline: none;
 }
 
-button {
+button, .button {
+	display: inline-block;
 	padding: 4px 8px;
 	border-radius: 5px;
 	border: 1px solid #d7d7d7;
 	background-color: #f6f6f6;
 	cursor: pointer;
+	text-decoration: none;
+	color: #121212;
 }
 
-button:hover {
+button:hover, .button:hover {
 	background-color: #ffffff;
 }
 
-button:focus {
+button:focus, .button:focus {
 	border-color: #3ea1b1;
 	outline: none;
 }
 
-button.primary {
+button.primary, .button.primary {
 	color: #ffffff;
 	background-color: #3ea1b1;
 	border-color: #27788e;
 }
 
-button.primary:hover {
+button.primary:hover, .button.primary:hover {
 	background-color: #49B9CA;
+}
+
+button.primary:focus, .button.primary:focus {
+	background-color: #3996a5;
 }
 
 footer {
@@ -306,4 +314,9 @@ form .row input {
 	background-color: #e7e7e7;
 	padding: 8px;
 	border-radius: 5px;
+}
+
+.centerBlock {
+	margin: 24px auto;
+	text-align: center;
 }

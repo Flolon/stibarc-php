@@ -14,7 +14,11 @@ use STiBaRC\STiBaRC;
 
 $api = new STiBaRC\API($apiTarget, true);
 
-$postId = $_GET["id"];
+if (!empty($_GET["id"])) {
+	$postId = $_GET["id"];
+} else {
+	header('Location: ./404.php?url=' . $_SERVER['REQUEST_URI']);
+}
 
 ?>
 <!DOCTYPE html>
@@ -28,24 +32,24 @@ $postId = $_GET["id"];
 <body>
 
 	<?php
-		$nav = new STiBaRC\Nav();
-		echo $nav->nav();
+	$nav = new STiBaRC\Nav();
+	echo $nav->nav();
 
-		$postData = $api->getPost($postId);
-		$postObj = new STiBaRC\Post($postData);
-		echo $postObj->post();
+	$postData = $api->getPost($postId);
+	$postObj = new STiBaRC\Post($postData);
+	echo $postObj->post();
 
-		if ($postData->comments) {
-			echo "<h2>Comments</h2>";
-			
-			foreach ($postData->comments as $comment) {
-				$commentObj = new STiBaRC\Comment($comment);
-				echo $commentObj->comment();
-			}
+	if ($postData->comments) {
+		echo '<h2>' . count($postData->comments) . ' Comments</h2>';
+
+		foreach ($postData->comments as $comment) {
+			$commentObj = new STiBaRC\Comment($comment, $postData->id);
+			echo $commentObj->comment();
 		}
+	}
 
-		$footer = new STiBaRC\Footer();
-		echo $footer->footer();
+	$footer = new STiBaRC\Footer();
+	echo $footer->footer();
 	?>
 
 </body>
