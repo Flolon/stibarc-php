@@ -10,10 +10,10 @@ class Footer
 	public function footer()
 	{
 		$footerHTML = '
-		    <footer>
+			<footer>
 				<span>&copy; ' . date("Y") . ' STiBaRC</span>
 			</footer>
-        ';
+		';
 		return $footerHTML;
 	}
 }

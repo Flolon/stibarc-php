@@ -18,28 +18,28 @@ $api = new STiBaRC\API($apiTarget, true);
 <html>
 
 <head>
-    <title>STiBaRC</title>
-    <link rel="stylesheet" href="./index.css">
+	<title>STiBaRC</title>
+	<link rel="stylesheet" href="./index.css">
 </head>
 
 <body>
 
-    <?php
+	<?php
 
-    $nav = new STiBaRC\Nav();
-    echo $nav->nav();
+	$nav = new STiBaRC\Nav();
+	echo $nav->nav();
 
-    if ($api->getAnnouncement())
-        echo '<div class="announcement">' . htmlspecialchars($api->getAnnouncement()) . '</div>';
+	if ($api->getAnnouncement())
+		echo '<div class="announcement">' . htmlspecialchars($api->getAnnouncement()) . '</div>';
 
-    foreach ($api->getPosts() as $postData) {
-        $postHtml = new STiBaRC\PostBlock($postData, $showAttachments);
-        echo $postHtml->post();
-    }
+	foreach ($api->getPosts() as $postData) {
+		$postHtml = new STiBaRC\PostBlock($postData, $showAttachments);
+		echo $postHtml->post();
+	}
 
-    $footer = new STiBaRC\Footer();
-    echo $footer->footer();
-    ?>
+	$footer = new STiBaRC\Footer();
+	echo $footer->footer();
+	?>
 
 </body>
 

@@ -56,7 +56,7 @@ $search_query = $_GET["q"];
 	}
 
 	$footer = new STiBaRC\Footer();
-    echo $footer->footer();
+	echo $footer->footer();
 	?>
 
 </body>

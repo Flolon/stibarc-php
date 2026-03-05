@@ -25,7 +25,7 @@ class UserBlock
 		}
 
 		$userHTML = '
-        <div class="userBlock">
+		<div class="userBlock">
 			<div class="userlink" title="' . htmlspecialchars($user->username) . '">
 				<a href="' . $user->pfp . '" target="_blank"><img class="pfp" width="50px" src="' . $user->pfp . '" alt="Pfp"></a>
 				<span class="username">' . htmlspecialchars($user->username) . '</span>
@@ -34,7 +34,7 @@ class UserBlock
 				<span class="pronouns" title="Pronouns">
 				' . ($user->displayPronouns && $user->pronouns ? '(' . htmlspecialchars($user->pronouns) . ')' : "") . '
 				</span>
-            </div>
+			</div>
 			<div>
 				' . ($user->displayName && $user->name ? '<div>Name: ' . htmlspecialchars($user->name) . '</div>' : '') . '
 				' . ($user->displayBio && $user->bio ? '<div class="bio">' . htmlspecialchars($user->bio) . '</div>' : '') . '

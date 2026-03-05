@@ -15,20 +15,20 @@ $api = new STiBaRC\API($apiTarget, true);
 $error = false;
 
 if (!empty($_POST)) {
-    $username = trim($_POST["username"]);
-    $password = trim($_POST["password"]);
-    if (empty($username) || empty($password)) {
-        $error = "Username and password must be entered!";
-    } else {
+	$username = trim($_POST["username"]);
+	$password = trim($_POST["password"]);
+	if (empty($username) || empty($password)) {
+		$error = "Username and password must be entered!";
+	} else {
 
-        $loginResponse = $api->login($username, $password);
+		$loginResponse = $api->login($username, $password);
 
-        if (!empty($loginResponse['error']) && !empty($loginResponse['errorText'])) {
-            $error = $loginResponse['errorText'] . ' : ' . $loginResponse['error'];
-        } else {
-            header('Location: ./');
-        }
-    }
+		if (!empty($loginResponse['error']) && !empty($loginResponse['errorText'])) {
+			$error = $loginResponse['errorText'] . ' : ' . $loginResponse['error'];
+		} else {
+			header('Location: ./');
+		}
+	}
 }
 
 ?>
@@ -36,44 +36,45 @@ if (!empty($_POST)) {
 <html>
 
 <head>
-    <title>STiBaRC</title>
-    <link rel="stylesheet" href="./index.css">
+	<title>STiBaRC</title>
+	<link rel="stylesheet" href="./index.css">
 </head>
 
 <body>
 
-    <?php
+	<?php
 
-    $nav = new STiBaRC\Nav();
-    echo $nav->nav();
-    ?>
-    <div class="login">
-        <h2>Login</h2>
-        <form method="POST">
-            <?= $error ? '<div class="errorBlock">' . $error . '</div>' : ''; ?>
-            <div class="row">
-                <label for="username">Username:</label>
-                <input name="username" placeholder="Username" autofocus>
-            </div>
-            <div class="row">
-                <label for="password">Password:</label>
-                <input name="password" type="password" placeholder="Password">
-            </div>
-            <div class="row">
-                <button class="primary" type="submit">Login</button>
-            </div>
-        </form>
-        <div class="row">
-            <a class="loginWith" href="https://stibarc.com/oauth/?client_id=b5543b27a9fac3ad509d0168cee7d8cf&response_type=token&scope=all">
-                <img src="./img/Login-with-STiBaRC.png" alt="Login with STiBaRC" title="Login with STiBaRC OAuth">
-            </a>
-        </div>
-    </div>
+	$nav = new STiBaRC\Nav();
+	echo $nav->nav();
+	?>
+	<div class="login">
+		<h2>Login</h2>
+		<form method="POST">
+			<?= $error ? '<div class="errorBlock">' . $error . '</div>' : ''; ?>
+			<div class="row">
+				<label for="username">Username:</label>
+				<input name="username" placeholder="Username" autofocus>
+			</div>
+			<div class="row">
+				<label for="password">Password:</label>
+				<input name="password" type="password" placeholder="Password">
+			</div>
+			<div class="row">
+				<button class="primary" type="submit">Login</button>
+			</div>
+		</form>
+		<hr class="row" style="margin-top: 16px;">
+		<div class="row">
+			<a class="loginWith" href="https://stibarc.com/oauth/?client_id=b5543b27a9fac3ad509d0168cee7d8cf&response_type=token&scope=all">
+				<img src="./img/Login-with-STiBaRC.png" alt="Login with STiBaRC" title="Login with STiBaRC OAuth">
+			</a>
+		</div>
+	</div>
 
-    <?php
-    $footer = new STiBaRC\Footer();
-    echo $footer->footer();
-    ?>
+	<?php
+	$footer = new STiBaRC\Footer();
+	echo $footer->footer();
+	?>
 
 </body>
 

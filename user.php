@@ -49,7 +49,7 @@ $username = $_GET["username"];
 	}
 
 	$footer = new STiBaRC\Footer();
-    echo $footer->footer();
+	echo $footer->footer();
 	?>
 
 </body>

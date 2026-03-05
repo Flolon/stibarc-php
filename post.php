@@ -21,19 +21,19 @@ $postId = $_GET["id"];
 <html>
 
 <head>
-    <title>STiBaRC</title>
-    <link rel="stylesheet" href="./index.css">
+	<title>STiBaRC</title>
+	<link rel="stylesheet" href="./index.css">
 </head>
 
 <body>
 
 	<?php
-        $nav = new STiBaRC\Nav();
-        echo $nav->nav();
+		$nav = new STiBaRC\Nav();
+		echo $nav->nav();
 
 		$postData = $api->getPost($postId);
-        $postObj = new STiBaRC\Post($postData);
-        echo $postObj->post();
+		$postObj = new STiBaRC\Post($postData);
+		echo $postObj->post();
 
 		if ($postData->comments) {
 			echo "<h2>Comments</h2>";
@@ -46,7 +46,7 @@ $postId = $_GET["id"];
 
 		$footer = new STiBaRC\Footer();
 		echo $footer->footer();
-    ?>
+	?>
 
 </body>
 

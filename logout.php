@@ -17,9 +17,9 @@ $error = false;
 $loggedOut = $api->logout();
 
 if ($loggedOut) {
-    header('Location: ./');
+	header('Location: ./');
 } else {
-    $error = "Error logging out";
+	$error = "Error logging out";
 }
 
 ?>
@@ -27,24 +27,24 @@ if ($loggedOut) {
 <html>
 
 <head>
-    <title>STiBaRC</title>
-    <link rel="stylesheet" href="./index.css">
+	<title>STiBaRC</title>
+	<link rel="stylesheet" href="./index.css">
 </head>
 
 <body>
 
-    <?php
-    $nav = new STiBaRC\Nav();
-    echo $nav->nav();
-    ?>
+	<?php
+	$nav = new STiBaRC\Nav();
+	echo $nav->nav();
+	?>
 
-    <h2>Logging out...</h2>
-    <?= $error ? '<div class="errorBlock">' . $error . '</div>' : ''; ?>
+	<h2>Logging out...</h2>
+	<?= $error ? '<div class="errorBlock">' . $error . '</div>' : ''; ?>
 
-    <?php
-    $footer = new STiBaRC\Footer();
-    echo $footer->footer();
-    ?>
+	<?php
+	$footer = new STiBaRC\Footer();
+	echo $footer->footer();
+	?>
 
 </body>
 

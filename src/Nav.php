@@ -15,15 +15,15 @@ class Nav
 	public function nav()
 	{
 		$navHTML = '
-        <nav class="mainNav">
-        	<ul>
+		<nav class="mainNav">
+			<ul>
 				<li class="logo"><a href="./"><img src="./img/logo_32.png" height="24px" alt="STiBaRC Home"></a></li>
-        		<li>
+				<li>
 					<form action="search.php">
-    	    	    <input type="search" name="q" placeholder="Search" value="'
+					<input type="search" name="q" placeholder="Search" value="'
 			. ($this->searchQuery ? $this->searchQuery : '') . '">
-	            	<button type="submit">Search</button>
-        		</form>
+					<button type="submit">Search</button>
+				</form>
 				</li>
 			</ul>
 			<ul class="right">';
