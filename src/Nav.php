@@ -28,7 +28,7 @@ class Nav
 			</ul>
 			<ul class="right">';
 		if (empty($_SESSION['sess'])) {
-			$navHTML .= '<li><a href="./login.php">Login</a></li>';
+			$navHTML .= '<li><a class="button primary" href="./login.php">Login</a></li>';
 		} else {
 			$navHTML .= '<li class="navUser" title="Logged in as '
 				. htmlspecialchars($_SESSION['username']) . '"><a href="./user.php?username='
@@ -36,7 +36,7 @@ class Nav
 				. $_SESSION['pfp'] . '" height="25px" width="25px"><span>'
 				. htmlspecialchars($_SESSION['username']) . '</span></a></li>
 				<li class="spacer">|</li>
-			<li><a href="./logout.php">Logout</a></li>';
+			<li><a class="button" href="./logout.php">Logout</a></li>';
 		}
 		$navHTML .= '
 			</ul>

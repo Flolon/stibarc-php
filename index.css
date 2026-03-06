@@ -35,7 +35,7 @@ nav {
 	width: 100%;
 	overflow: hidden;
 	background-color: #49B9CA;
-	padding: 10px 8px;
+	padding: 7px 8px;
 	margin-bottom: 8px;
 	border-radius: 5px;
 	text-align: left;
@@ -52,7 +52,12 @@ nav ul {
 nav li,
 nav form {
 	display: inline;
-	margin: 0 8px;
+	margin: 4px 8px;
+}
+
+nav .button {
+	font-size: 90%;
+	margin-top: 1px;
 }
 
 nav a {

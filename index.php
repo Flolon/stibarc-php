@@ -40,7 +40,9 @@ $api = new STiBaRC\API($apiTarget, true);
 		$lastSeenGlobalPost = false;
 	}
 
-	foreach ($api->getPosts(lastSeenGlobalPost: $lastSeenGlobalPost) as $postData) {
+	$posts = $api->getPosts(lastSeenGlobalPost: $lastSeenGlobalPost);
+
+	foreach ($posts->globalPosts as $postData) {
 		$postHtml = new STiBaRC\PostBlock($postData, $showAttachments);
 		echo $postHtml->post();
 		$lastSeenGlobalPost = $postData->id;
@@ -57,8 +59,10 @@ $api = new STiBaRC\API($apiTarget, true);
 	if ($lastSeenGlobalPost) {
 		echo '
 	<div class="centerBlock">
-		<a class="button primary" href="?lastSeenGlobalPost=' . $lastSeenGlobalPost - 20 . '"><</a>
-		<a class="button primary" href="?lastSeenGlobalPost=' . $lastSeenGlobalPost . '">></a>
+		<a class="button primary" href="./" title="Latest posts"><<</a>
+		<a class="button primary" href="?lastSeenGlobalPost=' . ($lastSeenGlobalPost + 41) . '" title="Newer posts"><</a>
+		<a class="button primary" href="?lastSeenGlobalPost=' . $lastSeenGlobalPost . '" title="Older posts">></a>
+		<a class="button primary" href="?lastSeenGlobalPost=20" title="Oldest posts">>></a>
 	</div>		
 		';
 	}
