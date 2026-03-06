@@ -49,7 +49,7 @@ if (strlen($postData->content) > $maxCharLength)
 	<meta property="og:site_name" content="STiBaRC">
 	<meta property="og:logo" content="https://stibarc.sopaws.com/img/icon.png">
 	<meta property="profile:username" content="<?= $username; ?>">
-	<meta name="theme-color" content="#3ea1b1"/>
+	<meta name="theme-color" content="#3ea1b1" />
 	<meta name="application-name" content="STiBaRC">
 	<meta name="twitter:site" content="STiBaRC" />
 	<meta name="twitter:title" content="<?= $title ?>" />
@@ -87,12 +87,14 @@ if (strlen($postData->content) > $maxCharLength)
 	echo $postObj->post();
 
 	if ($postData->comments) {
-		echo '<h2>' . count($postData->comments) . ' Comments</h2>';
+		echo '<h2>' . count($postData->comments) . ' Comment' . ((count($postData->comments) == 1) ? '' : 's') . '</h2>';
 
 		foreach ($postData->comments as $comment) {
 			$commentObj = new STiBaRC\Comment($comment, $postData->id);
 			echo $commentObj->comment();
 		}
+	} else {
+		echo '<h2>No Comments</h2>';
 	}
 
 	$footer = new STiBaRC\Footer();
