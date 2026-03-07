@@ -16,9 +16,10 @@ $api = new STiBaRC\API($apiTarget, true);
 ?>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 	<title>STiBaRC</title>
 	<link rel="stylesheet" href="./index.css">
@@ -39,7 +40,14 @@ $api = new STiBaRC\API($apiTarget, true);
 	} else {
 		$lastSeenGlobalPost = false;
 	}
-
+	?>
+	<div class="pageTabs">
+		<ul>
+			<li class="active" title="Global feed"><a href="?feed=global">Global</a></li>
+			<li><a href="?feed=following" title="Following feed">Following</a></li>
+		</ul>
+	</div>
+	<?php
 	$posts = $api->getPosts(lastSeenGlobalPost: $lastSeenGlobalPost);
 
 	foreach ($posts->globalPosts as $postData) {

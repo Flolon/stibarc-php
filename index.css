@@ -114,7 +114,8 @@ input:focus {
 	outline: none;
 }
 
-button, .button {
+button,
+.button {
 	display: inline-block;
 	padding: 4px 8px;
 	border-radius: 5px;
@@ -125,26 +126,31 @@ button, .button {
 	color: #121212;
 }
 
-button:hover, .button:hover {
+button:hover,
+.button:hover {
 	background-color: #ffffff;
 }
 
-button:focus, .button:focus {
+button:focus,
+.button:focus {
 	border-color: #3ea1b1;
 	outline: none;
 }
 
-button.primary, .button.primary {
+button.primary,
+.button.primary {
 	color: #ffffff;
 	background-color: #3ea1b1;
 	border-color: #27788e;
 }
 
-button.primary:hover, .button.primary:hover {
+button.primary:hover,
+.button.primary:hover {
 	background-color: #49B9CA;
 }
 
-button.primary:focus, .button.primary:focus {
+button.primary:focus,
+.button.primary:focus {
 	background-color: #3996a5;
 }
 
@@ -334,4 +340,54 @@ form .row input {
 .centerBlock {
 	margin: 24px auto;
 	text-align: center;
+}
+
+.pageTabs {
+	margin: 10px auto 8px auto;
+}
+
+.pageTabs ul {
+	margin: 0;
+	padding: 0;
+	list-style-type: none;
+	display: block;
+	border-bottom: 1px solid #27788e;
+}
+
+.pageTabs li {
+	display: inline-block;
+	margin-right: 4px;
+}
+
+.pageTabs li a {
+	display: inline-block;
+	padding: 6px 10px;
+	border: 1px solid #d7d7d7;
+	background-color: #f6f6f6;
+	cursor: pointer;
+	text-decoration: none;
+	color: #121212;
+	border-bottom: none;
+	border-radius: 5px 5px 0 0;
+}
+
+.pageTabs li a:hover {
+	background-color: #ffffff;
+}
+
+.pageTabs li.active a {
+	background-color: #3ea1b1;
+	border: 1px solid #27788e;
+	color: #ffffff;
+	border-bottom: none;
+
+}
+
+.pageTabs li.active a:hover {
+	background-color: #49B9CA;
+}
+
+.pageTabs li a {
+	text-decoration: none;
+	color: #000000;
 }

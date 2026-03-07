@@ -143,7 +143,7 @@ class API
 		if ($responseJSON->status !== "ok") {
 			echo $this->debug ? "Failed to fetch posts: " . $response : "";
 		}
-		return $responseJSON;
+		return $responseJSON ?? false;
 	}
 
 	public function getPost($postId)
