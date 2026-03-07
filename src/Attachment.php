@@ -54,7 +54,7 @@ class Attachment
 			} else {
 				$this->attachmentHTML = '<a class="attachmentLink videoPreview" href="' . $this->attachment . '"
 				title="Video thumbnail (click for full file)" target="_blank">
-				<img loading="lazy" src="' . $this->attachment . '.thumb.webp" alt="Video attachment thumbnail"></a>';
+				<img loading="lazy" src="' . $this->attachment . '.thumb.webp" alt="Video attachment 72367236thumbnail"></a>';
 			}
 		}
 
