@@ -12,6 +12,15 @@ require('src/PostBlock.php');
 use STiBaRC\STiBaRC;
 
 $api = new STiBaRC\API($apiTarget, true);
+	$feed = false;
+	$lastSeenGlobalPost = false;
+	$lastSeenFollowedPost = false;
+	if (!empty($_GET["feed"]))
+		$feed = $_GET["feed"];
+	if (!empty($_GET["lastSeenGlobalPost"]))
+		$lastSeenGlobalPost = $_GET["lastSeenGlobalPost"];
+	if (!empty($_GET["lastSeenFollowedPost"]))
+		$lastSeenFollowedPost = $_GET["lastSeenFollowedPost"];
 
 ?>
 <!DOCTYPE html>
@@ -34,43 +43,45 @@ $api = new STiBaRC\API($apiTarget, true);
 
 	if ($api->getAnnouncement())
 		echo '<div class="announcement">' . htmlspecialchars($api->getAnnouncement()) . '</div>';
-
-	if (!empty($_GET["lastSeenGlobalPost"])) {
-		$lastSeenGlobalPost = $_GET["lastSeenGlobalPost"];
-	} else {
-		$lastSeenGlobalPost = false;
-	}
 	?>
 	<div class="pageTabs">
 		<ul>
-			<li><a class="tab active" href="?feed=global" title="Global feed">Global</a></li>
-			<li><a class="tab" href="?feed=following" title="Following feed">Following</a></li>
+			<li><a class="tab <?= ($feed == "global" || !$feed) ? 'active' : '' ?>" href="?feed=global" title="Global feed">Global</a></li>
+			<li><a class="tab <?= ($feed == "following") ? 'active' : '' ?>" href="?feed=following" title="Following feed">Following</a></li>
 		</ul>
 	</div>
 	<?php
-	$posts = $api->getPosts(lastSeenGlobalPost: $lastSeenGlobalPost);
 
-	foreach ($posts->globalPosts as $postData) {
-		$postHtml = new STiBaRC\PostBlock($postData, $showAttachments);
-		echo $postHtml->post();
-		$lastSeenGlobalPost = $postData->id;
-	}
-	// } else {
-	// 	$config["lastSeenGlobalPost"] = $lastSeenGlobalPost;
-	// 	foreach ($api->getPosts($config) as $postData) {
-	// 		$postHtml = new STiBaRC\PostBlock($postData, $showAttachments);
-	// 		echo $postHtml->post();
-	// 		$lastSeenGlobalPost = $postData->id;
-	// 	}
-	// }
+	$posts = $api->getPosts(lastSeenGlobalPost: $lastSeenGlobalPost, lastSeenFollowedPost: $lastSeenFollowedPost);
 
-	if ($lastSeenGlobalPost) {
+	if (!$feed || $feed == "global") {
+		foreach ($posts->globalPosts as $postData) {
+			$postHtml = new STiBaRC\PostBlock($postData, $showAttachments);
+			echo $postHtml->post();
+			$lastSeenGlobalPost = $postData->id;
+		}
 		echo '
 	<div class="centerBlock">
-		<a class="button primary" href="./" title="Latest posts"><<</a>
-		<a class="button primary" href="?lastSeenGlobalPost=' . ($lastSeenGlobalPost + 41) . '" title="Newer posts"><</a>
-		<a class="button primary" href="?lastSeenGlobalPost=' . $lastSeenGlobalPost . '" title="Older posts">></a>
-		<a class="button primary" href="?lastSeenGlobalPost=20" title="Oldest posts">>></a>
+		<a class="button primary" href="?feed=global" title="Latest posts"><<</a>
+		<a class="button primary" href="?feed=global&lastSeenGlobalPost=' . ($lastSeenGlobalPost + 41) . '" title="Newer posts"><</a>
+		<a class="button primary" href="?feed=global&lastSeenGlobalPost=' . $lastSeenGlobalPost . '" title="Older posts">></a>
+		<a class="button primary" href="?feed=global&lastSeenGlobalPost=20" title="Oldest posts">>></a>
+	</div>		
+		';
+	}
+
+	if ($feed == "following") {
+		foreach ($posts->followedPosts as $postData) {
+			$postHtml = new STiBaRC\PostBlock($postData, $showAttachments);
+			echo $postHtml->post();
+			$lastSeenFollowedPost = $postData->id;
+		}
+		echo '
+	<div class="centerBlock">
+		<a class="button primary" href="?feed=following" title="Latest posts"><<</a>
+		<a class="button primary" href="?feed=following&lastSeenFollowedPost=' . ($lastSeenFollowedPost + 41) . '" title="Newer posts"><</a>
+		<a class="button primary" href="?feed=following&lastSeenFollowedPost=' . $lastSeenFollowedPost . '" title="Older posts">></a>
+		<a class="button primary" href="?feed=following&lastSeenFollowedPost=20" title="Oldest posts">>></a>
 	</div>		
 		';
 	}
