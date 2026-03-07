@@ -43,8 +43,8 @@ $api = new STiBaRC\API($apiTarget, true);
 	?>
 	<div class="pageTabs">
 		<ul>
-			<li class="active" title="Global feed"><a href="?feed=global">Global</a></li>
-			<li><a href="?feed=following" title="Following feed">Following</a></li>
+			<li><a class="tab active" href="?feed=global" title="Global feed">Global</a></li>
+			<li><a class="tab" href="?feed=following" title="Following feed">Following</a></li>
 		</ul>
 	</div>
 	<?php

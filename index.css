@@ -66,7 +66,7 @@ nav a {
 	margin: 0 5px;
 }
 
-nav .right {
+.right {
 	float: right;
 	padding: 4px 0;
 }
@@ -154,7 +154,52 @@ button.primary:focus,
 	background-color: #3996a5;
 }
 
-footer {
+.pageTabs {
+	margin: 10px auto 10px auto;
+}
+
+.pageTabs ul {
+	margin: 0;
+	padding: 0;
+	list-style-type: none;
+	display: block;
+	border-bottom: 1px solid #27788e;
+}
+
+.pageTabs li {
+	display: inline-block;
+	margin-right: 4px;
+}
+
+.pageTabs .tab {
+	display: inline-block;
+	padding: 6px 10px;
+	border: 1px solid #d7d7d7;
+	background-color: #f6f6f6;
+	cursor: pointer;
+	text-decoration: none;
+	color: #121212;
+	border-bottom: none;
+	border-radius: 5px 5px 0 0;
+}
+
+.pageTabs .tab:hover {
+	background-color: #ffffff;
+}
+
+.pageTabs .tab.active {
+	background-color: #3ea1b1;
+	border: 1px solid #27788e;
+	color: #ffffff;
+	border-bottom: none;
+
+}
+
+.pageTabs .tab.active:hover {
+	background-color: #49B9CA;
+}
+
+.footer {
 	display: block;
 	width: 100%;
 	overflow: hidden;
@@ -164,6 +209,16 @@ footer {
 	border-radius: 5px;
 	text-align: center;
 	box-sizing: border-box;
+}
+
+.footer ul {
+	margin: 8px auto;
+	padding: 0;
+	list-style-type: none;
+}
+
+.footer li {
+	display: inline-block;
 }
 
 .errorBlock {
@@ -340,54 +395,4 @@ form .row input {
 .centerBlock {
 	margin: 24px auto;
 	text-align: center;
-}
-
-.pageTabs {
-	margin: 10px auto 8px auto;
-}
-
-.pageTabs ul {
-	margin: 0;
-	padding: 0;
-	list-style-type: none;
-	display: block;
-	border-bottom: 1px solid #27788e;
-}
-
-.pageTabs li {
-	display: inline-block;
-	margin-right: 4px;
-}
-
-.pageTabs li a {
-	display: inline-block;
-	padding: 6px 10px;
-	border: 1px solid #d7d7d7;
-	background-color: #f6f6f6;
-	cursor: pointer;
-	text-decoration: none;
-	color: #121212;
-	border-bottom: none;
-	border-radius: 5px 5px 0 0;
-}
-
-.pageTabs li a:hover {
-	background-color: #ffffff;
-}
-
-.pageTabs li.active a {
-	background-color: #3ea1b1;
-	border: 1px solid #27788e;
-	color: #ffffff;
-	border-bottom: none;
-
-}
-
-.pageTabs li.active a:hover {
-	background-color: #49B9CA;
-}
-
-.pageTabs li a {
-	text-decoration: none;
-	color: #000000;
 }
