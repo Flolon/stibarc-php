@@ -34,13 +34,13 @@ class Attachment
 		if ($this->type === "image") {
 			if ($this->isPost) {
 				$this->attachmentHTML = '
-				<a class="attachmentLink" href="' . $this->attachment . '" target="_blank">
-					<img class="attachment" loading="lazy" src="' . $this->attachment . '.thumb.webp" alt="Image attachment">
+				<a class="attachmentLink" href="' . $this->attachment . '" target="_blank" title="Image thumbnail (click for full file)">
+					<img class="attachment" loading="lazy" src="' . $this->attachment . '.thumb.webp" alt="Image attachment thumbnail">
 				</a>';
 			} else {
 				$this->attachmentHTML = '
-				<a class="attachmentLink" href="' . $this->attachment . '" target="_blank">
-					<img class="imgPreview" loading="lazy" src="' . $this->attachment . '.thumb.webp" alt="Image attachment">
+				<a class="attachmentLink" href="' . $this->attachment . '" target="_blank" title="Image thumbnail (click for full file)">
+					<img class="imgPreview" loading="lazy" src="' . $this->attachment . '.thumb.webp" alt="Image attachment thumbnail">
 				</a>';
 			}
 		}
@@ -53,8 +53,8 @@ class Attachment
 				</video>';
 			} else {
 				$this->attachmentHTML = '<a class="attachmentLink videoPreview" href="' . $this->attachment . '"
-				title="Video attachment" target="_blank">
-				<img loading="lazy" src="' . $this->attachment . '.thumb.webp" alt="Video attachment"></a>';
+				title="Video thumbnail (click for full file)" target="_blank">
+				<img loading="lazy" src="' . $this->attachment . '.thumb.webp" alt="Video attachment thumbnail"></a>';
 			}
 		}
 
@@ -66,7 +66,8 @@ class Attachment
 				</audio>';
 			} else {
 				$this->attachmentHTML = '<a class="attachmentLink" href="' . $this->attachment . '" 
-				title="Audio attachment" target="_blank"><img class="icon audioPreview" src="./img/icon/audio.png" height="32px" alt="Audio attachment"></a>';
+				title="Audio attachment (click for full file)" target="_blank">
+				<img class="icon audioPreview" src="./img/icon/audio.png" height="32px" alt="Audio attachment"></a>';
 			}
 		}
 

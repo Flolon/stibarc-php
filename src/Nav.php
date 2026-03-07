@@ -36,7 +36,7 @@ class Nav
 				. $_SESSION['pfp'] . '" height="25px" width="25px"><span>'
 				. htmlspecialchars($_SESSION['username']) . '</span></a></li>
 				<li class="spacer">|</li>
-			<li><a class="button" href="./logout.php">Logout</a></li>';
+			<li><a class="logout" href="./logout.php">Logout</a></li>';
 		}
 		$navHTML .= '
 			</ul>

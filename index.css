@@ -35,7 +35,7 @@ nav {
 	width: 100%;
 	overflow: hidden;
 	background-color: #49B9CA;
-	padding: 7px 8px;
+	padding: 5px 8px;
 	margin-bottom: 8px;
 	border-radius: 5px;
 	text-align: left;
@@ -52,12 +52,11 @@ nav ul {
 nav li,
 nav form {
 	display: inline;
-	margin: 4px 8px;
+	margin: 5px 8px;
 }
 
 nav .button {
 	font-size: 90%;
-	margin-top: 1px;
 }
 
 nav a {
@@ -69,6 +68,11 @@ nav a {
 
 nav .right {
 	float: right;
+	padding: 4px 0;
+}
+
+nav .logout {
+	margin: 2px 0;
 }
 
 nav .spacer {
@@ -295,6 +299,8 @@ form .row input {
 
 .attachment {
 	max-width: 100%;
+	width: auto;
+	max-height: 400px;
 }
 
 .imgPreview,
