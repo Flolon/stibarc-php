@@ -70,7 +70,11 @@ $api = new STiBaRC\API($apiTarget, true);
 		';
 	}
 
-	if ($feed == "following") {
+	if (empty($_SESSION['sess']) && $feed == "following") {
+		echo '<h2>Not logged in</h2>';
+		echo '<p>Login in to view followed users\' posts.</p>';
+		echo '<div><a class="button primary" href="./login.php">Login</a></div>';
+	} else if ($feed == "following") {
 		foreach ($posts->followedPosts as $postData) {
 			$postHtml = new STiBaRC\PostBlock($postData, $showAttachments);
 			echo $postHtml->post();
