@@ -161,7 +161,7 @@ class API
 		if ($responseJSON->status !== "ok") {
 			echo $this->debug ? "Failed to fetch post: " . $response : "";
 		}
-		return $responseJSON->post ?? false;
+		return $responseJSON ?? false;
 	}
 
 	public function getUser($username)
