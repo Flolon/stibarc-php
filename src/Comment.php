@@ -32,7 +32,7 @@ class Comment
 				' . ($poster->displayPronouns && $poster->pronouns ? '(' . htmlspecialchars($poster->pronouns) . ')' : "") . '
 			</span>
 			<div class="date" title="' . $this->comment->date . '">
-				' . date("m/d/y g:i A", $date) . '
+				' . date("m/d/y, g:i A", $date) . '
 			</div>
 			<hr>
 			<div class="content">' . htmlspecialchars($this->comment->content) . '</div>';

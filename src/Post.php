@@ -34,7 +34,7 @@ class Post
 				' . ($poster->displayPronouns && $poster->pronouns ? '(' . htmlspecialchars($poster->pronouns) . ')' : "") . '
 			</span>
 			<div class="date" title="' . $this->post->date . '">
-				' . date("m/d/y g:i A", $date) . '
+				' . date("m/d/y, g:i A", $date) . '
 			</div>'
 			. ($this->post->edited ? '<span class="badge" title="Edited Post"><i>Edited</i></span>' : "") . '
 			<hr>

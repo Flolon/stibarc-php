@@ -15,6 +15,8 @@ class UserBlock
 	public function user()
 	{
 		$user = $this->userData;
+		if ($user->birthday)
+			$birthday = strtotime($user->birthday);
 		$followerUsernames = [];
 		$followingUsernames = [];
 		foreach ($user->followers as $follower) {
@@ -40,7 +42,7 @@ class UserBlock
 				' . ($user->displayBio && $user->bio ? '<div class="bio">' . htmlspecialchars($user->bio) . '</div>' : '') . '
 				' . ($user->displayEmail && $user->email ? '<div>Email: ' . htmlspecialchars($user->email) . '</div>' : '') . '
 				' . ($user->displayBirthday && $user->birthday ? '<div title="' . htmlspecialchars($user->birthday) .
-			'">Birthday: ' . htmlspecialchars($user->birthday) . '</div>' : '') . '
+			'">Birthday: ' . date("m/d/Y", $birthday) . '</div>' : '') . '
 				<div>Rank: ' . htmlspecialchars($user->rank) . '</div>
 				<div class="followCounts">
 					<span title="' . implode(", ", $followerUsernames) . '">Followers: '
