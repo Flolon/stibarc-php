@@ -134,6 +134,7 @@ button:hover,
 button:focus,
 .button:focus {
 	border-color: #3ea1b1;
+	background-color: #ffffff;
 	outline: none;
 }
 
@@ -185,6 +186,12 @@ button.primary:focus,
 
 .pageTabs .tab:hover {
 	background-color: #ffffff;
+	border-color: #3ea1b1;
+}
+
+.pageTabs .tab:focus {
+	background-color: #ffffff;
+	border-color: #3ea1b1;
 }
 
 .pageTabs .tab.active {
@@ -192,11 +199,14 @@ button.primary:focus,
 	border: 1px solid #27788e;
 	color: #ffffff;
 	border-bottom: none;
-
 }
 
 .pageTabs .tab.active:hover {
 	background-color: #49B9CA;
+}
+
+.pageTabs .tab.active:focus {
+	background-color: #3996a5;
 }
 
 .footer {
