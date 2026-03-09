@@ -32,19 +32,21 @@ class PostBlock
 
 		$postHTML = '
 		<div class="postBlock postPreview" id="post-'. $this->post->id . '">
-			<a class="title" href="post.php?id=' . $this->post->id . '" title="'
-			. htmlspecialchars($this->post->title) . '">'
-			. htmlspecialchars($title) . '</a>
-			<a class="userlink" href="user.php?username=' . htmlspecialchars($poster->username) . '" 
-			title="' . htmlspecialchars($poster->username) . '">
-				<img class="pfp" width="30px" height="30px" src="' . $poster->pfp . '">
-				<span class="username">' . htmlspecialchars($poster->username) . '</span>
-				' . ($poster->verified ? '<span class="verified" title="Verified user">
-				<img class="icon" src="./img/icon/verified.png" height="14px" alt="Verified"></span>' : '') . '
-			</a>
-			<span class="pronouns" title="Pronouns">
-				' . ($poster->displayPronouns && $poster->pronouns ? '(' . htmlspecialchars($poster->pronouns) . ')' : "") . '
-			</span>
+			<div>
+				<a class="title" href="post.php?id=' . $this->post->id . '" title="'
+				. htmlspecialchars($this->post->title) . '">'
+				. htmlspecialchars($title) . '</a></div>
+				<div><a class="userlink" href="user.php?username=' . htmlspecialchars($poster->username) . '" 
+				title="' . htmlspecialchars($poster->username) . '">
+					<img class="pfp" width="30px" height="30px" src="' . $poster->pfp . '">
+					<span class="username">' . htmlspecialchars($poster->username) . '</span>
+					' . ($poster->verified ? '<span class="verified" title="Verified user">
+					<img class="icon" src="./img/icon/verified.png" height="14px" alt="Verified"></span>' : '') . '
+				</a>
+				<span class="pronouns" title="Pronouns">
+					' . ($poster->displayPronouns && $poster->pronouns ? '(' . htmlspecialchars($poster->pronouns) . ')' : "") . '
+				</span>
+			</div>
 			<div class="date" title="' . $this->post->date . '">
 				' . date("m/d/y, g:i A", $date) . '
 			</div>'

@@ -288,6 +288,11 @@ form .row input {
 	margin-bottom: 8px;
 }
 
+.userBlock .right {
+	padding: 6px 8px;
+	margin: 8px 0;
+}
+
 .postBlock .title {
 	display: block;
 	font-weight: 700;

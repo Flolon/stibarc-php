@@ -179,7 +179,7 @@ class API
 		if ($responseJSON->status !== "ok") {
 			echo $this->debug ? "Failed to fetch user: " . $response : "";
 		}
-		return $responseJSON->user ?? false;
+		return $responseJSON ?? false;
 	}
 
 	public function search($query)
@@ -195,7 +195,7 @@ class API
 		if ($responseJSON->status !== "ok") {
 			echo $this->debug ? "Failed to fetch search results: " . $response : "";
 		}
-		return $responseJSON->results ?? false;
+		return $responseJSON ?? false;
 	}
 
 	public function login($username, $password)
@@ -330,33 +330,7 @@ class API
 
 		$responseJSON = json_decode($response);
 
-		$errorText = false;
-		if ($responseJSON->status !== "ok") {
-			switch ($responseJSON->errorCode) {
-				case "banned":
-				case "is":
-					$errorText = "Invalid Session";
-				case "pnfod":
-					$errorText = "Post not found";
-				case "cnfod":
-					$errorText = "Comment not found";
-				default:
-					$errorText = "Failed to vote";
-			}
-		}
-
-		if (!$errorText) {
-			return [
-				"action" => $responseJSON->action,
-				"upvotes" => $responseJSON->upvotes,
-				"downvotes" => $responseJSON->downvotes
-			];
-		} else {
-			return [
-				"error" => $responseJSON->error,
-				"errorText" => $errorText
-			];
-		}
+		return $responseJSON ?? false;
 	}
 
 	public function followUser($username)
@@ -371,27 +345,6 @@ class API
 
 		$responseJSON = json_decode($response);
 
-		$errorText = false;
-		if ($responseJSON->status !== "ok") {
-			switch ($responseJSON->errorCode) {
-				case "unf":
-					$errorText = "User not found";
-				case "banned":
-				case "is":
-					$errorText = "Invalid Session";
-				default:
-					$errorText = "Failed to follow user";
-			}
-		}
-		if (!$errorText) {
-			return [
-				"action" => $responseJSON->action,
-			];
-		} else {
-			return [
-				"error" => $responseJSON->error,
-				"errorText" => $errorText
-			];
-		}
+		return $responseJSON ?? false;
 	}
 }
