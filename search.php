@@ -16,14 +16,13 @@ $api = new STiBaRC\API($apiTarget, true);
 
 $error = false;
 $search_query = false;
+$searchData = false;
 if (!empty($_GET["q"]))
 	$search_query = $_GET["q"];
 if ($search_query) {
 	$searchData = $api->search($search_query);
 	if (!empty($searchData->error))
 		$error = $searchData->error . ', Error code: ' . $searchData->errorCode;
-	if (!empty($searchData->user))
-		$searchData = $searchData->user;
 }
 ?>
 <!DOCTYPE html>

@@ -330,6 +330,10 @@ class API
 
 		$responseJSON = json_decode($response);
 
+		if ($responseJSON->status !== "ok") {
+			echo $this->debug ? "Failed to fetch posts: " . $response : "";
+		}
+
 		return $responseJSON ?? false;
 	}
 
@@ -344,6 +348,10 @@ class API
 		$response = $this->request($this->host . "/v4/followuser.sjs", "POST", $body);
 
 		$responseJSON = json_decode($response);
+
+		if ($responseJSON->status !== "ok") {
+			echo $this->debug ? "Failed to fetch posts: " . $response : "";
+		}
 
 		return $responseJSON ?? false;
 	}
