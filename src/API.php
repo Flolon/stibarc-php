@@ -179,7 +179,7 @@ class API
 		if ($responseJSON->status !== "ok") {
 			echo $this->debug ? "Failed to fetch user: " . $response : "";
 		}
-		return $responseJSON->user ?? false;
+		return $responseJSON ?? false;
 	}
 
 	public function search($query)
@@ -195,7 +195,7 @@ class API
 		if ($responseJSON->status !== "ok") {
 			echo $this->debug ? "Failed to fetch search results: " . $response : "";
 		}
-		return $responseJSON->results ?? false;
+		return $responseJSON ?? false;
 	}
 
 	public function login($username, $password)
