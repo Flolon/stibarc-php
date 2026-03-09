@@ -14,10 +14,17 @@ use STiBaRC\STiBaRC;
 
 $api = new STiBaRC\API($apiTarget, true);
 
+$error = false;
 $username = false;
 if (!empty($_GET["username"]))
 	$username = $_GET["username"];
-
+if ($username) {
+	$userData = $api->getUser($username);
+	if (!empty($userData->error))
+		$error = $userData->error . ', Error code: ' . $userData->errorCode;
+	if (!empty($userData->user))
+		$userData = $userData->user;
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -50,11 +57,7 @@ if (!empty($_GET["username"]))
 	$nav = new STiBaRC\Nav();
 	echo $nav->nav();
 
-	if ($username) {
-		$userData = $api->getUser($username);
-	}
-
-	if ($username && $userData) {
+	if (!$error && $username && $userData) {
 		$userBlockObj = new STiBaRC\UserBlock($userData);
 		echo $userBlockObj->user();
 
@@ -70,9 +73,14 @@ if (!empty($_GET["username"]))
 		}
 	} else {
 		echo '<h1 style="margin-bottom: 0;">User not found</h1>';
-		if (!$username)
+		if (!$username) {
 			echo '<p>No username provided.</p>';
-		echo '<div style="margin-bottom: 12px"><a class="button primary" href="./">Home</a></div>';
+		} else {
+			echo '<p>User <i>' . htmlspecialchars($username) . '</i> not found</p>';
+		}
+		if ($error)
+			echo '<div class="errorBlock">' . $error . '</div>';
+		echo '<div style="margin: 12px 0;"><a class="button primary" href="./">Home</a></div>';
 		echo '<img style="display: block;max-width: 100%;" src="./img/jimbomournsyourmisfortune.png" height="150px" alt="jimbomournsyourmisfortune.png" title="jimbomournsyourmisfortune.png"">';
 	}
 

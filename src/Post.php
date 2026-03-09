@@ -23,18 +23,20 @@ class Post
 		$postHTML = '
 		<div class="postBlock">
 			<h1 class="title">' . htmlspecialchars($this->post->title) . '</h1>
-			<a class="userlink" href="user.php?username=' . htmlspecialchars($poster->username) . '" 
-			title="' . htmlspecialchars($poster->username) . '">
-				<img class="pfp" width="30px" height="30px" src="' . $poster->pfp . '">
-				<span class="username">' . htmlspecialchars($poster->username) . '</span>
-				' . ($poster->verified ? '<span class="verified" title="Verified user">
-				<img class="icon" src="./img/icon/verified.png" height="14px" alt="Verified"></span>' : '') . '
-			</a>
-			<span class="pronouns" title="Pronouns">
-				' . ($poster->displayPronouns && $poster->pronouns ? '(' . htmlspecialchars($poster->pronouns) . ')' : "") . '
-			</span>
+			<div>
+				<a class="userlink" href="user.php?username=' . htmlspecialchars($poster->username) . '" 
+				title="' . htmlspecialchars($poster->username) . '">
+					<img class="pfp" width="30px" height="30px" src="' . $poster->pfp . '">
+					<span class="username">' . htmlspecialchars($poster->username) . '</span>
+					' . ($poster->verified ? '<span class="verified" title="Verified user">
+					<img class="icon" src="./img/icon/verified.png" height="14px" alt="Verified"></span>' : '') . '
+				</a>
+				<span class="pronouns" title="Pronouns">
+					' . ($poster->displayPronouns && $poster->pronouns ? '(' . htmlspecialchars($poster->pronouns) . ')' : "") . '
+				</span>
+			</div>
 			<div class="date" title="' . $this->post->date . '">
-				' . date("m/d/y, g:i A", $date) . '
+					' . date("m/d/y, g:i A", $date) . '
 			</div>'
 			. ($this->post->edited ? '<span class="badge" title="Edited Post"><i>Edited</i></span>' : "") . '
 			<hr>

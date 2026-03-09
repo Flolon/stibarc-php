@@ -14,6 +14,11 @@ use STiBaRC\STiBaRC;
 
 $api = new STiBaRC\API($apiTarget, true);
 
+$error = false;
+$action = false;
+if (!empty($_GET["action"]))
+	$action = $_GET["action"];
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -50,23 +55,49 @@ $api = new STiBaRC\API($apiTarget, true);
 		header('Location: ./login.php');
 	}
 
-	if ($_GET["action"] == "vote") {
+	if ($action && $action == "vote") {
+		$id = false;
 		$commentId = false;
+		$target = false;
+		$voteData = false;
+		if (!empty($_GET["id"]))
+			$id = $_GET["id"];
 		if (!empty($_GET["commentId"]))
 			$commentId = $_GET["commentId"];
+		if (!empty($_GET["target"]))
+			$target = $_GET["target"];
+		if (!empty($_GET["vote"]))
+			$vote = $_GET["vote"];
 
-		$vote = $api->vote($_GET["id"], $_GET["target"], $_GET["vote"], $commentId);
+		$voteData = $api->vote($id, $target, $vote, $commentId);
 
-		if (!empty($vote['error']) && !empty($vote['errorText'])) {
-			$error = $vote['errorText'] . ' : ' . $vote['error'];
-			echo '<div class="errorBlock">' . $error . '</div>';
+		if (!empty($voteData->error)) {
+			$error = $voteData->error . ', Error code: ' . $voteData->errorCode;
 		} else {
 			if ($commentId)
-				header('Location: ./post.php?id=' . $_GET["id"] . '#comment-' . $commentId);
+				header('Location: ./post.php?id=' . $id . '#comment-' . $commentId);
 			else
-				header('Location: ./post.php?id=' . $_GET["id"]);
+				header('Location: ./post.php?id=' . $id);
 		}
 	}
+
+	if ($action && $action == "follow") {
+		$username = false;
+		$followData = false;
+		if (!empty($_GET["username"]))
+			$username = $_GET["username"];
+
+		$followData = $api->followUser($username);
+
+		if (!empty($followData->error)) {
+			$error = $followData->error . ', Error code: ' . $followData->errorCode;
+		} else {
+			header('Location: ./user.php?username=' . $username);
+		}
+	}
+
+	if ($error)
+		echo '<div class="errorBlock">' . $error . '</div>';
 
 	?>
 

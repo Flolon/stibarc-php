@@ -14,10 +14,16 @@ use STiBaRC\STiBaRC;
 
 $api = new STiBaRC\API($apiTarget, true);
 
+$error = false;
 $search_query = false;
+$searchData = false;
 if (!empty($_GET["q"]))
 	$search_query = $_GET["q"];
-
+if ($search_query) {
+	$searchData = $api->search($search_query);
+	if (!empty($searchData->error))
+		$error = $searchData->error . ', Error code: ' . $searchData->errorCode;
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -50,12 +56,8 @@ if (!empty($_GET["q"]))
 	$nav = new STiBaRC\Nav($search_query);
 	echo $nav->nav();
 
-	if ($search_query) {
-		$searchData = $api->search($search_query);
-	}
+	if (!$error && $search_query && $searchData) {
 
-	if ($search_query && $searchData) {
-		
 		$resultCount =  count($searchData->users) + count($searchData->posts) ?? 0;
 
 		echo '<h1 style="margin-bottom: 0;">' . htmlspecialchars($search_query) . '</h1>';
@@ -82,6 +84,8 @@ if (!empty($_GET["q"]))
 		echo '<h1 style="margin-bottom: 0;">No results</h1>';
 		if (!$search_query)
 			echo '<p style="margin-top: 12px;">Search query empty. Try typing something in the search bar first.</p>';
+		if ($error)
+			echo '<div class="errorBlock">' . $error . '</div>';
 		echo '<div style="margin-bottom: 12px"><a class="button primary" href="./">Home</a></div>';
 		echo '<img style="display: block;max-width: 100%;" src="./img/jimbomournsyourmisfortune.png" height="150px" alt="jimbomournsyourmisfortune.png" title="jimbomournsyourmisfortune.png"">';
 	}

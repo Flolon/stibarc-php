@@ -18,8 +18,8 @@ $postId = false;
 if (!empty($_GET["id"]))
 	$postId = $_GET["id"];
 
-$postData = false;
 $error = false;
+$postData = false;
 $title = false;
 $username = false;
 $pfp = false;
@@ -97,13 +97,21 @@ if ($postData && !$error) {
 
 		if ($postData->comments) {
 			echo '<h2>' . count($postData->comments) . ' Comment' . ((count($postData->comments) == 1) ? '' : 's') . '</h2>';
-
+		} else {
+			echo '<h2>No Comments</h2>';
+		}
+		if (!empty($_SESSION['sess'])) {
+	?>
+			<form id="newCommnet">
+				<textarea ></textarea>
+			</form>
+	<?php
+		}
+		if ($postData->comments) {
 			foreach ($postData->comments as $comment) {
 				$commentObj = new STiBaRC\Comment($comment, $postData->id);
 				echo $commentObj->comment();
 			}
-		} else {
-			echo '<h2>No Comments</h2>';
 		}
 	} else {
 		echo '<h1 style="margin-bottom: 0;">Post not found</h1>';
