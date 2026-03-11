@@ -46,6 +46,20 @@ if ($postData && !$error) {
 	if (strlen($postData->content) > $maxCharLength)
 		$contentPreview = htmlspecialchars(substr($postData->content, 0, ($maxCharLength - 3)) . '...');
 }
+
+$postCommentError = false;
+$comment = false;
+if ($postId && !empty($_SESSION["sess"]) && !empty($_POST["comment"]))
+	$comment = $_POST["comment"];
+
+if ($comment) {
+	$postComment = $api->postComment($postId, $comment);
+	if (!empty($postComment->error))
+		$postCommentError = $postComment->error . ', Error code: ' . $postComment->errorCode;
+	if ($postComment->status == "ok")
+		header('Location: ./post.php?id=' . $postId . "#comments");
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -96,10 +110,13 @@ if ($postData && !$error) {
 		echo $postObj->post();
 
 		if ($postData->comments) {
-			echo '<h2 style="margin-bottom: 8px;">' . count($postData->comments) . ' Comment' . ((count($postData->comments) == 1) ? '' : 's') . '</h2><hr class="light" />';
+			echo '<h2 style="margin-bottom: 8px; id="comments"">' . count($postData->comments) . ' Comment' . ((count($postData->comments) == 1) ? '' : 's') . '</h2><hr class="light" />';
 		} else {
-			echo '<h2>0 Comments</h2><hr class="light" />';
+			echo '<h2 id="comments">0 Comments</h2><hr class="light" />';
 		}
+
+		if (!empty($postCommentError))
+			echo '<div class="errorBlock">' . $postCommentError . '</div>';
 
 		if (!empty($_SESSION["sess"])) {
 			echo '<form id="newComment" method="POST">

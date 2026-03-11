@@ -355,4 +355,28 @@ class API
 
 		return $responseJSON ?? false;
 	}
+
+	public function postComment($postId, $content = false, $attachments = false)
+	{
+
+		$body = [
+			"session" => $this->session,
+			"id" => $postId
+		];
+
+		if ($content)
+			$body["content"] = $content;
+		if ($attachments)
+			$body["attachments"] = $attachments;
+
+		$response = $this->request($this->host . "/v4/postcomment.sjs", "POST", $body);
+
+		$responseJSON = json_decode($response);
+
+		if ($responseJSON->status !== "ok") {
+			echo $this->debug ? "Failed to post comment: " . $response : "";
+		}
+
+		return $responseJSON ?? false;
+	}
 }
