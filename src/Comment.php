@@ -7,11 +7,13 @@ class Comment
 
 	private $comment;
 	private $postId;
+	private $loggedIn;
 
-	public function __construct($commentData, $postId)
+	public function __construct($commentData, $postId, $loggedIn = false)
 	{
 		$this->comment = $commentData;
 		$this->postId = $postId;
+		$this->loggedIn = $loggedIn;
 	}
 
 	public function comment()
@@ -46,15 +48,24 @@ class Comment
 
 		$commentHTML .= '
 			<hr>
-			<div class="meta">
-				<a class="upvote" title="Upvotes" href="./do.php?id=' . $this->postId . '&action=vote&target=comment&commentId=' . $this->comment->id . '&vote=upvote"><img class="icon" src="./img/icon/up_arrow.png" height="14px">'
+			<span class="meta">
+				<a class="upvote" title="Upvotes" href="./do.php?id=' . $this->postId . '&action=vote&target=comment&commentId=' . $this->comment->id . '&vote=upvote">
+				<img class="icon" src="./img/icon/up_arrow.png" height="14px" alt="Upvotes">'
 			. $this->comment->upvotes . '</a>
-				<a class="downvote" title="Downvotes" href="./do.php?id=' . $this->postId . '&action=vote&target=comment&commentId=' . $this->comment->id . '&vote=downvote"><img class="icon" src="./img/icon/down_arrow.png" height="14px">'
+				<a class="downvote" title="Downvotes" href="./do.php?id=' . $this->postId . '&action=vote&target=comment&commentId=' . $this->comment->id . '&vote=downvote">
+				<img class="icon" src="./img/icon/down_arrow.png" height="14px" alt="Downvotes">'
 			. $this->comment->downvotes . '</a>
 				' . ($this->comment->attachments ?
-				'<span class="attachments" title="Attachemnts"><img class="icon" src="./img/icon/attachment.png" height="14px">'
+				'<span class="attachments" title="Attachemnts"><img class="icon" src="./img/icon/attachment.png" height="20px" alt="Attachments">'
 				. count($this->comment->attachments) . '</span>' : '') . '
-			</div>
+			</span>
+			<span class="options">' .
+			(($this->loggedIn == $poster->username) ? '<a href="edit.php?id=' . $this->postId . '&commentId=' . $this->comment->id . '
+			" title="Edit Comment"><img class="icon" src="./img/icon/edit.png" height="20px" alt="Edit"></a>' : '')
+			. '
+			<a href="./post.php?id=' . $this->postId . '#comment-' . $this->comment->id . '" title="Link to comment">
+				<img class="icon" src="./img/icon/link.png" height="20px" alt="Link"></a>
+			</span>
 		</div>';
 
 		return $commentHTML;

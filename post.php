@@ -110,7 +110,7 @@ if ($comment) {
 		echo $postObj->post();
 
 		if ($postData->comments) {
-			echo '<h2 style="margin-bottom: 8px; id="comments"">' . count($postData->comments) . ' Comment' . ((count($postData->comments) == 1) ? '' : 's') . '</h2><hr class="light" />';
+			echo '<h2 style="margin-bottom: 8px;" id="comments">' . count($postData->comments) . ' Comment' . ((count($postData->comments) == 1) ? '' : 's') . '</h2><hr class="light" />';
 		} else {
 			echo '<h2 id="comments">0 Comments</h2><hr class="light" />';
 		}
@@ -132,7 +132,7 @@ if ($comment) {
 
 		if ($postData->comments) {
 			foreach ($postData->comments as $comment) {
-				$commentObj = new STiBaRC\Comment($comment, $postData->id);
+				$commentObj = new STiBaRC\Comment($comment, $postData->id, $_SESSION["username"] ?? false);
 				echo $commentObj->comment();
 			}
 		}

@@ -294,6 +294,14 @@ form .row input {
 	margin-bottom: 8px;
 }
 
+.commentBlock .options {
+	float: right;
+}
+
+.commentBlock .options .icon {
+	vertical-align: middle;
+}
+
 .userBlock .right {
 	padding: 6px 8px;
 	margin: 8px 0;

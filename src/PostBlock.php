@@ -71,7 +71,7 @@ class PostBlock
 				<span class="comments" title="Comments"><img class="icon" src="./img/icon/comment.png" height="14px" alt="Comments">'
 			. $this->post->comments . '</span>
 				' . ($this->post->attachments ?
-				'<span class="attachments" title="Attachemnts"><span class="icon">&#128206;</span>'
+				'<span class="attachments" title="Attachemnts"><img class="icon" src="./img/icon/attachment.png" height="20px" alt="Attachments">'
 				. count($this->post->attachments) . '</span>' : '')
 			. ($this->post->private ? '<img class="icon" src="./img/icon/lock.png" height="14px" alt="Private Post" title="Private Post">' : "") . '
 			</div>

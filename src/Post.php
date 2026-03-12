@@ -54,12 +54,14 @@ class Post
 		$postHTML .= '
 		<hr>
 			<div class="meta">
-				<a class="upvote" title="Upvotes" href="./do.php?id=' . $this->post->id . '&action=vote&target=post&vote=upvote"><img class="icon" src="./img/icon/up_arrow.png" height="14px" alt="Upvotes">'
+				<a class="upvote" title="Upvotes" href="./do.php?id=' . $this->post->id . '&action=vote&target=post&vote=upvote">
+				<img class="icon" src="./img/icon/up_arrow.png" height="14px" alt="Upvotes">'
 			. $this->post->upvotes . '</a>
-				<a class="downvote" title="Downvotes" href="./do.php?id=' . $this->post->id . '&action=vote&target=post&vote=downvote"><img class="icon" src="./img/icon/down_arrow.png" height="14px" alt="Downvotes">'
+				<a class="downvote" title="Downvotes" href="./do.php?id=' . $this->post->id . '&action=vote&target=post&vote=downvote">
+				<img class="icon" src="./img/icon/down_arrow.png" height="14px" alt="Downvotes">'
 			. $this->post->downvotes . '</a>
 				' . ($this->post->attachments ?
-				'<span class="attachments" title="Attachemnts"><span class="icon">&#128206;</span>'
+				'<span class="attachments" title="Attachemnts"><img class="icon" src="./img/icon/attachment.png" height="20px" alt="Attachments">'
 				. count($this->post->attachments) . '</span>' : '')
 			. ($this->post->private ? '<img class="icon" src="./img/icon/lock.png" height="14px" alt="Private Post" title="Private Post">' : "") . '
 			</div>
