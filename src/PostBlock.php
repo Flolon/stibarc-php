@@ -47,10 +47,10 @@ class PostBlock
 					' . ($poster->displayPronouns && $poster->pronouns ? '(' . htmlspecialchars($poster->pronouns) . ')' : "") . '
 				</span>
 			</div>
-			<div class="date" title="' . $this->post->date . '">
+			<span class="date" title="' . $this->post->date . '">
 				' . date("m/d/y, g:i A", $date) . '
-			</div>'
-			. ($this->post->edited ? '<span class="badge" title="Edited Post"><i>Edited</i></span>' : "") . '
+			</span>'
+			. ($this->post->edited ? '<div><span class="badge" title="Edited Post"><i>Edited</i></span></div>' : "") . '
 			<hr>
 			<div class="content">' . htmlspecialchars($contentPreview) . '</div>
 			';

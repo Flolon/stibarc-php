@@ -367,6 +367,7 @@ form .row input {
 	background-color: #d8d8d8;
 	padding: 1px 5px;
 	border-radius: 4px;
+	font-size: 90%;
 }
 
 .followCounts span {

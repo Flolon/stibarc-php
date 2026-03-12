@@ -6,6 +6,6 @@ $url =  "https://{$_SERVER['HTTP_HOST']}{$_SERVER['REQUEST_URI']}";
     Config
 */
 // API to use
-$apiTarget = "production";
+$apiTarget = "development";
 // show attachments in post previews
 $showAttachments = true;

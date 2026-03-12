@@ -37,7 +37,8 @@ class Comment
 			</div>
 			<span class="date" title="' . $this->comment->date . '">
 				' . date("m/d/y, g:i A", $date) . '
-			</span>
+			</span>' 
+			. ($this->comment->edited ? '<div><span class="badge" title="Edited Comment"><i>Edited</i></span></div>' : "") . '
 			<hr>
 			<div class="content">' . htmlspecialchars($this->comment->content) . '</div>';
 
