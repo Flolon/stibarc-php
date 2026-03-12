@@ -349,6 +349,7 @@ form .row input {
 }
 
 .date {
+	display: inline-block;
 	margin-bottom: 3px;
 }
 
