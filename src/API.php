@@ -379,4 +379,28 @@ class API
 
 		return $responseJSON ?? false;
 	}
+
+	public function newPost($title, $content = false, $attachments = false)
+	{
+
+		$body = [
+			"session" => $this->session,
+			"title" => $title
+		];
+
+		if ($content)
+			$body["content"] = $content;
+		if ($attachments)
+			$body["attachments"] = $attachments;
+
+		$response = $this->request($this->host . "/v4/newpost.sjs", "POST", $body);
+
+		$responseJSON = json_decode($response);
+
+		if ($responseJSON->status !== "ok") {
+			echo $this->debug ? "Failed to createpost: " . $response : "";
+		}
+
+		return $responseJSON ?? false;
+	}
 }

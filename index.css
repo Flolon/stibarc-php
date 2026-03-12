@@ -112,6 +112,7 @@ input,
 	border-radius: 5px;
 	border: 1px solid #d7d7d7;
 	background-color: #ffffff;
+	max-width: 100%;
 }
 
 input:focus,
@@ -446,4 +447,17 @@ form .row input {
 
 #newComment .button.right {
 	margin: 8px 0 24px 0;
+}
+
+.postForm label {
+	display: block;
+	margin: 6px 0;
+}
+
+.postForm .input {
+	width: 100%;
+}
+
+.postForm .button {
+	margin: 12px 0;
 }

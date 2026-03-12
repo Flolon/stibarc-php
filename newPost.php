@@ -1,0 +1,102 @@
+<?php
+ini_set('display_errors', '1');
+ini_set('display_startup_errors', '1');
+error_reporting(E_ALL);
+
+require('global.inc.php');
+require('src/API.php');
+require('src/Nav.php');
+require('src/Footer.php');
+require('src/User.php');
+require('src/PostBlock.php');
+
+use STiBaRC\STiBaRC;
+
+$api = new STiBaRC\API($apiTarget, true);
+
+$error = false;
+
+if (empty($_SESSION['sess'])) {
+	header('Location: ./login.php');
+}
+
+$postError = false;
+$title = false;
+$content = false;
+if(!empty($_POST["title"]))
+	$title = $_POST["title"];
+if(!empty($_POST["content"]))
+	$content = $_POST["content"];
+
+if ($title) {
+	$post = $api->newPost($title, $content);
+	if (!empty($post->error))
+		$postError = $post->error . ', Error code: ' . $post->errorCode;
+	if ($post->status == "ok")
+		header('Location: ./post.php?id=' . $post->id .'');
+}
+
+?>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<title>New Post | STiBaRC</title>
+	<link rel="icon" type="image/png" href="/img/icon.png">
+	<!-- Open Graph -->
+	<meta property="og:title" content="New Post | STiBaRC" />
+	<meta property="og:description" content="STiBaRC PHP Client" />
+	<meta property="og:type" content="website" />
+	<meta property="og:url" content="<?= htmlspecialchars($url, ENT_QUOTES, 'UTF-8') ?>" />
+	<meta property="og:site_name" content="STiBaRC">
+	<meta property="og:logo" content="https://stibarc.sopaws.com/img/icon.png">
+	<meta name="theme-color" content="#3ea1b1" />
+	<meta name="application-name" content="STiBaRC">
+	<meta name="twitter:site" content="STiBaRC" />
+	<meta name="twitter:title" content="STiBaRC" />
+	<meta name="twitter:description" content="STiBaRC PHP Client" />
+	<meta name="twitter:card" content="summary" />
+	<link rel="stylesheet" href="./index.css">
+</head>
+
+<body>
+
+	<?php
+	$nav = new STiBaRC\Nav();
+	echo $nav->nav();
+	?>
+
+	<h2 style="margin-bottom: 8px;">New Post</h2>
+	<p>Posting as:
+		<span class="userLink">
+			<img class="pfp" width="30px" height="30px" src="<?= $_SESSION["pfp"] ?>">
+			<span class="username"><?= htmlspecialchars($_SESSION["username"]) ?></span>
+		</span>
+	</p>
+	<?= ($error) ? '<div class="errorBlock">' . $error . '</div>' : '' ?>
+	<?= ($postError) ? '<div class="errorBlock">' . $postError . '</div>' : '' ?>
+	<form class="postForm" method="POST">
+		<div>
+			<label for="title">Title:</label>
+			<input id="title" name="title" type="text" class="input" autocomplete="off" autofocus>
+		</div>
+		<div>
+			<label for="content">Content:</label>
+			<textarea id="content" name="content" class="input" autocomplete="off" rows="5"></textarea>
+		</div>
+		<div>
+			<button type="submit" class="button primary">Post</button>
+		</div>
+	</form>
+
+	<?php
+	$footer = new STiBaRC\Footer();
+	echo $footer->footer();
+	?>
+
+</body>
+
+</html>
