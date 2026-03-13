@@ -12,7 +12,6 @@ use STiBaRC\STiBaRC;
 
 $api = new STiBaRC\API($apiTarget, true);
 
-$error = false;
 
 if (!empty($_POST['fragment'])) {
 
@@ -25,7 +24,8 @@ if (!empty($_POST['fragment'])) {
 	$loginResponse = $api->getPrivateData();
 
 	if ($loginResponse['error'] && $loginResponse['errorText']) {
-		$error = $loginResponse['errorText'] . ' : ' . $loginResponse['error'];
+		echo $loginResponse['errorText'] . ' : ' . $loginResponse['error'];
+		echo '<div><a href="./">Home</a></div>';
 	} else {
 		header('Location: ./');
 	}

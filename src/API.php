@@ -283,6 +283,7 @@ class API
 			switch ($responseJSON->errorCode) {
 				case "is":
 					$errorText = "Invalid Session";
+					$this->clearSess();
 				default:
 					$errorText = "Failed to login";
 			}
