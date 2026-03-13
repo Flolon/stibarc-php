@@ -295,11 +295,11 @@ form .row input {
 	margin-bottom: 8px;
 }
 
-.commentBlock .options {
+.options {
 	float: right;
 }
 
-.commentBlock .options .icon {
+.options .icon {
 	vertical-align: middle;
 }
 

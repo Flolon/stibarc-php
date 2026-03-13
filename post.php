@@ -106,7 +106,8 @@ if ($comment) {
 	echo $nav->nav();
 
 	if ($postData && !$error) {
-		$postObj = new STiBaRC\Post($postData);
+		$loggedIn = $_SESSION["username"] ?? false;
+		$postObj = new STiBaRC\Post($postData, $loggedIn);
 		echo $postObj->post();
 
 		if ($postData->comments) {
@@ -119,12 +120,14 @@ if ($comment) {
 			echo '<div class="errorBlock">' . $postCommentError . '</div>';
 
 		if (!empty($_SESSION["sess"])) {
-			echo '<form id="newComment" method="POST">
+			echo '<form class="postForm" id="newComment" method="POST" enctype="multipart/form-data">
 				<label for="comment">
 					<h3>New comment:</h3>
 				</label>
-				<textarea class="input" id="comment" name="comment"></textarea>
-				<button class="button primary" type="submit">Comment</button>
+				<textarea class="input" id="comment" name="comment"></textarea>	
+				<label for="attachments">Add attachments</label>
+				<input type="file" id="attachments" name="attachments" accept="image/*,audio/*,video/" multiple />
+				<div><button class="button primary" type="submit">Comment</button></div>
 			</form>';
 		} else {
 			echo '<div style="margin-top: 12px;">';
@@ -132,14 +135,13 @@ if ($comment) {
 
 		if ($postData->comments) {
 			foreach ($postData->comments as $comment) {
-				$commentObj = new STiBaRC\Comment($comment, $postData->id, $_SESSION["username"] ?? false);
+				$commentObj = new STiBaRC\Comment($comment, $loggedIn);
 				echo $commentObj->comment();
 			}
 		}
 
-		if(empty($_SESSION["sess"]))
+		if (empty($_SESSION["sess"]))
 			echo '</div>';
-
 	} else {
 		echo '<h1 style="margin-bottom: 0;">Post not found</h1>';
 		if (!$postId)
