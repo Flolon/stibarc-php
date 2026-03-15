@@ -24,7 +24,7 @@ class Comment
 		$commentHTML = '
 		<div class="commentBlock" id="comment-' . $this->comment->id . '">
 			<div>
-				<a class="userlink" href="user.php?username=' . htmlspecialchars($poster->username) . '" 
+				<a class="userLink" href="user.php?username=' . htmlspecialchars($poster->username) . '" 
 				title="' . htmlspecialchars($poster->username) . '">
 					<img class="pfp" width="30px" src="' . $poster->pfp . '">
 					<span class="username">' . htmlspecialchars($poster->username) . '</span>

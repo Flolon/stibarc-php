@@ -404,4 +404,37 @@ class API
 
 		return $responseJSON ?? false;
 	}
+
+	public function edit($postId, $target, $title, $commentId = false, $content = false, $attachments = false, $deleted = false, $privatePost = false)
+	{
+
+		$body = [
+			"session" => $this->session,
+			"id" => $postId,
+			"target" => $target,
+			"title" => $title,
+		];
+
+		if ($commentId)
+			$body["commentId"] = $commentId;
+		if ($content)
+			$body["content"] = $content;
+		if ($attachments)
+			$body["attachments"] = $attachments;
+		if ($deleted)
+			$body["deleted"] = $deleted;
+		if ($privatePost)
+			$body["private"] = $privatePost;
+
+		$response = $this->request($this->host . "/v4/edit.sjs", "POST", $body);
+
+		$responseJSON = json_decode($response);
+
+		if ($responseJSON->status !== "ok") {
+			echo $this->debug ? "Failed to edit: " . $response : "";
+		}
+
+		return $responseJSON ?? false;
+	}
+	
 }

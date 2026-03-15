@@ -36,7 +36,7 @@ class PostBlock
 				<a class="title" href="post.php?id=' . $this->post->id . '" title="'
 				. htmlspecialchars($this->post->title) . '">'
 				. htmlspecialchars($title) . '</a></div>
-				<div><a class="userlink" href="user.php?username=' . htmlspecialchars($poster->username) . '" 
+				<div><a class="userLink" href="user.php?username=' . htmlspecialchars($poster->username) . '" 
 				title="' . htmlspecialchars($poster->username) . '">
 					<img class="pfp" width="30px" height="30px" src="' . $poster->pfp . '">
 					<span class="username">' . htmlspecialchars($poster->username) . '</span>

@@ -333,7 +333,7 @@ form .row input {
 }
 
 
-.userlink {
+.userLink {
 	display: inline-block;
 	margin: 5px 0;
 }
@@ -352,6 +352,7 @@ form .row input {
 .date {
 	display: inline-block;
 	margin-bottom: 3px;
+	color: #202020;
 }
 
 .meta {

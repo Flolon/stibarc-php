@@ -32,7 +32,7 @@ class UserBlock
 
 		$userHTML = '
 		<div class="userBlock">
-			<div class="userlink" title="' . htmlspecialchars($username) . '">
+			<div class="userLink" title="' . htmlspecialchars($username) . '">
 				<a href="' . $user->pfp . '" target="_blank"><img class="pfp" width="50px" height="50px" src="' . $user->pfp . '"></a>
 				<span class="username">' . htmlspecialchars($username) . '</span>
 				' . ($user->verified ? '<span class="verified" title="Verified user">
@@ -71,7 +71,7 @@ class UserBlock
 		$userHTML = '
 			<div class="userBlock">
 				<div>
-					<a class="userlink" href="./user.php?username=' . htmlspecialchars($user->username) . '">
+					<a class="userLink" href="./user.php?username=' . htmlspecialchars($user->username) . '">
 						<img class="pfp" width="50px" src="' . $user->pfp . '">
 						<span class="username">' . htmlspecialchars($user->username) . '</span>
 						' . ($user->verified ? '<span class="verified" title="Verified user">

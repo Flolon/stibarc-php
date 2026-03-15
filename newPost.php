@@ -23,9 +23,9 @@ if (empty($_SESSION['sess'])) {
 $postError = false;
 $title = false;
 $content = false;
-if(!empty($_POST["title"]))
+if (!empty($_POST["title"]))
 	$title = $_POST["title"];
-if(!empty($_POST["content"]))
+if (!empty($_POST["content"]))
 	$content = $_POST["content"];
 
 if ($title) {
@@ -33,7 +33,7 @@ if ($title) {
 	if (!empty($post->error))
 		$postError = $post->error . ', Error code: ' . $post->errorCode;
 	if ($post->status == "ok")
-		header('Location: ./post.php?id=' . $post->id .'');
+		header('Location: ./post.php?id=' . $post->id . '');
 }
 
 ?>
@@ -70,12 +70,11 @@ if ($title) {
 	?>
 
 	<h2 style="margin-bottom: 8px;">New Post</h2>
-	<p>Posting as:
-		<span class="userLink">
-			<img class="pfp" width="30px" height="30px" src="<?= $_SESSION["pfp"] ?>">
-			<span class="username"><?= htmlspecialchars($_SESSION["username"]) ?></span>
-		</span>
-	</p>
+	<div>Posting as:</div>
+	<div class="userLink" title="<?= htmlspecialchars($_SESSION["username"]) ?>">
+		<img class="pfp" width="30px" height="30px" src="<?= $_SESSION["pfp"] ?>">
+		<span class="username"><?= htmlspecialchars($_SESSION["username"]) ?></span>
+	</div>
 	<?= ($error) ? '<div class="errorBlock">' . $error . '</div>' : '' ?>
 	<?= ($postError) ? '<div class="errorBlock">' . $postError . '</div>' : '' ?>
 	<form class="postForm" method="POST">

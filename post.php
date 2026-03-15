@@ -49,11 +49,13 @@ if ($postData && !$error) {
 
 $postCommentError = false;
 $comment = false;
-if ($postId && !empty($_SESSION["sess"]) && !empty($_POST["comment"]))
+$attachments = false;
+if (!empty($_POST["comment"]))
 	$comment = $_POST["comment"];
-
-if ($comment) {
-	$postComment = $api->postComment($postId, $comment);
+if (!empty($_FILES["attachments"]["tmp_name"]))
+	$attachments = array("https://flolon.cc/assets/images/purple-profile.png");
+if ($postId && !empty($_SESSION["sess"]) && $comment || $attachments) {
+	$postComment = $api->postComment($postId, content:$comment, attachments:$attachments);
 	if (!empty($postComment->error))
 		$postCommentError = $postComment->error . ', Error code: ' . $postComment->errorCode;
 	if ($postComment->status == "ok")

@@ -26,7 +26,7 @@ class Post
 		<div class="postBlock">
 			<h1 class="title">' . htmlspecialchars($this->post->title) . '</h1>
 			<div>
-				<a class="userlink" href="user.php?username=' . htmlspecialchars($poster->username) . '" 
+				<a class="userLink" href="user.php?username=' . htmlspecialchars($poster->username) . '" 
 				title="' . htmlspecialchars($poster->username) . '">
 					<img class="pfp" width="30px" height="30px" src="' . $poster->pfp . '">
 					<span class="username">' . htmlspecialchars($poster->username) . '</span>
