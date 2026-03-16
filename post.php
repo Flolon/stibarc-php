@@ -137,7 +137,7 @@ if ($postId && !empty($_SESSION["sess"]) && $comment || $attachments) {
 
 		if ($postData->comments) {
 			foreach ($postData->comments as $comment) {
-				$commentObj = new STiBaRC\Comment($comment, $loggedIn);
+				$commentObj = new STiBaRC\Comment($comment, $postId, $loggedIn);
 				echo $commentObj->comment();
 			}
 		}

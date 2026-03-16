@@ -405,16 +405,17 @@ class API
 		return $responseJSON ?? false;
 	}
 
-	public function edit($postId, $target, $title, $commentId = false, $content = false, $attachments = false, $deleted = false, $privatePost = false)
+	public function edit($postId, $target, $title = false, $commentId = false, $content = false, $attachments = false, $deleted = false, $privatePost = false)
 	{
 
 		$body = [
 			"session" => $this->session,
 			"id" => $postId,
 			"target" => $target,
-			"title" => $title,
 		];
 
+		if ($title)
+			$body["title"] = $title;
 		if ($commentId)
 			$body["commentId"] = $commentId;
 		if ($content)
@@ -436,5 +437,4 @@ class API
 
 		return $responseJSON ?? false;
 	}
-	
 }

@@ -15,6 +15,7 @@ use STiBaRC\STiBaRC;
 $api = new STiBaRC\API($apiTarget, true);
 
 $error = false;
+$date = false;
 $title = false;
 $content = false;
 
@@ -24,15 +25,18 @@ if (empty($_SESSION['sess'])) {
 
 $postId = false;
 $target = "post";
+$commentId = false;
 // GET
 if (!empty($_GET["id"]))
 	$postId = $_GET["id"];
-if (!empty($_GET["target"]))
-	$target = $_GET["target"];
+if (!empty($_GET["commentId"])) {
+	$commentId = $_GET["commentId"];
+	$target = "comment";
+}
 // POST
 $newTitle = false;
 $newContent = false;
-$commentId = false;
+
 $newAttachments = false;
 $deleted = false;
 $privatePost = false;
@@ -40,21 +44,19 @@ if (!empty($_POST["title"]))
 	$newTitle = $_POST["title"];
 if (!empty($_POST["content"]))
 	$newContent = $_POST["content"];
-if (!empty($_POST["commentId"]))
-	$commentId = $_POST["commentId"];
 if (!empty($_POST["attachments"]))
 	$newAttachments = $_POST["attachments"];
-if(!empty($_POST["deleted"]))
+if (!empty($_POST["deleted"]))
 	$deleted = $_POST["deleted"];
 if (!empty($_POST["privatePost"]))
 	$privatePost = $_POST["privatePost"];
 
-if ($newTitle) {
+if ($_POST) {
 	$editPost = $api->edit($postId, $target, $newTitle, $commentId, $newContent, $newAttachments, $deleted, $privatePost);
 	if (!empty($editPost->error))
 		$error = $editPost->error . ', Error code: ' . $editPost->errorCode;
 	if ($editPost->status == "ok") {
-		header('Location: ./post.php?id=' . $postId . ($commentId) ? "#comment-" . $commentId : '');
+		header('Location: ./post.php?id=' . $postId . (($commentId) ? "#comment-" . $commentId : ''));
 	}
 }
 
@@ -65,9 +67,18 @@ if ($postId && $target) {
 	if (!empty($postData->error))
 		$postError = $postData->error . ', Error code: ' . $postData->errorCode;
 	if ($postData->status == "ok") {
-		$date = strtotime($postData->post->date);
-		$title = $postData->post->title;
-		$content = $postData->post->content;
+		if ($target == "post") {
+			$date = strtotime($postData->post->date);
+			$title = $postData->post->title;
+			$content = $postData->post->content;
+		} elseif ($target == "comment" && $commentId) {
+			$comments = $postData->post->comments;
+			$commentKeys = array_column($comments, "id");
+			$index = array_search($commentId, $commentKeys);
+			$comment = $comments[$index] ?? false;
+			$content = $comment->content;
+			$date = strtotime($comment->date);
+		}
 	}
 } else {
 	$error = "Post not found";
@@ -118,10 +129,12 @@ if ($postId && $target) {
 		</div>
 	<?php } ?>
 	<form class="postForm" method="POST">
-		<div>
-			<label for="title">Title:</label>
-			<input id="title" name="title" type="text" class="input" autocomplete="off" <?= ($title) ? 'value="' . htmlspecialchars($title) . '"' : '' ?>>
-		</div>
+		<?php if ($target == "post") { ?>
+			<div>
+				<label for="title">Title:</label>
+				<input id="title" name="title" type="text" class="input" autocomplete="off" <?= ($title) ? 'value="' . htmlspecialchars($title) . '"' : '' ?>>
+			</div>
+		<?php } ?>
 		<div>
 			<label for="content">Content:</label>
 			<textarea id="content" name="content" class="input" autocomplete="off" rows="5"><?= ($content) ? htmlspecialchars($content) : '' ?></textarea>

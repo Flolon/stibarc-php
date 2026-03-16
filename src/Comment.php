@@ -37,7 +37,7 @@ class Comment
 			</div>
 			<span class="date" title="' . $this->comment->date . '">
 				' . date("m/d/y, g:i A", $date) . '
-			</span>' 
+			</span>'
 			. ($this->comment->edited ? '<div><span class="badge" title="Edited Comment"><i>Edited</i></span></div>' : "") . '
 			<hr>
 			<div class="content">' . htmlspecialchars($this->comment->content) . '</div>';
@@ -63,8 +63,8 @@ class Comment
 				. count($this->comment->attachments) . '</span>' : '') . '
 			</span>
 			<span class="options">' .
-			(($this->loggedIn == $poster->username) ? '<a href="edit.php?id=' . $this->postId . '&commentId=' . $this->comment->id . '
-			" title="Edit Comment"><img class="icon" src="./img/icon/edit.png" height="20px" alt="Edit"></a>' : '')
+			(($this->loggedIn == $poster->username) ? '<a href="edit.php?id=' . $this->postId . '&commentId=' . $this->comment->id
+				. '" title="Edit Comment"><img class="icon" src="./img/icon/edit.png" height="20px" alt="Edit"></a>' : '')
 			. '
 			<a href="./post.php?id=' . $this->postId . '#comment-' . $this->comment->id . '" title="Link to comment">
 				<img class="icon" src="./img/icon/link.png" height="20px" alt="Link"></a>
