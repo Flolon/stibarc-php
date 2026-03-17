@@ -76,7 +76,7 @@ class API
 		$_SESSION["sess"] = $this->session;
 	}
 
-	public function request($url, $type = "GET", $post_data = [])
+	public function request($url, $type = "GET", $post_data = [], $file = false, $headers = [])
 	{
 		// initialize curl
 		$ch = curl_init();
@@ -90,9 +90,19 @@ class API
 		curl_setopt($ch, CURLOPT_USERAGENT, 'STiBaRC PHP');
 		// send post data if post request
 		if ($type == "POST") {
-			curl_setopt($ch, CURLOPT_HTTPHEADER, ['Content-Type: application/json', 'Origin: https://stibarc.com']);
-			curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($post_data));
+			curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'POST');
+			if ($file) {
+				$headers[] = 'Origin: https://stibarc.com';
+				curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+				$fileContent = file_get_contents($file["tmp_name"]);
+				curl_setopt($ch, CURLOPT_POSTFIELDS, $fileContent);
+				// print_r($headers);
+			} else {
+				curl_setopt($ch, CURLOPT_HTTPHEADER, ['Content-Type: application/json', 'Origin: https://stibarc.com']);
+				curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($post_data));
+			}
 		}
+
 		// get response
 		$result = curl_exec($ch);
 		// get errors
@@ -119,8 +129,16 @@ class API
 		return $responseJSON->announcement ?? false;
 	}
 
-	public function getPosts($postsToReturn = 20, $returnTotalPosts = true, $returnGlobal = true, $returnFollowed = true, $useLastSeenGlobal = true, $useLastSeenFollowed = true, $lastSeenGlobalPost = false, $lastSeenFollowedPost = false)
-	{
+	public function getPosts(
+		$postsToReturn = 20,
+		$returnTotalPosts = true,
+		$returnGlobal = true,
+		$returnFollowed = true,
+		$useLastSeenGlobal = true,
+		$useLastSeenFollowed = true,
+		$lastSeenGlobalPost = false,
+		$lastSeenFollowedPost = false
+	) {
 		$body = [
 			"postsToReturn" => $postsToReturn,
 			"returnTotalPosts" => $returnTotalPosts,
@@ -357,19 +375,21 @@ class API
 		return $responseJSON ?? false;
 	}
 
-	public function postComment($postId, $content = false, $attachments = false)
+	public function postComment($postId, $content = "", $attachments = false)
 	{
 
 		$body = [
 			"session" => $this->session,
-			"id" => $postId
+			"id" => $postId,
+			"content" => $content
 		];
 
-		if ($content)
-			$body["content"] = $content;
+		// if ($content)
+		// 	$body["content"] = $content;
 		if ($attachments)
 			$body["attachments"] = $attachments;
 
+		print_r($body);
 		$response = $this->request($this->host . "/v4/postcomment.sjs", "POST", $body);
 
 		$responseJSON = json_decode($response);
@@ -433,6 +453,26 @@ class API
 
 		if ($responseJSON->status !== "ok") {
 			echo $this->debug ? "Failed to edit: " . $response : "";
+		}
+
+		return $responseJSON ?? false;
+	}
+
+	public function uploadFile($file, $usage)
+	{
+
+		$headers = [
+			"Content-Type: " . $file["type"],
+			"X-Session-Key: " . $this->session,
+			"X-File-Usage: " . $usage
+		];
+
+		$response = $this->request($this->host . "/v4/uploadfile.sjs", "POST", file: $file, headers: $headers);
+
+		$responseJSON = json_decode($response);
+
+		if ($responseJSON->status !== "ok") {
+			echo $this->debug ? "Failed to upload file: " . $response : "";
 		}
 
 		return $responseJSON ?? false;

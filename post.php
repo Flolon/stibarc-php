@@ -48,14 +48,23 @@ if ($postData && !$error) {
 }
 
 $postCommentError = false;
-$comment = false;
+$comment = "";
 $attachments = false;
 if (!empty($_POST["comment"]))
 	$comment = $_POST["comment"];
-if (!empty($_FILES["attachments"]["tmp_name"]))
-	$attachments = array("https://flolon.cc/assets/images/purple-profile.png");
-if ($postId && !empty($_SESSION["sess"]) && $comment || $attachments) {
-	$postComment = $api->postComment($postId, content:$comment, attachments:$attachments);
+if (!empty($_FILES["attachments"]["tmp_name"])) {
+	$attachments = [];
+	$attachmentData = $_FILES["attachments"];
+	$attachmentUrl = $api->uploadFile($attachmentData, "attachment");
+	if (!empty($attachmentUrl->error))
+		$postCommentError = $attachmentUrl->error . ', Error code: ' . $attachmentUrl->errorCode;
+	if (isset($attachmentUrl->file))
+		array_push($attachments, $attachmentUrl->file);
+	print_r($attachments);
+}
+
+if ($postId && !empty($_SESSION["sess"]) && ($comment || $attachments)) {
+	$postComment = $api->postComment($postId, content: $comment, attachments: $attachments);
 	if (!empty($postComment->error))
 		$postCommentError = $postComment->error . ', Error code: ' . $postComment->errorCode;
 	if ($postComment->status == "ok")
@@ -128,7 +137,7 @@ if ($postId && !empty($_SESSION["sess"]) && $comment || $attachments) {
 				</label>
 				<textarea class="input" id="comment" name="comment"></textarea>	
 				<label for="attachments">Add attachments</label>
-				<input type="file" id="attachments" name="attachments" accept="image/*,audio/*,video/" multiple />
+				<input type="file" id="attachments" name="attachments" accept="image/*,audio/*,video/*" multiple />
 				<div><button class="button primary" type="submit">Comment</button></div>
 			</form>';
 		} else {
@@ -145,7 +154,7 @@ if ($postId && !empty($_SESSION["sess"]) && $comment || $attachments) {
 		if (empty($_SESSION["sess"]))
 			echo '</div>';
 	} else {
-		echo '<h1 style="margin-bottom: 0;">Post not found</h1>';
+		echo '<h1 style="margin-bottom: 0;">Error</h1>';
 		if (!$postId)
 			echo '<p style="margin-top: 12px;">Post ID cannot be empty.</p>';
 		if ($error)
