@@ -14,6 +14,16 @@ use STiBaRC\STiBaRC;
 
 $api = new STiBaRC\API($apiTarget, true);
 
+function fixFilesArray($arr)
+{
+	foreach ($arr as $key => $all) {
+		foreach ($all as $i => $val) {
+			$new[$i][$key] = $val;
+		}
+	}
+	return $new;
+}
+
 $postId = false;
 if (!empty($_GET["id"]))
 	$postId = $_GET["id"];
@@ -49,21 +59,25 @@ if ($postData && !$error) {
 
 $postCommentError = false;
 $comment = "";
-$attachments = false;
+$attachments = [];
 if (!empty($_POST["comment"]))
 	$comment = $_POST["comment"];
-if (!empty($_FILES["attachments"]["tmp_name"])) {
-	$attachments = [];
-	$attachmentData = $_FILES["attachments"];
-	$attachmentUrl = $api->uploadFile($attachmentData, "attachment");
-	if (!empty($attachmentUrl->error))
-		$postCommentError = $attachmentUrl->error . ', Error code: ' . $attachmentUrl->errorCode;
-	if (isset($attachmentUrl->file))
-		array_push($attachments, $attachmentUrl->file);
-	print_r($attachments);
+if (!empty($_FILES["attachments"])) {
+	$attachments = fixFilesArray($_FILES["attachments"]);
 }
-
-if ($postId && !empty($_SESSION["sess"]) && ($comment || $attachments)) {
+if (($comment || $attachments) && empty($_SESSION["sess"])) {
+	header('Location: ./login.php');
+}
+if ($postId && $attachments) {
+	foreach ($attachments as $file) {
+		$attachmentUrl = $api->uploadFile($file, "attachment");
+		if (!empty($attachmentUrl->error))
+			$postCommentError = $attachmentUrl->error . ', Error code: ' . $attachmentUrl->errorCode;
+		if (isset($attachmentUrl->file))
+			array_push($attachments, $attachmentUrl->file);
+	}
+}
+if ($postId && ($comment || $attachments)) {
 	$postComment = $api->postComment($postId, content: $comment, attachments: $attachments);
 	if (!empty($postComment->error))
 		$postCommentError = $postComment->error . ', Error code: ' . $postComment->errorCode;
@@ -136,8 +150,8 @@ if ($postId && !empty($_SESSION["sess"]) && ($comment || $attachments)) {
 					<h3>New comment:</h3>
 				</label>
 				<textarea class="input" id="comment" name="comment"></textarea>	
-				<label for="attachments">Add attachments</label>
-				<input type="file" id="attachments" name="attachments" accept="image/*,audio/*,video/*" multiple />
+				<label for="attachments">Add attachments:</label>
+				<input type="file" id="attachments" name="attachments[]" accept="image/*,audio/*,video/*" multiple />
 				<div><button class="button primary" type="submit">Comment</button></div>
 			</form>';
 		} else {
