@@ -44,19 +44,32 @@ if (!empty($_POST["title"]))
 	$newTitle = $_POST["title"];
 if (!empty($_POST["content"]))
 	$newContent = $_POST["content"];
-if (!empty($_POST["attachments"]))
-	$newAttachments = $_POST["attachments"];
 if (!empty($_POST["deleted"]))
 	$deleted = $_POST["deleted"];
 if (!empty($_POST["privatePost"]))
 	$privatePost = $_POST["privatePost"];
-
+if (!empty($_FILES["attachments"])) {
+	$newAttachments = fixFilesArray($_FILES["attachments"]);
+}
+if ($newAttachments) {
+	foreach ($newAttachments as $file) {
+		$attachmentUrl = $api->uploadFile($file, "attachment");
+		if (!empty($attachmentUrl->error))
+			$postError = $attachmentUrl->error . ', Error code: ' . $attachmentUrl->errorCode;
+		if (isset($attachmentUrl->file))
+			array_push($newAttachments, $attachmentUrl->file);
+	}
+}
 if ($_POST) {
 	$editPost = $api->edit($postId, $target, $newTitle, $commentId, $newContent, $newAttachments, $deleted, $privatePost);
 	if (!empty($editPost->error))
 		$error = $editPost->error . ', Error code: ' . $editPost->errorCode;
 	if ($editPost->status == "ok") {
-		header('Location: ./post.php?id=' . $postId . (($commentId) ? "#comment-" . $commentId : ''));
+		if ($deleted) {
+			header('Location: ./');
+		} else {
+			header('Location: ./post.php?id=' . $postId . (($commentId) ? "#comment-" . $commentId : ''));
+		}
 	}
 }
 
@@ -115,8 +128,13 @@ if ($postId && $target) {
 	$nav = new STiBaRC\Nav();
 	echo $nav->nav();
 	?>
-
-	<h2 style="margin-bottom: 8px;">Edit<?= $targetTitle ?></h2>
+	<div style="margin-top: 20px">
+		<form class="right" method="POST">
+			<input type="hidden" name="deleted" value="true">
+			<button class="button danger" type="submit">Delete</button>
+		</form>
+	</div>
+	<h2 style="margin: 8px 0;">Edit<?= $targetTitle ?></h2>
 	<?= ($error) ? '<div class="errorBlock">' . $error . '</div>' : '' ?>
 	<?php
 	if (!$error && $postData) { ?>
@@ -127,22 +145,21 @@ if ($postId && $target) {
 		<div>
 			<span class="date" title="<?= $postData->post->date ?>"><?= date("m/d/y, g:i A", $date) ?></span>
 		</div>
-	<?php } ?>
-	<form class="postForm" method="POST">
-		<?php if ($target == "post") { ?>
+		<form class="postForm" method="POST">
+			<?php if ($target == "post") { ?>
+				<div>
+					<label for="title">Title:</label>
+					<input id="title" name="title" type="text" class="input" autocomplete="off" <?= ($title) ? 'value="' . htmlspecialchars($title) . '"' : '' ?>>
+				</div>
+			<?php } ?>
 			<div>
-				<label for="title">Title:</label>
-				<input id="title" name="title" type="text" class="input" autocomplete="off" <?= ($title) ? 'value="' . htmlspecialchars($title) . '"' : '' ?>>
+				<label for="content">Content:</label>
+				<textarea id="content" name="content" class="input" autocomplete="off" rows="5"><?= ($content) ? htmlspecialchars($content) : '' ?></textarea>
 			</div>
-		<?php } ?>
-		<div>
-			<label for="content">Content:</label>
-			<textarea id="content" name="content" class="input" autocomplete="off" rows="5"><?= ($content) ? htmlspecialchars($content) : '' ?></textarea>
-		</div>
-		<div>
 			<button type="submit" class="button primary">Save</button>
-		</div>
-	</form>
+			<a class="button" href="./">Cancel</a>
+		</form>
+	<?php } ?>
 
 	<?php
 	$footer = new STiBaRC\Footer();

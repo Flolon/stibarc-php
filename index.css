@@ -170,6 +170,41 @@ button.primary:focus,
 	background-color: #3996a5;
 }
 
+button.danger,
+.button.danger {
+	background-color: #fdf1f2;
+	color: #ca1717;
+	border-color: #ffb8b8;
+}
+
+button.danger:hover,
+.button.danger:hover {
+	background-color: #ffffff;
+}
+
+button.danger:focus,
+.button.danger:focus {
+	background-color: #f6e7e8;
+}
+
+button.extraDanger,
+.button.extraDanger {
+	background-color: #c72a2a;
+	color: #fdf1f2;
+	border-color: #a60505;
+}
+
+button.extraDanger:hover,
+.button.extraDanger:hover {
+	background-color: #e03131;
+}
+
+button.extraDanger:focus,
+.button.extraDanger:focus {
+	background-color: #b11919;
+}
+
+
 .pageTabs {
 	margin: 10px auto 10px auto;
 }

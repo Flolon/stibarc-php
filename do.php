@@ -16,9 +16,14 @@ $api = new STiBaRC\API($apiTarget, true);
 
 $error = false;
 $action = false;
+$id = false;
+$commentId = false;
 if (!empty($_GET["action"]))
 	$action = $_GET["action"];
-
+if (!empty($_GET["id"]))
+	$id = $_GET["id"];
+if (!empty($_GET["commentId"]))
+	$commentId = $_GET["commentId"];
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -56,19 +61,12 @@ if (!empty($_GET["action"]))
 	}
 
 	if ($action && $action == "vote") {
-		$id = false;
-		$commentId = false;
+		$vote = false;
 		$target = false;
-		$voteData = false;
-		if (!empty($_GET["id"]))
-			$id = $_GET["id"];
-		if (!empty($_GET["commentId"]))
-			$commentId = $_GET["commentId"];
-		if (!empty($_GET["target"]))
-			$target = $_GET["target"];
 		if (!empty($_GET["vote"]))
 			$vote = $_GET["vote"];
-
+		if (!empty($_GET["target"]))
+			$target = $_GET["target"];
 		$voteData = $api->vote($id, $target, $vote, $commentId);
 
 		if (!empty($voteData->error)) {
