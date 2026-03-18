@@ -57,7 +57,7 @@ if ($search_query) {
 	echo $nav->nav();
 
 	if (!$error && $search_query && $searchData) {
-
+		$searchData = $searchData->results;
 		$resultCount =  count($searchData->users) + count($searchData->posts) ?? 0;
 
 		echo '<h1 style="margin-bottom: 0;">' . htmlspecialchars($search_query) . '</h1>';
