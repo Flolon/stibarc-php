@@ -1,5 +1,7 @@
-*, *::before, *::after {
-  box-sizing: border-box;
+*,
+*::before,
+*::after {
+	box-sizing: border-box;
 }
 
 body {
@@ -59,10 +61,6 @@ nav form {
 	margin: 5px 8px;
 }
 
-nav .button {
-	font-size: 90%;
-}
-
 nav a {
 	display: inline-block;
 	/* color: #000000; */
@@ -108,7 +106,9 @@ nav form {
 
 input,
 .input {
-	padding: 4px 5px;
+	padding: 4px 6px;
+	font-size: 14px;
+	font-family: serif;
 	border-radius: 5px;
 	border: 1px solid #d7d7d7;
 	background-color: #ffffff;
@@ -125,12 +125,20 @@ button,
 .button {
 	display: inline-block;
 	padding: 4px 8px;
+	font-size: 14px;
+	line-height: normal;
+	font-family: serif;
+	font-weight: 500;
 	border-radius: 5px;
 	border: 1px solid #d7d7d7;
 	background-color: #f6f6f6;
 	cursor: pointer;
 	text-decoration: none;
 	color: #121212;
+}
+
+.button.small {
+	font-size: 90%;
 }
 
 button:hover,
