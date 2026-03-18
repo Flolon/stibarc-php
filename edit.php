@@ -65,7 +65,7 @@ if ($_POST) {
 	if (!empty($editPost->error))
 		$error = $editPost->error . ', Error code: ' . $editPost->errorCode;
 	if ($editPost->status == "ok") {
-		if ($deleted) {
+		if ($deleted && $target == "post") {
 			header('Location: ./');
 		} else {
 			header('Location: ./post.php?id=' . $postId . (($commentId) ? "#comment-" . $commentId : ''));
@@ -131,11 +131,12 @@ if ($postId && $target) {
 	<div style="margin-top: 20px">
 		<form class="right" method="POST">
 			<input type="hidden" name="deleted" value="true">
-			<button class="button danger" type="submit">Delete</button>
+			<button class="button danger" type="submit" title="Delete<?= $targetTitle ?>">Delete</button>
 		</form>
 	</div>
 	<h2 style="margin: 8px 0;">Edit<?= $targetTitle ?></h2>
 	<?= ($error) ? '<div class="errorBlock">' . $error . '</div>' : '' ?>
+	<?= ($error) ? '<div style="margin: 12px 0;"><a class="button primary" href="./">Home</a></div>' : '' ?>
 	<?php
 	if (!$error && $postData) { ?>
 		<div class="userLink" title="<?= htmlspecialchars($postData->post->poster->username) ?>">
