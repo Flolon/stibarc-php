@@ -49,10 +49,10 @@ if ($postData && !$error) {
 
 $postCommentError = false;
 $comment = "";
-$attachments = [];
+$attachments = false;
 if (!empty($_POST["comment"]))
 	$comment = $_POST["comment"];
-if (!empty($_FILES["attachments"])) {
+if (!empty($_FILES["attachments"][0])) {
 	$attachments = fixFilesArray($_FILES["attachments"]);
 }
 if (($comment || $attachments) && empty($_SESSION["sess"])) {
