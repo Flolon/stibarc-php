@@ -401,7 +401,7 @@ class API
 		return $responseJSON ?? false;
 	}
 
-	public function newPost($title, $content = false, $attachments = false)
+	public function newPost($title, $content = "", $attachments = false)
 	{
 
 		$body = [
@@ -425,7 +425,7 @@ class API
 		return $responseJSON ?? false;
 	}
 
-	public function edit($postId, $target, $title = false, $commentId = false, $content = false, $attachments = false, $deleted = false, $privatePost = false)
+	public function edit($postId, $target, $title = false, $commentId = false, $content = "", $attachments = false, $deleted = false, $privatePost = false)
 	{
 
 		$body = [

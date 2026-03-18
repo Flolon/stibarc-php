@@ -22,14 +22,26 @@ if (empty($_SESSION['sess'])) {
 
 $postError = false;
 $title = false;
-$content = false;
+$content = "";
+$attachments = false;
 if (!empty($_POST["title"]))
 	$title = $_POST["title"];
 if (!empty($_POST["content"]))
 	$content = $_POST["content"];
-
+if (!empty($_FILES["attachments"])) {
+	$attachments = fixFilesArray($_FILES["attachments"]);
+}
+if ($attachments) {
+	foreach ($attachments as $file) {
+		$attachmentUrl = $api->uploadFile($file, "attachment");
+		if (!empty($attachmentUrl->error))
+			$postError = $attachmentUrl->error . ', Error code: ' . $attachmentUrl->errorCode;
+		if (isset($attachmentUrl->file))
+			array_push($attachments, $attachmentUrl->file);
+	}
+}
 if ($title) {
-	$post = $api->newPost($title, $content);
+	$post = $api->newPost(title: $title, content: $content, attachments: $attachments);
 	if (!empty($post->error))
 		$postError = $post->error . ', Error code: ' . $post->errorCode;
 	if ($post->status == "ok")
@@ -77,7 +89,7 @@ if ($title) {
 	</div>
 	<?= ($error) ? '<div class="errorBlock">' . $error . '</div>' : '' ?>
 	<?= ($postError) ? '<div class="errorBlock">' . $postError . '</div>' : '' ?>
-	<form class="postForm" method="POST">
+	<form class="postForm" method="POST" enctype="multipart/form-data">
 		<div>
 			<label for="title">Title:</label>
 			<input id="title" name="title" type="text" class="input" autocomplete="off" autofocus>
@@ -87,7 +99,12 @@ if ($title) {
 			<textarea id="content" name="content" class="input" autocomplete="off" rows="5"></textarea>
 		</div>
 		<div>
+			<label for="attachments">Add attachments:</label>
+			<input type="file" id="attachments" name="attachments[]" accept="image/*,audio/*,video/*" multiple />
+		</div>
+		<div>
 			<button type="submit" class="button primary">Post</button>
+			<a class="button" href="./">Cancel</a>
 		</div>
 	</form>
 
