@@ -14,16 +14,6 @@ use STiBaRC\STiBaRC;
 
 $api = new STiBaRC\API($apiTarget, true);
 
-function fixFilesArray($arr)
-{
-	foreach ($arr as $key => $all) {
-		foreach ($all as $i => $val) {
-			$new[$i][$key] = $val;
-		}
-	}
-	return $new;
-}
-
 $postId = false;
 if (!empty($_GET["id"]))
 	$postId = $_GET["id"];

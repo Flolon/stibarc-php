@@ -1,7 +1,5 @@
 <?php
 session_start();
-$url =  "https://{$_SERVER['HTTP_HOST']}{$_SERVER['REQUEST_URI']}";
-
 /*
     Config
 */
@@ -9,3 +7,19 @@ $url =  "https://{$_SERVER['HTTP_HOST']}{$_SERVER['REQUEST_URI']}";
 $apiTarget = "development";
 // show attachments in post previews
 $showAttachments = true;
+
+
+/*
+    Common shit
+*/
+$url =  "https://{$_SERVER['HTTP_HOST']}{$_SERVER['REQUEST_URI']}";
+
+function fixFilesArray($arr)
+{
+	foreach ($arr as $key => $all) {
+		foreach ($all as $i => $val) {
+			$new[$i][$key] = $val;
+		}
+	}
+	return $new;
+}
