@@ -401,7 +401,7 @@ class API
 		return $responseJSON ?? false;
 	}
 
-	public function newPost($title, $content = "", $attachments = false)
+	public function newPost($title = "", $content = "", $attachments = false)
 	{
 
 		$body = [

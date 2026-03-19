@@ -13,14 +13,17 @@ use STiBaRC\STiBaRC;
 $api = new STiBaRC\API($apiTarget, true);
 
 $error = false;
-
-if (!empty($_POST)) {
+$username = "";
+$password = "";
+if (!empty($_POST["username"]))
 	$username = trim($_POST["username"]);
+if (!empty($_POST["password"]))
 	$password = trim($_POST["password"]);
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 	if (empty($username) || empty($password)) {
 		$error = "Username and password must be entered!";
 	} else {
-
 		$loginResponse = $api->login($username, $password);
 
 		if (!empty($loginResponse['error']) && !empty($loginResponse['errorText'])) {
@@ -70,11 +73,11 @@ if (!empty($_POST)) {
 			<?= $error ? '<div class="errorBlock">' . $error . '</div>' : ''; ?>
 			<div class="row">
 				<label for="username">Username:</label>
-				<input name="username" placeholder="Username" autofocus>
+				<input name="username" placeholder="Username" autofocus <?= ($username) ? 'value="' . htmlspecialchars($username) . '"' : '' ?>>
 			</div>
 			<div class="row">
 				<label for="password">Password:</label>
-				<input name="password" type="password" placeholder="Password">
+				<input name="password" type="password" placeholder="Password" <?= ($password) ? 'value="' . htmlspecialchars($password) . '"' : '' ?>>
 			</div>
 			<div class="row">
 				<button class="primary" type="submit">Login</button>

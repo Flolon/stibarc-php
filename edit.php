@@ -60,7 +60,7 @@ if ($newAttachments) {
 			array_push($newAttachments, $attachmentUrl->file);
 	}
 }
-if ($_POST) {
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 	$editPost = $api->edit($postId, $target, $newTitle, $commentId, $newContent, $newAttachments, $deleted, $privatePost);
 	if (!empty($editPost->error))
 		$error = $editPost->error . ', Error code: ' . $editPost->errorCode;

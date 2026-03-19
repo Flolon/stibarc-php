@@ -21,7 +21,7 @@ if (empty($_SESSION['sess'])) {
 }
 
 $postError = false;
-$title = false;
+$title = "";
 $content = "";
 $attachments = false;
 $attachmentUrls = false;
@@ -43,7 +43,7 @@ if ($attachments) {
 	}
 	$attachments = $attachmentUrls;
 }
-if ($title) {
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 	$post = $api->newPost(title: $title, content: $content, attachments: $attachmentUrls);
 	if (!empty($post->error))
 		$postError = $post->error . ', Error code: ' . $post->errorCode;
@@ -95,11 +95,12 @@ if ($title) {
 	<form class="postForm" method="POST" enctype="multipart/form-data">
 		<div>
 			<label for="title">Title:</label>
-			<input id="title" name="title" type="text" class="input" autocomplete="off" autofocus>
+			<input id="title" name="title" type="text" class="input" autocomplete="off" autofocus
+				<?= ($title) ? 'value="' . htmlspecialchars($title) . '"' : '' ?>>
 		</div>
 		<div>
 			<label for="content">Content:</label>
-			<textarea id="content" name="content" class="input" autocomplete="off" rows="5"></textarea>
+			<textarea id="content" name="content" class="input" autocomplete="off" rows="5"><?= ($content) ? htmlspecialchars($content) : '' ?></textarea>
 		</div>
 		<div>
 			<label for="attachments">Add attachments:</label>

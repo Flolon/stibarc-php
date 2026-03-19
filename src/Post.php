@@ -67,9 +67,9 @@ class Post
 				. count($this->post->attachments) . '</span>' : '')
 			. ($this->post->private ? '<img class="icon" src="./img/icon/lock.png" height="14px" alt="Private Post" title="Private Post">' : "") . '
 			<span class="options">' .
-				(($this->loggedIn == $poster->username) ? '<a href="edit.php?id=' . $this->post->id  . '" 
+			(($this->loggedIn == $poster->username) ? '<a href="edit.php?id=' . $this->post->id  . '" 
 				title="Edit Post"><img class="icon" src="./img/icon/edit.png" height="20px" alt="Edit"></a>' : '')
-				. '
+			. '
 				<a href="./post.php?id=' . $this->post->id . '" title="Link to post">
 					<img class="icon" src="./img/icon/link.png" height="20px" alt="Link"></a>
 				</span>

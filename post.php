@@ -129,7 +129,10 @@ if ($postId && ($comment || $attachments)) {
 		echo $postObj->post();
 
 		if ($postData->comments) {
-			echo '<h2 style="margin-bottom: 8px;" id="comments">' . count($postData->comments) . ' Comment' . ((count($postData->comments) == 1) ? '' : 's') . '</h2><hr class="light" />';
+			echo '<h2 style="margin-bottom: 8px;" id="comments">'
+				. count($postData->comments) . ' Comment'
+				. ((count($postData->comments) == 1) ? '' : 's')
+				. '</h2><hr class="light" />';
 		} else {
 			echo '<h2 id="comments">0 Comments</h2><hr class="light" />';
 		}
@@ -138,15 +141,17 @@ if ($postId && ($comment || $attachments)) {
 			echo '<div class="errorBlock">' . $postCommentError . '</div>';
 
 		if (!empty($_SESSION["sess"])) {
-			echo '<form class="postForm" id="newComment" method="POST" enctype="multipart/form-data">
+	?>
+			<form class="postForm" id="newComment" method="POST" enctype="multipart/form-data">
 				<label for="comment">
 					<h3>New comment:</h3>
 				</label>
-				<textarea class="input" id="comment" name="comment"></textarea>	
+				<textarea class="input" id="comment" name="comment"><?= ($comment) ? htmlspecialchars($comment) : '' ?></textarea>
 				<label for="attachments">Add attachments:</label>
 				<input type="file" id="attachments" name="attachments[]" accept="image/*,audio/*,video/*" multiple />
 				<div><button class="button primary" type="submit">Comment</button></div>
-			</form>';
+			</form>
+	<?php
 		} else {
 			echo '<div style="margin-top: 12px;">';
 		}
