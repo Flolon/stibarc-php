@@ -68,7 +68,7 @@ if ($_POST) {
 		if ($deleted && $target == "post") {
 			header('Location: ./');
 		} else {
-			header('Location: ./post.php?id=' . $postId . (($commentId) ? "#comment-" . $commentId : ''));
+			header('Location: ./post.php?id=' . $postId . (($commentId && !$deleted) ? "#comment-" . $commentId : (($deleted) ? '#comments' : '')));
 		}
 	}
 }
@@ -81,6 +81,8 @@ if ($postId && $target) {
 		$postError = $postData->error . ', Error code: ' . $postData->errorCode;
 	if ($postData->status == "ok") {
 		if ($target == "post") {
+			$username = $postData->post->poster->username;
+			$pfp = $postData->post->poster->pfp;
 			$date = strtotime($postData->post->date);
 			$title = $postData->post->title;
 			$content = $postData->post->content;
@@ -90,6 +92,8 @@ if ($postId && $target) {
 			$index = array_search($commentId, $commentKeys);
 			$comment = $comments[$index] ?? false;
 			$content = $comment->content;
+			$username = $comment->poster->username;
+			$pfp = $comment->poster->pfp;
 			$date = strtotime($comment->date);
 		}
 	}
@@ -139,9 +143,9 @@ if ($postId && $target) {
 	<?= ($error) ? '<div style="margin: 12px 0;"><a class="button primary" href="./">Home</a></div>' : '' ?>
 	<?php
 	if (!$error && $postData) { ?>
-		<div class="userLink" title="<?= htmlspecialchars($postData->post->poster->username) ?>">
-			<img class="pfp" width="30px" height="30px" src="<?= $postData->post->poster->pfp ?>">
-			<span class="username"><?= htmlspecialchars($postData->post->poster->username) ?></span>
+		<div class="userLink" title="<?= htmlspecialchars($username) ?>">
+			<img class="pfp" width="30px" height="30px" src="<?= $pfp ?>">
+			<span class="username"><?= htmlspecialchars($username) ?></span>
 		</div>
 		<div>
 			<span class="date" title="<?= $postData->post->date ?>"><?= date("m/d/y, g:i A", $date) ?></span>
