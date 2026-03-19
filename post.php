@@ -50,25 +50,28 @@ if ($postData && !$error) {
 $postCommentError = false;
 $comment = "";
 $attachments = false;
+$attachmentUrls = false;
 if (!empty($_POST["comment"]))
 	$comment = $_POST["comment"];
-if (!empty($_FILES["attachments"][0])) {
+if (!empty($_FILES["attachments"]["tmp_name"][0])) {
 	$attachments = fixFilesArray($_FILES["attachments"]);
 }
 if (($comment || $attachments) && empty($_SESSION["sess"])) {
 	header('Location: ./login.php');
 }
-if ($postId && $attachments) {
+if ($attachments) {
+	$attachmentUrls = array();
 	foreach ($attachments as $file) {
 		$attachmentUrl = $api->uploadFile($file, "attachment");
+		print_r($attachmentUrl);
 		if (!empty($attachmentUrl->error))
-			$postCommentError = $attachmentUrl->error . ', Error code: ' . $attachmentUrl->errorCode;
+			$postError = $attachmentUrl->error . ', Error code: ' . $attachmentUrl->errorCode;
 		if (isset($attachmentUrl->file))
-			array_push($attachments, $attachmentUrl->file);
+			array_push($attachmentUrls, $attachmentUrl->file);
 	}
 }
 if ($postId && ($comment || $attachments)) {
-	$postComment = $api->postComment($postId, content: $comment, attachments: $attachments);
+	$postComment = $api->postComment($postId, content: $comment, attachments: $attachmentUrls);
 	if (!empty($postComment->error))
 		$postCommentError = $postComment->error . ', Error code: ' . $postComment->errorCode;
 	if ($postComment->status == "ok")

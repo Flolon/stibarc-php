@@ -24,24 +24,27 @@ $postError = false;
 $title = false;
 $content = "";
 $attachments = false;
+$attachmentUrls = false;
 if (!empty($_POST["title"]))
 	$title = $_POST["title"];
 if (!empty($_POST["content"]))
 	$content = $_POST["content"];
-if (!empty($_FILES["attachments"])) {
+if (!empty($_FILES["attachments"]["tmp_name"][0])) {
 	$attachments = fixFilesArray($_FILES["attachments"]);
 }
 if ($attachments) {
+	$attachmentUrls = array();
 	foreach ($attachments as $file) {
 		$attachmentUrl = $api->uploadFile($file, "attachment");
 		if (!empty($attachmentUrl->error))
 			$postError = $attachmentUrl->error . ', Error code: ' . $attachmentUrl->errorCode;
 		if (isset($attachmentUrl->file))
-			array_push($attachments, $attachmentUrl->file);
+			array_push($attachmentUrls, $attachmentUrl->file);
 	}
+	$attachments = $attachmentUrls;
 }
 if ($title) {
-	$post = $api->newPost(title: $title, content: $content, attachments: $attachments);
+	$post = $api->newPost(title: $title, content: $content, attachments: $attachmentUrls);
 	if (!empty($post->error))
 		$postError = $post->error . ', Error code: ' . $post->errorCode;
 	if ($post->status == "ok")
