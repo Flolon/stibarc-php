@@ -41,7 +41,7 @@ if (!empty($_POST["content"]))
 	$newContent = $_POST["content"];
 $deleted = $_POST["deleted"] ?? false;
 $newPrivatePost = $_POST["privatePost"] ?? false;
-if ($_POST['attachmentSelect']) {
+if (!empty($_POST['attachmentSelect'])) {
 	foreach ($_POST['attachmentSelect'] as $url)
 		array_push($attachmentUrls, $url);
 }
