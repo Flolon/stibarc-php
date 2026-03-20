@@ -105,7 +105,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		</div>
 		<div>
 			<label for="private" style="display: inline-block;">Private post:</label>
-			<input id="private" name="privatePost" type="checkbox">
+			<input id="private" name="privatePost" type="checkbox" <?= ($privatePost) ? 'checked' : '' ?>>
 		</div>
 		<div>
 			<label for="attachments">Add attachments:</label>
