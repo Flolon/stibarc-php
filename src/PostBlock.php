@@ -2,8 +2,6 @@
 
 namespace STiBaRC\STiBaRC;
 
-require('Attachment.php');
-
 class PostBlock
 {
 
@@ -31,11 +29,11 @@ class PostBlock
 			$contentPreview = substr($this->post->content, 0, ($this->maxCharLength - 3)) . '...';
 
 		$postHTML = '
-		<div class="postBlock postPreview" id="post-'. $this->post->id . '">
+		<div class="postBlock postPreview" id="post-' . $this->post->id . '">
 			<div>
 				<a class="title" href="post.php?id=' . $this->post->id . '" title="'
-				. htmlspecialchars($this->post->title) . '">'
-				. htmlspecialchars($title) . '</a></div>
+			. htmlspecialchars($this->post->title) . '">'
+			. htmlspecialchars($title) . '</a></div>
 				<div><a class="userLink" href="user.php?username=' . htmlspecialchars($poster->username) . '" 
 				title="' . htmlspecialchars($poster->username) . '">
 					<img class="pfp" width="30px" height="30px" src="' . $poster->pfp . '">

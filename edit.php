@@ -163,8 +163,23 @@ if ($postId && $target) {
 			<label for="private" style="display: inline-block;">Private post:</label>
 			<input id="private" name="privatePost" type="checkbox" <?= ((isset($newPrivatePost) && $newPrivatePost) || $privatePost) ? 'checked' : '' ?>>
 		</div>
-		<button type="submit" class="button primary">Save</button>
-		<a class="button" href="./">Cancel</a>
+		<div>
+			<label>Attachments:</label>
+			<?php
+			$attachmentHTML = '';
+			if ($postData->post->attachments) {
+				foreach ($postData->post->attachments as $attachment) {
+					$attachmentObj = new STiBaRC\Attachment($attachment, false);
+					$attachmentHTML .= $attachmentObj->attachmentBlock();
+				}
+			}
+			echo $attachmentHTML;
+			?>
+		</div>
+		<div>
+			<button type="submit" class="button primary">Save</button>
+			<a class="button" href="./">Cancel</a>
+		</div>
 	</form>
 
 

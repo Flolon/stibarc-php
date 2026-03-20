@@ -23,3 +23,5 @@ function fixFilesArray($arr)
 	}
 	return $new;
 }
+
+require('./src/Attachment.php');

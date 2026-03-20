@@ -2,8 +2,6 @@
 
 namespace STiBaRC\STiBaRC;
 
-require('Attachment.php');
-
 class Post
 {
 
