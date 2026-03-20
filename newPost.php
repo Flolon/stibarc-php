@@ -29,6 +29,7 @@ if (!empty($_POST["title"]))
 	$title = $_POST["title"];
 if (!empty($_POST["content"]))
 	$content = $_POST["content"];
+$privatePost = $_POST["privatePost"] ?? false;
 if (!empty($_FILES["attachments"]["tmp_name"][0])) {
 	$attachments = fixFilesArray($_FILES["attachments"]);
 }
@@ -44,7 +45,7 @@ if ($attachments) {
 	$attachments = $attachmentUrls;
 }
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-	$post = $api->newPost(title: $title, content: $content, attachments: $attachmentUrls);
+	$post = $api->newPost(title: $title, content: $content, attachments: $attachmentUrls, privatePost: $privatePost);
 	if (!empty($post->error))
 		$postError = $post->error . ', Error code: ' . $post->errorCode;
 	if ($post->status == "ok")
@@ -101,6 +102,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		<div>
 			<label for="content">Content:</label>
 			<textarea id="content" name="content" class="input" autocomplete="off" rows="5"><?= ($content) ? htmlspecialchars($content) : '' ?></textarea>
+		</div>
+		<div>
+			<label for="private" style="display: inline-block;">Private post:</label>
+			<input id="private" name="privatePost" type="checkbox">
 		</div>
 		<div>
 			<label for="attachments">Add attachments:</label>

@@ -60,7 +60,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		if ($deleted && $target == "post") {
 			header('Location: ./');
 		} else {
-			// header('Location: ./post.php?id=' . $postId . (($commentId && !$deleted) ? "#comment-" . $commentId : (($deleted) ? '#comments' : '')));
+			header('Location: ./post.php?id=' . $postId . (($commentId && !$deleted) ? "#comment-" . $commentId : (($deleted) ? '#comments' : '')));
 		}
 	}
 }
@@ -160,7 +160,7 @@ if ($postId && $target) {
 			<textarea id="content" name="content" class="input" autocomplete="off" rows="5"><?= ($newContent) ? htmlspecialchars($newContent) : htmlspecialchars($content) ?></textarea>
 		</div>
 		<div>
-			<label for="private">Private post:</label>
+			<label for="private" style="display: inline-block;">Private post:</label>
 			<input id="private" name="privatePost" type="checkbox" <?= ((isset($newPrivatePost) && $newPrivatePost) || $privatePost) ? 'checked' : '' ?>>
 		</div>
 		<button type="submit" class="button primary">Save</button>
