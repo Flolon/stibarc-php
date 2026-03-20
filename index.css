@@ -204,7 +204,6 @@ button.extraDanger:focus,
 	background-color: #b11919;
 }
 
-
 .pageTabs {
 	margin: 10px auto 10px auto;
 }
@@ -330,7 +329,8 @@ form .row input {
 
 .postBlock,
 .commentBlock,
-.userBlock {
+.userBlock,
+.card {
 	display: block;
 	padding: 8px;
 	background-color: #ffffff;
@@ -497,6 +497,7 @@ form .row input {
 .postForm label {
 	display: block;
 	margin: 6px 0;
+	font-weight: 600;
 }
 
 .postForm .input {
@@ -505,4 +506,13 @@ form .row input {
 
 .postForm .button {
 	margin: 12px 0;
+}
+
+.attachmentSelect .card {
+	display: inline-block;
+	cursor: pointer;
+}
+
+.attachmentSelect .card .attachmentLink {
+	display: block;
 }

@@ -33,6 +33,7 @@ if (!empty($_GET["commentId"])) {
 // POST
 $newTitle = false;
 $newContent = false;
+$attachmentUrls = [];
 $newAttachments = false;
 if (!empty($_POST["title"]))
 	$newTitle = $_POST["title"];
@@ -40,7 +41,11 @@ if (!empty($_POST["content"]))
 	$newContent = $_POST["content"];
 $deleted = $_POST["deleted"] ?? false;
 $newPrivatePost = $_POST["privatePost"] ?? false;
-if (!empty($_FILES["attachments"])) {
+if ($_POST['attachmentSelect']) {
+	foreach ($_POST['attachmentSelect'] as $url)
+		array_push($attachmentUrls, $url);
+}
+if (!empty($_FILES["attachments"]["tmp_name"][0])) {
 	$newAttachments = fixFilesArray($_FILES["attachments"]);
 }
 if ($newAttachments) {
@@ -49,9 +54,10 @@ if ($newAttachments) {
 		if (!empty($attachmentUrl->error))
 			$postError = $attachmentUrl->error . ', Error code: ' . $attachmentUrl->errorCode;
 		if (isset($attachmentUrl->file))
-			array_push($newAttachments, $attachmentUrl->file);
+			array_push($attachmentUrls, $attachmentUrl->file);
 	}
 }
+$newAttachments = $attachmentUrls;
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 	$editPost = $api->edit($postId, $target, $newTitle, $commentId, $newContent, $newAttachments, $deleted, $newPrivatePost);
 	if (!empty($editPost->error))
@@ -148,7 +154,7 @@ if ($postId && $target) {
 			<span class="date" title="<?= $postData->post->date ?>"><?= date("m/d/y, g:i A", $date) ?></span>
 		</div>
 	<?php } ?>
-	<form class="postForm" method="POST">
+	<form class="postForm" method="POST" enctype="multipart/form-data">
 		<?php if ($target == "post") { ?>
 			<div>
 				<label for="title">Title:</label>
@@ -164,17 +170,30 @@ if ($postId && $target) {
 			<input id="private" name="privatePost" type="checkbox" <?= ((isset($newPrivatePost) && $newPrivatePost) || $privatePost) ? 'checked' : '' ?>>
 		</div>
 		<div>
-			<label>Attachments:</label>
 			<?php
-			$attachmentHTML = '';
 			if ($postData->post->attachments) {
-				foreach ($postData->post->attachments as $attachment) {
-					$attachmentObj = new STiBaRC\Attachment($attachment, false);
-					$attachmentHTML .= $attachmentObj->attachmentBlock();
-				}
-			}
-			echo $attachmentHTML;
 			?>
+				<label>Attachments:</label>
+				<i>Uncheck to remove an attachment.</i>
+				<div class="attachmentSelect">
+					<?php
+					foreach ($postData->post->attachments as $attachment) {
+						$attachmentObj = new STiBaRC\Attachment($attachment, false);
+						echo '
+					<label for="attachment" class="card">
+						<input id="attachment" type="checkbox" name="attachmentSelect[]" value="' . $attachment . '" checked \>'
+							. $attachmentObj->attachmentBlock() . '
+					</label>';
+					}
+					?>
+				</div>
+			<?php	}
+			?>
+			<div>
+				<label for="attachments">Add attachments:</label>
+				<input type="file" id="attachments" name="attachments[]" accept="image/*,audio/*,video/*" multiple />
+			</div>
+		</div>
 		</div>
 		<div>
 			<button type="submit" class="button primary">Save</button>

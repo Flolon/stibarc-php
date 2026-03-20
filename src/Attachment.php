@@ -18,6 +18,8 @@ class Attachment
 		$images = array("png", "jpg", "gif", "webp", "svg");
 		$videos = array("mov", "mp4", "webm");
 		$audios = array("spx", "m3a", "m4a", "wma", "wav", "mp3");
+		if(!is_string($this->attachment))
+			return false;
 		$parts = explode(".", $this->attachment);
 		$ext = $parts[count($parts) - 1];
 
