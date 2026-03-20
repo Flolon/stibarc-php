@@ -15,9 +15,6 @@ use STiBaRC\STiBaRC;
 $api = new STiBaRC\API($apiTarget, true);
 
 $error = false;
-$date = false;
-$title = false;
-$content = false;
 
 if (empty($_SESSION['sess'])) {
 	header('Location: ./login.php');
@@ -36,18 +33,13 @@ if (!empty($_GET["commentId"])) {
 // POST
 $newTitle = false;
 $newContent = false;
-
 $newAttachments = false;
-$deleted = false;
-$privatePost = false;
 if (!empty($_POST["title"]))
 	$newTitle = $_POST["title"];
 if (!empty($_POST["content"]))
 	$newContent = $_POST["content"];
-if (!empty($_POST["deleted"]))
-	$deleted = $_POST["deleted"];
-if (!empty($_POST["privatePost"]))
-	$privatePost = $_POST["privatePost"];
+$deleted = $_POST["deleted"] ?? false;
+$newPrivatePost = $_POST["privatePost"] ?? false;
 if (!empty($_FILES["attachments"])) {
 	$newAttachments = fixFilesArray($_FILES["attachments"]);
 }
@@ -61,20 +53,24 @@ if ($newAttachments) {
 	}
 }
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-	$editPost = $api->edit($postId, $target, $newTitle, $commentId, $newContent, $newAttachments, $deleted, $privatePost);
+	$editPost = $api->edit($postId, $target, $newTitle, $commentId, $newContent, $newAttachments, $deleted, $newPrivatePost);
 	if (!empty($editPost->error))
 		$error = $editPost->error . ', Error code: ' . $editPost->errorCode;
 	if ($editPost->status == "ok") {
 		if ($deleted && $target == "post") {
 			header('Location: ./');
 		} else {
-			header('Location: ./post.php?id=' . $postId . (($commentId && !$deleted) ? "#comment-" . $commentId : (($deleted) ? '#comments' : '')));
+			// header('Location: ./post.php?id=' . $postId . (($commentId && !$deleted) ? "#comment-" . $commentId : (($deleted) ? '#comments' : '')));
 		}
 	}
 }
 
 $targetTitle = ' ' . htmlspecialchars(ucfirst($target)) ?? '';
 
+$title = false;
+$date = false;
+$content = false;
+$privatePost = null;
 if ($postId && $target) {
 	$postData = $api->getPost($postId);
 	if (!empty($postData->error))
@@ -86,6 +82,7 @@ if ($postId && $target) {
 			$date = strtotime($postData->post->date);
 			$title = $postData->post->title;
 			$content = $postData->post->content;
+			$privatePost = $postData->post->private;
 		} elseif ($target == "comment" && $commentId) {
 			$comments = $postData->post->comments;
 			$commentKeys = array_column($comments, "id");
@@ -150,21 +147,34 @@ if ($postId && $target) {
 		<div>
 			<span class="date" title="<?= $postData->post->date ?>"><?= date("m/d/y, g:i A", $date) ?></span>
 		</div>
-		<form class="postForm" method="POST">
-			<?php if ($target == "post") { ?>
-				<div>
-					<label for="title">Title:</label>
-					<input id="title" name="title" type="text" class="input" autocomplete="off" <?= ($title) ? 'value="' . htmlspecialchars($title) . '"' : '' ?>>
-				</div>
-			<?php } ?>
-			<div>
-				<label for="content">Content:</label>
-				<textarea id="content" name="content" class="input" autocomplete="off" rows="5"><?= ($content) ? htmlspecialchars($content) : '' ?></textarea>
-			</div>
-			<button type="submit" class="button primary">Save</button>
-			<a class="button" href="./">Cancel</a>
-		</form>
 	<?php } ?>
+	<form class="postForm" method="POST">
+		<?php if ($target == "post") { ?>
+			<div>
+				<label for="title">Title:</label>
+				<input id="title" name="title" type="text" class="input" autocomplete="off" value="<?= ($newTitle) ? htmlspecialchars($newTitle) : htmlspecialchars($title) ?>">
+			</div>
+		<?php } ?>
+		<div>
+			<label for=" content">Content:</label>
+			<textarea id="content" name="content" class="input" autocomplete="off" rows="5"><?= ($newContent) ? htmlspecialchars($newContent) : htmlspecialchars($content) ?></textarea>
+		</div>
+		<div>
+			<label for="private">Private post:</label>
+			<?php
+			$privateCheckbox = "";
+			if (isset($newPrivatePost) && $newPrivatePost) {
+				$privateCheckbox = "checked";
+			} elseif ($privatePost) {
+				$privateCheckbox = "checked";
+			}
+			?>
+			<input id="private" name="privatePost" type="checkbox" <?= $privateCheckbox ?>>
+		</div>
+		<button type="submit" class="button primary">Save</button>
+		<a class="button" href="./">Cancel</a>
+	</form>
+
 
 	<?php
 	$footer = new STiBaRC\Footer();

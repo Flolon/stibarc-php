@@ -401,7 +401,7 @@ class API
 		return $responseJSON ?? false;
 	}
 
-	public function newPost($title = "", $content = "", $attachments = false)
+	public function newPost($title = "", $content = "", $attachments = false, $privatePost = "")
 	{
 
 		$body = [
@@ -413,6 +413,8 @@ class API
 			$body["content"] = $content;
 		if ($attachments)
 			$body["attachments"] = $attachments;
+		if (isset($privatePost))
+			$body["private"] = $privatePost;
 
 		$response = $this->request($this->host . "/v4/newpost.sjs", "POST", $body);
 
@@ -425,7 +427,7 @@ class API
 		return $responseJSON ?? false;
 	}
 
-	public function edit($postId, $target, $title = false, $commentId = false, $content = "", $attachments = false, $deleted = false, $privatePost = false)
+	public function edit($postId, $target, $title = false, $commentId = false, $content = "", $attachments = false, $deleted = false, $privatePost = "")
 	{
 
 		$body = [
@@ -442,9 +444,9 @@ class API
 			$body["content"] = $content;
 		if ($attachments)
 			$body["attachments"] = $attachments;
-		if ($deleted)
+		if (isset($deleted))
 			$body["deleted"] = $deleted;
-		if ($privatePost)
+		if (isset($privatePost))
 			$body["private"] = $privatePost;
 
 		$response = $this->request($this->host . "/v4/edit.sjs", "POST", $body);
