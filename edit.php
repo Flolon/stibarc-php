@@ -161,15 +161,7 @@ if ($postId && $target) {
 		</div>
 		<div>
 			<label for="private">Private post:</label>
-			<?php
-			$privateCheckbox = "";
-			if (isset($newPrivatePost) && $newPrivatePost) {
-				$privateCheckbox = "checked";
-			} elseif ($privatePost) {
-				$privateCheckbox = "checked";
-			}
-			?>
-			<input id="private" name="privatePost" type="checkbox" <?= $privateCheckbox ?>>
+			<input id="private" name="privatePost" type="checkbox" <?= ((isset($newPrivatePost) && $newPrivatePost) || $privatePost) ? 'checked' : '' ?>>
 		</div>
 		<button type="submit" class="button primary">Save</button>
 		<a class="button" href="./">Cancel</a>
