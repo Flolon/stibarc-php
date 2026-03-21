@@ -92,11 +92,21 @@ class API
 		if ($type == "POST") {
 			curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'POST');
 			if ($file) {
+				switch ($file['error']) {
+					case UPLOAD_ERR_OK:
+						break;
+					case UPLOAD_ERR_NO_FILE:
+						echo 'No file sent.';
+					case UPLOAD_ERR_INI_SIZE:
+					case UPLOAD_ERR_FORM_SIZE:
+						echo 'Exceeded filesize limit.';
+					default:
+						echo 'Unkown file upload error.';
+				}
 				$headers[] = 'Origin: https://stibarc.com';
 				curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
 				$fileContent = file_get_contents($file["tmp_name"]);
 				curl_setopt($ch, CURLOPT_POSTFIELDS, $fileContent);
-				// print_r($headers);
 			} else {
 				curl_setopt($ch, CURLOPT_HTTPHEADER, ['Content-Type: application/json', 'Origin: https://stibarc.com']);
 				curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($post_data));
@@ -474,7 +484,7 @@ class API
 		$responseJSON = json_decode($response);
 
 		if ($responseJSON->status !== "ok") {
-			echo $this->debug ? "Failed to upload file: " . $response : "";
+			echo $this->debug ? "Failed to upload file: " . $response : '';
 		}
 
 		return $responseJSON ?? false;
