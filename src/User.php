@@ -31,8 +31,9 @@ class UserBlock
 			$followBtnText = "Unfollow";
 
 		$userHTML = '
-		<div class="userBlock">
-			<div class="userLink" title="' . htmlspecialchars($username) . '">
+		<div class="userBlock">'
+			. (($user->banner) ? '<a class="bannerLink" href="' . $user->banner . '" target="_blank"><img class="banner" width="100%" height="175px" src="' . $user->banner . '"></a>' : '')
+			. '<div class="userLink" title="' . htmlspecialchars($username) . '">
 				<a href="' . $user->pfp . '" target="_blank"><img class="pfp" width="50px" height="50px" src="' . $user->pfp . '"></a>
 				<span class="username">' . htmlspecialchars($username) . '</span>
 				' . ($user->verified ? '<span class="verified" title="Verified user">
@@ -42,15 +43,15 @@ class UserBlock
 				</span>
 			</div>
 			<span class="right">
-				<a class="button primary" href="./do.php?action=follow&username=' 
-				. htmlspecialchars($username) . '" title="' . $followBtnText . ' user">' . $followBtnText . '</a>
+				<a class="button primary" href="./do.php?action=follow&username='
+			. htmlspecialchars($username) . '" title="' . $followBtnText . ' user">' . $followBtnText . '</a>
 			</span>	
 			<div>
 				' . ($user->displayName && $user->name ? '<div>Name: ' . htmlspecialchars($user->name) . '</div>' : '') . '
 				' . ($user->displayBio && $user->bio ? '<div class="bio">' . htmlspecialchars($user->bio) . '</div>' : '') . '
 				' . ($user->displayEmail && $user->email ? '<div>Email: ' . htmlspecialchars($user->email) . '</div>' : '') . '
 				' . ($user->displayBirthday && $user->birthday ? '<div title="' . htmlspecialchars($user->birthday) .
-			'">Birthday: ' . date("m/d/Y", $birthday) . '</div>' : '') . '
+				'">Birthday: ' . date("m/d/Y", $birthday) . '</div>' : '') . '
 				<div>Rank: ' . htmlspecialchars($user->rank) . '</div>
 				<div class="followCounts">
 					<span title="' . implode(", ", $followerUsernames) . '">Followers: '

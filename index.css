@@ -400,6 +400,19 @@ form .row input {
 	vertical-align: middle;
 }
 
+.bannerLink {
+	text-decoration: none;
+}
+
+.banner {
+	max-width: 100%;
+	height: 175px;
+	object-fit: cover;
+	border-radius: 5px;
+	background-color: #3ea1b1;
+	color: #ffffff;
+}
+
 .pronouns {
 	color: #404040;
 }
