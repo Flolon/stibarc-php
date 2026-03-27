@@ -84,38 +84,39 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 	$nav = new STiBaRC\Nav();
 	echo $nav->nav();
 	?>
-
-	<h2 style="margin-bottom: 8px;">New Post</h2>
-	<div>Posting as:</div>
-	<div class="userLink" title="<?= htmlspecialchars($_SESSION["username"]) ?>">
-		<img class="pfp" width="30px" height="30px" src="<?= $_SESSION["pfp"] ?>">
-		<span class="username"><?= htmlspecialchars($_SESSION["username"]) ?></span>
+	<div class="card">
+		<h1 style="margin-bottom: 8px;">New Post</h1>
+		<?= ($error) ? '<div class="errorBlock">' . $error . '</div>' : '' ?>
+		<?= ($postError) ? '<div class="errorBlock">' . $postError . '</div>' : '' ?>
+		<div>Posting as:</div>
+		<div class="userLink" title="<?= htmlspecialchars($_SESSION["username"]) ?>">
+			<img class="pfp" width="30px" height="30px" src="<?= $_SESSION["pfp"] ?>">
+			<span class="username"><?= htmlspecialchars($_SESSION["username"]) ?></span>
+		</div>
+		<form class="postForm" method="POST" enctype="multipart/form-data">
+			<div>
+				<label for="title">Title:</label>
+				<input id="title" name="title" type="text" class="input" autocomplete="off" autofocus
+					<?= ($title) ? 'value="' . htmlspecialchars($title) . '"' : '' ?>>
+			</div>
+			<div>
+				<label for="content">Content:</label>
+				<textarea id="content" name="content" class="input" autocomplete="off" rows="5"><?= ($content) ? htmlspecialchars($content) : '' ?></textarea>
+			</div>
+			<div>
+				<label for="private" style="display: inline-block;">Private post:</label>
+				<input id="private" name="privatePost" type="checkbox" <?= ($privatePost) ? 'checked' : '' ?>>
+			</div>
+			<div>
+				<label for="attachments">Add attachments:</label>
+				<input type="file" id="attachments" name="attachments[]" accept="image/*,audio/*,video/*" multiple />
+			</div>
+			<div style="margin: 8px 0;">
+				<button type="submit" class="button primary">Post</button>
+				<a class="button" href="./">Cancel</a>
+			</div>
+		</form>
 	</div>
-	<?= ($error) ? '<div class="errorBlock">' . $error . '</div>' : '' ?>
-	<?= ($postError) ? '<div class="errorBlock">' . $postError . '</div>' : '' ?>
-	<form class="postForm" method="POST" enctype="multipart/form-data">
-		<div>
-			<label for="title">Title:</label>
-			<input id="title" name="title" type="text" class="input" autocomplete="off" autofocus
-				<?= ($title) ? 'value="' . htmlspecialchars($title) . '"' : '' ?>>
-		</div>
-		<div>
-			<label for="content">Content:</label>
-			<textarea id="content" name="content" class="input" autocomplete="off" rows="5"><?= ($content) ? htmlspecialchars($content) : '' ?></textarea>
-		</div>
-		<div>
-			<label for="private" style="display: inline-block;">Private post:</label>
-			<input id="private" name="privatePost" type="checkbox" <?= ($privatePost) ? 'checked' : '' ?>>
-		</div>
-		<div>
-			<label for="attachments">Add attachments:</label>
-			<input type="file" id="attachments" name="attachments[]" accept="image/*,audio/*,video/*" multiple />
-		</div>
-		<div>
-			<button type="submit" class="button primary">Post</button>
-			<a class="button" href="./">Cancel</a>
-		</div>
-	</form>
 
 	<?php
 	$footer = new STiBaRC\Footer();

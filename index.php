@@ -12,15 +12,16 @@ require('src/PostBlock.php');
 use STiBaRC\STiBaRC;
 
 $api = new STiBaRC\API($apiTarget, true);
-	$feed = false;
-	$lastSeenGlobalPost = false;
-	$lastSeenFollowedPost = false;
-	if (!empty($_GET["feed"]))
-		$feed = $_GET["feed"];
-	if (!empty($_GET["lastSeenGlobalPost"]))
-		$lastSeenGlobalPost = $_GET["lastSeenGlobalPost"];
-	if (!empty($_GET["lastSeenFollowedPost"]))
-		$lastSeenFollowedPost = $_GET["lastSeenFollowedPost"];
+
+$feed = false;
+$lastSeenGlobalPost = false;
+$lastSeenFollowedPost = false;
+if (!empty($_GET["feed"]))
+	$feed = $_GET["feed"];
+if (!empty($_GET["lastSeenGlobalPost"]))
+	$lastSeenGlobalPost = $_GET["lastSeenGlobalPost"];
+if (!empty($_GET["lastSeenFollowedPost"]))
+	$lastSeenFollowedPost = $_GET["lastSeenFollowedPost"];
 
 ?>
 <!DOCTYPE html>
@@ -53,7 +54,9 @@ $api = new STiBaRC\API($apiTarget, true);
 	<?php
 
 	$posts = $api->getPosts(lastSeenGlobalPost: $lastSeenGlobalPost, lastSeenFollowedPost: $lastSeenFollowedPost);
-
+	if(!empty($posts->error)) {
+		echo '<div class="error">' . $post->error . ', Error code: ' . $post->errorCode . "</div>";
+	}
 	if (!$feed || $feed == "global") {
 		foreach ($posts->globalPosts as $postData) {
 			$postHtml = new STiBaRC\PostBlock($postData, $showAttachments);

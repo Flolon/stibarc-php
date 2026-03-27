@@ -35,6 +35,7 @@ class Nav
 				. htmlspecialchars($_SESSION['username']) . '"><img class="pfp" src="'
 				. $_SESSION['pfp'] . '" height="25px" width="25px"><span>'
 				. htmlspecialchars($_SESSION['username']) . '</span></a></li>
+				<li><a class="button" href="./editProfile.php">Edit Profile</a></li>
 				<li class="spacer">|</li>
 				<li><a class="button primary" href="./newPost.php">New Post</a></li>';
 		}

@@ -41,7 +41,7 @@ nav {
 	width: 100%;
 	overflow: hidden;
 	background-color: #49B9CA;
-	padding: 5px 8px;
+	padding: 8px 8px;
 	margin-bottom: 8px;
 	border-radius: 5px;
 	text-align: left;
@@ -58,19 +58,17 @@ nav ul {
 nav li,
 nav form {
 	display: inline;
-	margin: 5px 8px;
 }
 
 nav a {
 	display: inline-block;
 	/* color: #000000; */
 	/* text-decoration: none; */
-	margin: 0 5px;
+	margin: 3px 5px;
 }
 
 .right {
 	float: right;
-	padding: 4px 0;
 }
 
 nav .logout {
@@ -82,11 +80,20 @@ nav .spacer {
 }
 
 .navUser {
-	padding: 3px 0;
+	padding: 8px 3px;
+	/* border: 1px solid #d7d7d7;
+	background-color: #f6f6f6;
+	color: #000000; */
+	border-radius: 5px;
 }
 
 .navUser .pfp {
 	margin-right: 5px;
+}
+
+.navUser a {
+	/* text-decoration: none; */
+	/* color: inherit; */
 }
 
 .logo {
@@ -381,6 +388,11 @@ form .row input {
 	margin: 5px 0;
 }
 
+.username {
+	display: inline-block;
+	margin-top: 0;
+}
+
 .pfp {
 	background-color: #3ea1b1;
 	margin-right: 3px;
@@ -502,10 +514,6 @@ form .row input {
 
 .postForm .input {
 	width: 100%;
-}
-
-.postForm .button {
-	margin: 12px 0;
 }
 
 .attachmentSelect .card {

@@ -4,7 +4,7 @@ session_start();
     Config
 */
 // API to use
-$apiTarget = "development";
+$apiTarget = "production";
 // show attachments in post previews
 $showAttachments = true;
 

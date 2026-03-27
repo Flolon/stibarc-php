@@ -23,8 +23,8 @@ if (!empty($_POST['fragment'])) {
 	$api->setSess($token);
 	$loginResponse = $api->getPrivateData();
 
-	if ($loginResponse['error'] && $loginResponse['errorText']) {
-		echo $loginResponse['errorText'] . ' : ' . $loginResponse['error'];
+	if ($loginResponse->status->error && $loginResponse->status->errorText) {
+		echo $loginResponse->status->errorText . ' : ' . $loginResponse->status->error;
 		echo '<div><a href="./">Home</a></div>';
 	} else {
 		header('Location: ./');

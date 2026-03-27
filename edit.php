@@ -135,72 +135,73 @@ if ($postId && $target) {
 	$nav = new STiBaRC\Nav();
 	echo $nav->nav();
 	?>
-	<div style="margin-top: 20px">
-		<form class="right" method="POST">
-			<input type="hidden" name="deleted" value="true">
-			<button class="button danger" type="submit" title="Delete<?= $targetTitle ?>">Delete</button>
-		</form>
-	</div>
-	<h2 style="margin: 8px 0;">Edit<?= $targetTitle ?></h2>
-	<?= ($error) ? '<div class="errorBlock">' . $error . '</div>' : '' ?>
-	<?= ($error) ? '<div style="margin: 12px 0;"><a class="button primary" href="./">Home</a></div>' : '' ?>
-	<?php
-	if (!$error && $postData) { ?>
-		<div class="userLink" title="<?= htmlspecialchars($username) ?>">
-			<img class="pfp" width="30px" height="30px" src="<?= $pfp ?>">
-			<span class="username"><?= htmlspecialchars($username) ?></span>
+
+	<div class="card">
+		<div style="margin-top: 20px">
+			<form class="right" method="POST">
+				<input type="hidden" name="deleted" value="true">
+				<button class="button danger" type="submit" title="Delete<?= $targetTitle ?>">Delete</button>
+			</form>
 		</div>
-		<div>
-			<span class="date" title="<?= $postData->post->date ?>"><?= date("m/d/y, g:i A", $date) ?></span>
-		</div>
-	<?php } ?>
-	<form class="postForm" method="POST" enctype="multipart/form-data">
-		<?php if ($target == "post") { ?>
+		<h1 style="margin: 8px 0;">Edit<?= $targetTitle ?></h1>
+		<?= ($error) ? '<div class="errorBlock">' . $error . '</div>' : '' ?>
+		<?= ($error) ? '<div style="margin: 12px 0;"><a class="button primary" href="./">Home</a></div>' : '' ?>
+		<?php
+		if (!$error && $postData) { ?>
+			<div class="userLink" title="<?= htmlspecialchars($username) ?>">
+				<img class="pfp" width="30px" height="30px" src="<?= $pfp ?>">
+				<span class="username"><?= htmlspecialchars($username) ?></span>
+			</div>
 			<div>
-				<label for="title">Title:</label>
-				<input id="title" name="title" type="text" class="input" autocomplete="off" value="<?= ($newTitle) ? htmlspecialchars($newTitle) : htmlspecialchars($title) ?>">
+				<span class="date" title="<?= $postData->post->date ?>"><?= date("m/d/y, g:i A", $date) ?></span>
 			</div>
 		<?php } ?>
-		<div>
-			<label for=" content">Content:</label>
-			<textarea id="content" name="content" class="input" autocomplete="off" rows="5"><?= ($newContent) ? htmlspecialchars($newContent) : htmlspecialchars($content) ?></textarea>
-		</div>
-		<div>
-			<label for="private" style="display: inline-block;">Private post:</label>
-			<input id="private" name="privatePost" type="checkbox" <?= ((isset($newPrivatePost) && $newPrivatePost) || $privatePost) ? 'checked' : '' ?>>
-		</div>
-		<div>
-			<?php
-			if ($postData->post->attachments) {
-			?>
-				<label>Attachments:</label>
-				<i>Uncheck to remove an attachment.</i>
-				<div class="attachmentSelect">
-					<?php
-					foreach ($postData->post->attachments as $attachment) {
-						$attachmentObj = new STiBaRC\Attachment($attachment, false);
-						echo '
+		<form class="postForm" method="POST" enctype="multipart/form-data">
+			<?php if ($target == "post") { ?>
+				<div>
+					<label for="title">Title:</label>
+					<input id="title" name="title" type="text" class="input" autocomplete="off" value="<?= ($newTitle) ? htmlspecialchars($newTitle) : htmlspecialchars($title) ?>">
+				</div>
+			<?php } ?>
+			<div>
+				<label for=" content">Content:</label>
+				<textarea id="content" name="content" class="input" autocomplete="off" rows="5"><?= ($newContent) ? htmlspecialchars($newContent) : htmlspecialchars($content) ?></textarea>
+			</div>
+			<div>
+				<label for="private" style="display: inline-block;">Private post:</label>
+				<input id="private" name="privatePost" type="checkbox" <?= ((isset($newPrivatePost) && $newPrivatePost) || $privatePost) ? 'checked' : '' ?>>
+			</div>
+			<div style="margin-bottom: 8px;">
+				<?php
+				if ($postData->post->attachments) {
+				?>
+					<label>Attachments:</label>
+					<i>Uncheck to remove an attachment.</i>
+					<div class="attachmentSelect">
+						<?php
+						foreach ($postData->post->attachments as $attachment) {
+							$attachmentObj = new STiBaRC\Attachment($attachment, false);
+							echo '
 					<label for="attachment" class="card">
 						<input id="attachment" type="checkbox" name="attachmentSelect[]" value="' . $attachment . '" checked \>'
-							. $attachmentObj->attachmentBlock() . '
+								. $attachmentObj->attachmentBlock() . '
 					</label>';
-					}
-					?>
+						}
+						?>
+					</div>
+				<?php	}
+				?>
+				<div>
+					<label for="attachments">Add attachments:</label>
+					<input type="file" id="attachments" name="attachments[]" accept="image/*,audio/*,video/*" multiple />
 				</div>
-			<?php	}
-			?>
-			<div>
-				<label for="attachments">Add attachments:</label>
-				<input type="file" id="attachments" name="attachments[]" accept="image/*,audio/*,video/*" multiple />
 			</div>
-		</div>
-		</div>
-		<div>
-			<button type="submit" class="button primary">Save</button>
-			<a class="button" href="./">Cancel</a>
-		</div>
-	</form>
-
+			<div style="margin-bottom: 8px;">
+				<button type="submit" class="button primary">Save</button>
+				<a class="button" href="./">Cancel</a>
+			</div>
+		</form>
+	</div>
 
 	<?php
 	$footer = new STiBaRC\Footer();

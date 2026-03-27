@@ -326,14 +326,7 @@ class API
 			$_SESSION["pfp"] = $this->pfp;
 			$_SESSION["banner"] = $this->banner;
 			$_SESSION["private"] = $this->private;
-			return [
-				"error" => false,
-				"session" => $this->session,
-				"username" => $this->username,
-				"pfp" => $this->pfp,
-				"banner" => $this->banner,
-				"private" => $this->private
-			];
+			return $responseJSON;
 		} else {
 			return [
 				"error" => $responseJSON->error,
@@ -437,8 +430,16 @@ class API
 		return $responseJSON ?? false;
 	}
 
-	public function edit($postId, $target, $title = false, $commentId = false, $content = "", $attachments = false, $deleted = false, $privatePost = "")
-	{
+	public function edit(
+		$postId,
+		$target,
+		$title = false,
+		$commentId = false,
+		$content = "",
+		$attachments = false,
+		$deleted = false,
+		$privatePost = ""
+	) {
 
 		$body = [
 			"session" => $this->session,
@@ -485,6 +486,71 @@ class API
 
 		if ($responseJSON->status !== "ok") {
 			echo $this->debug ? "Failed to upload file: " . $response : '';
+		}
+
+		return $responseJSON ?? false;
+	}
+
+	public function editProfile(
+		$pfp = '',
+		$banner = '',
+		$name = '',
+		$email = '',
+		$birthday = '',
+		$bio = '',
+		$pronouns = '',
+		$displayName = '',
+		$displayEmail = '',
+		$displayBirthday = '',
+		$displayBio = '',
+		$displayPronouns = '',
+		$block = '',
+		$displayBlock = '',
+		$privateProfile = '',
+		$changePostVisibility = ''
+	) {
+
+		$body = [
+			"session" => $this->session,
+		];
+
+		if (isset($pfp))
+			$body["pfp"] = $pfp;
+		if (isset($banner))
+			$body["banner"] = $banner;
+		if (isset($name))
+			$body["name"] = $name;
+		if (isset($email))
+			$body["name"] = $email;
+		if (isset($birthday))
+			$body["birthday"] = $birthday;
+		if (isset($bio))
+			$body["bio"] = $bio;
+		if (isset($pronouns))
+			$body["pronouns"] = $pronouns;
+		if (isset($displayName))
+			$body["displayName"] = $displayName;
+		if (isset($displayEmail))
+			$body["displayEmail"] = $displayEmail;
+		if (isset($displayBirthday))
+			$body["displayBirthday"] = $displayBirthday;
+		if (isset($displayBio))
+			$body["displayBio"] = $displayBio;
+		if (isset($displayPronouns))
+			$body["displayPronouns"] = $displayPronouns;
+		if (isset($block))
+			$body["block"] = $displayBlock;
+		if (isset($privateProfile))
+			$body["private"] = $privateProfile;
+		if (isset($changePostVisibility))
+			$body["changePostVisibility"] = $changePostVisibility;
+
+		$response = $this->request($this->host . "/v4/editprofile.sjs", "POST", $body);
+
+		$responseJSON = json_decode($response);
+
+		if ($responseJSON->status !== "ok") {
+			echo $this->debug ? "Failed to edit profile: " . $response : "";
 		}
 
 		return $responseJSON ?? false;
