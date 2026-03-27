@@ -128,14 +128,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		</div>
 		<div style="margin-bottom: 8px;">
 			<label for="name">Name:</label>
-			<input type="text" id="name" name="name" value="<?= ($user->name) ? htmlspecialchars($user->name) : '' ?>">
+			<input type="text" id="name" name="name" placeholder="Jimbo" value="<?= ($user->name) ? htmlspecialchars($user->name) : '' ?>">
 			<span><label for="displayName">Show Name:</label>
 				<input type="checkbox" name="displayName" id="displayName"
 					<?= ((isset($displayName) && $displayName) || $user->displayName) ? 'checked' : '' ?>></span>
 		</div>
 		<div style="margin-bottom: 8px;">
 			<label for="pronounsInput">Pronouns:</label>
-			<input list="commonPronouns" id="pronounsInput" type="text" placeholder="Pronouns" autocomplete="off"
+			<input list="commonPronouns" id="pronounsInput" type="text" placeholder="she/kit" autocomplete="off"
 				autocapitalize="none" maxlength="40" value="<?= ($user->pronouns ? htmlspecialchars($user->pronouns) : "") ?>">
 			<datalist id="commonPronouns">
 				<option value="she/her"></option>
@@ -149,7 +149,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		</div>
 		<div style="margin-bottom: 8px;">
 			<label for="name">Email:</label>
-			<input type="text" id="email" name="email" value="<?= ($user->email) ? htmlspecialchars($user->email) : '' ?>">
+			<input type="text" id="email" name="email" placeholder="jimbo@domain.tld" value="<?= ($user->email) ? htmlspecialchars($user->email) : '' ?>">
 			<span><label for="displayEmail">Show Email:</label>
 				<input type="checkbox" name="displayEmail" id="displayEmail"
 					<?= ((isset($displayEmail) && $displayEmail) || $user->displayEmail) ? 'checked' : '' ?>></span>
