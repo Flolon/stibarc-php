@@ -14,6 +14,7 @@ class UserBlock
 
 	public function user()
 	{
+		$api = new API();
 		$user = $this->userData;
 		$username = $this->userData->username;
 		if ($user->birthday)
@@ -32,7 +33,8 @@ class UserBlock
 
 		$userHTML = '
 		<div class="userBlock">'
-			. (($user->banner) ? '<a class="bannerLink" href="' . $user->banner . '" target="_blank"><img class="banner" width="100%" height="175px" src="' . $user->banner . '"></a>' : '')
+			. (($user->banner && $user->banner !== $api->defaultBannerUrl()) ? '<a class="bannerLink" href="' . $user->banner . '" target="_blank" title="User banner image">
+			<img class="banner" width="100%" height="175px" src="' . $user->banner . '"></a>' : '')
 			. '<div class="userLink" title="' . htmlspecialchars($username) . '">
 				<a href="' . $user->pfp . '" target="_blank"><img class="pfp" width="50px" height="50px" src="' . $user->pfp . '"></a>
 				<span class="username">' . htmlspecialchars($username) . '</span>

@@ -33,20 +33,36 @@ if (!empty($userData->user) && !$error) {
 }
 
 // POST
-$attachmentUrl = '';
+// pfp
+$pfpUrl = '';
 $newPfp = false;
-$name = $_POST['name'] ?? false;
 if (!empty($_FILES['newPfp']['tmp_name'])) {
 	$newPfp = $_FILES['newPfp'];
 }
 if ($newPfp) {
-	$attachmentUrl = $api->uploadFile($newPfp, "pfp");
-	if (!empty($attachmentUrl->error))
-		$error = $attachmentUrl->error . ', Error code: ' . $attachmentUrl->errorCode;
+	$pfpUrl = $api->uploadFile($newPfp, "pfp");
+	if (!empty($pfpUrl->error))
+		$error = $pfpUrl->error . ', Error code: ' . $pfpUrl->errorCode;
+	if (empty($pfpUrl->error))
+		$newPfp = $pfpUrl;
 }
-$newPfp = $attachmentUrl;
+// banner
+$bannerUrl = '';
+$newBanner = false;
+if (!empty($_FILES['newBanner']['tmp_name'])) {
+	$newBanner = $_FILES['newBanner'];
+}
+if ($newPfp) {
+	$bannerUrl = $api->uploadFile($newBanner, "banner");
+	if (!empty($bannerUrl->error))
+		$error = $bannerUrl->error . ', Error code: ' . $bannerUrl->errorCode;
+	if (empty($bannerUrl->error))
+		$newBanner = $bannerUrl;
+}
+
 
 $name = $_POST['name'] ?? '';
+$removeBanner = $_POST['removeBanner'] ?? false;
 $displayName = $_POST['displayName'] ?? false;
 $pronouns = $_POST['pronouns'] ?? '';
 $displayPronouns = $_POST['displayPronouns'] ?? false;
@@ -57,9 +73,14 @@ $displayBirthday = $_POST['displayBirthday'] ?? false;
 $bio = $_POST['bio'] ?? '';
 $displayBio = $_POST['displayBio'] ?? false;
 
+if ($removeBanner) {
+	$newBanner = '';
+}
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 	$editProfile = $api->editProfile(
 		pfp: $newPfp,
+		banner: $newBanner,
 		name: $name,
 		email: $email,
 		birthday: $birthday,
@@ -70,7 +91,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		displayBirthday: $displayBirthday,
 		displayPronouns: $displayPronouns,
 		displayBio: $displayBio
-		);
+	);
 	if (!empty($editProfile->error))
 		$error = $editProfile->error . ', Error code: ' . $editProfile->errorCode;
 	if ($editProfile->status == "ok") {
@@ -115,7 +136,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		<h1 style="margin-bottom: 8px;">Edit Profile</h1>
 		<?= ($error) ? '<div class="errorBlock">' . $error . '</div>' : '' ?>
 		<div style="margin-bottom: 8px;">
-			<a href="<?= $user->pfp ?>" target="_blank"><img class="pfp" width="50px" height="50px" src="<?= $user->pfp ?>"></a>
+			<div>
+				<a classs="bannerLink" <?= ($user->banner && $user->banner !== $api->defaultBannerUrl()) ? 'href="'. $user->banner . '"' : '' ?>" title="User banner image">
+					<img class="banner" src="<?= ($user->banner && $user->banner !== $api->defaultBannerUrl()) ? $user->banner : '' ?>" width="100%" height="175px">
+				</a>
+			</div>
+			<div style="margin-bottom: 8px;">
+				<label style="display: block;margin: 6px 0;" for="newBanner">Replace banner:</label>
+				<input type="file" id="newBanner" name="newBanner" accept="image/*" />
+			</div>
+			<span><label for="removeBanner">Remove banner:</label>
+				<input type="checkbox" name="removeBanner" id="removeBanner"
+					<?= ((isset($removeBanner) && $removeBanner) || !$user->banner) ? 'checked' : '' ?>></span>
+			<div style="margin-top: 8px;">
+				<a href="<?= $user->pfp ?>" target="_blank"><img class="pfp" width="50px" height="50px" src="<?= $user->pfp ?>"></a>
+			</div>
 			<div style="margin-top: 8px;">
 				<span class="username"><?= htmlspecialchars($user->username) ?></span>
 				<?= ($user->verified ? '<span class="verified" title="Verified user">

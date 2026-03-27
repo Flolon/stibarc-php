@@ -14,7 +14,7 @@ class API
 	private $banner;
 	private $private;
 
-	public function __construct($environment, $debug)
+	public function __construct($environment = false, $debug = true)
 	{
 		// debug vars
 		$this->debug = $debug;
@@ -48,6 +48,11 @@ class API
 	public function __destruct()
 	{
 		// object destruct
+	}
+
+	public function defaultBannerUrl()
+	{
+		return $this->cdn . '/banner/default.png.thumb.webp';
 	}
 
 	public function apiHost()
@@ -492,19 +497,19 @@ class API
 	}
 
 	public function editProfile(
-		$pfp = '',
-		$banner = '',
-		$name = '',
-		$email = '',
-		$birthday = '',
-		$bio = '',
-		$pronouns = '',
+		$pfp = false,
+		$banner = false,
+		$name = false,
+		$email = false,
+		$birthday = false,
+		$bio = false,
+		$pronouns = false,
 		$displayName = '',
 		$displayEmail = '',
 		$displayBirthday = '',
 		$displayBio = '',
 		$displayPronouns = '',
-		$block = '',
+		$block = false,
 		$displayBlock = '',
 		$privateProfile = '',
 		$changePostVisibility = ''
@@ -514,20 +519,24 @@ class API
 			"session" => $this->session,
 		];
 
-		if (isset($pfp))
+		if ($pfp)
 			$body["pfp"] = $pfp;
-		if (isset($banner))
+		if ($banner)
 			$body["banner"] = $banner;
-		if (isset($name))
+		if ($name)
 			$body["name"] = $name;
-		if (isset($email))
+		if ($email)
 			$body["name"] = $email;
-		if (isset($birthday))
+		if ($birthday)
 			$body["birthday"] = $birthday;
-		if (isset($bio))
+		if ($bio)
 			$body["bio"] = $bio;
-		if (isset($pronouns))
+		if ($pronouns)
 			$body["pronouns"] = $pronouns;
+		if ($block)
+			$body["block"] = $displayBlock;
+		if (isset($displayBlock))
+			$body["displayBlock"] = $displayBlock;
 		if (isset($displayName))
 			$body["displayName"] = $displayName;
 		if (isset($displayEmail))
@@ -538,8 +547,7 @@ class API
 			$body["displayBio"] = $displayBio;
 		if (isset($displayPronouns))
 			$body["displayPronouns"] = $displayPronouns;
-		if (isset($block))
-			$body["block"] = $displayBlock;
+
 		if (isset($privateProfile))
 			$body["private"] = $privateProfile;
 		if (isset($changePostVisibility))
