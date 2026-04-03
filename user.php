@@ -62,7 +62,17 @@ if ($username) {
 		echo $userBlockObj->user();
 
 		if ($userData->posts) {
-			echo '<h2>' . count($userData->posts) . ' Post' . ((count($userData->posts) == 1) ? '' : 's') . '</h2>';
+			echo '<h2 style="display: inline-block;">' . count($userData->posts) . ' Post' . ((count($userData->posts) == 1) ? '' : 's') . '</h2>';
+			echo '
+			<form class="right" style="display: inline-block;margin: 20px 0;">
+				<input type="hidden" value="' . $username . '" name="username">
+				<select class="button" name="sort">
+					<option value="">Sort By</option>
+					<option value="date-asc">Date Ascending</option>
+				</select>
+				<button class="button primary" type="submit">Go</button>
+			</form>
+			';
 
 			foreach ($userData->posts as $postData) {
 				$postHtml = new STiBaRC\PostBlock($postData, $showAttachments);

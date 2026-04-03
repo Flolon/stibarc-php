@@ -178,12 +178,14 @@ if ($postId && $target) {
 					<label>Attachments:</label>
 					<i>Uncheck to remove an attachment.</i>
 					<div class="attachmentSelect">
-						<?php
-						foreach ($postData->post->attachments as $attachment) {
+<?php
+					$attachmentId = 0;
+						foreach ((($target == "post") ? $postData->post->attachments : $comment->attachments) as $attachment) {
 							$attachmentObj = new STiBaRC\Attachment($attachment, false);
+							$attachmentId++;
 							echo '
-					<label for="attachment" class="card">
-						<input id="attachment" type="checkbox" name="attachmentSelect[]" value="' . $attachment . '" checked \>'
+					<label for="attachment-'.$attachmentId.'" class="card">
+						<input id="attachment-'.$attachmentId.'" type="checkbox" name="attachmentSelect[]" value="' . $attachment . '" checked \>'
 								. $attachmentObj->attachmentBlock() . '
 					</label>';
 						}

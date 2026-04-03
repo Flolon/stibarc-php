@@ -30,10 +30,12 @@ class UserBlock
 		$followBtnText = "Follow";
 		if (!empty($_SESSION["sess"]) && in_array($_SESSION["username"], $followerUsernames))
 			$followBtnText = "Unfollow";
+		$defaultBannerFilename = parse_url($api->defaultBannerUrl(), PHP_URL_PATH);
+		$bannerFilename = parse_url($user->banner, PHP_URL_PATH);
 
 		$userHTML = '
 		<div class="userBlock">'
-			. (($user->banner && $user->banner !== $api->defaultBannerUrl()) ? '<a class="bannerLink" href="' . $user->banner . '" target="_blank" title="User banner image">
+			. (($user->banner && $bannerFilename !== $defaultBannerFilename) ? '<a class="bannerLink" href="' . $user->banner . '" target="_blank" title="User banner image">
 			<img class="banner" width="100%" height="175px" src="' . $user->banner . '"></a>' : '')
 			. '<div class="userLink" title="' . htmlspecialchars($username) . '">
 				<a href="' . $user->pfp . '" target="_blank"><img class="pfp" width="50px" height="50px" src="' . $user->pfp . '"></a>
