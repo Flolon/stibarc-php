@@ -123,8 +123,6 @@ class API
 		$curl_error = curl_error($ch);
 		// get content header //
 		$contentType = curl_getinfo($ch, CURLINFO_CONTENT_TYPE);
-		// close curl
-		curl_close($ch);
 		if ($curl_errno > 0)
 			echo "cURL Error ($curl_errno): $curl_error\n";
 		return $result;
