@@ -85,7 +85,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		</form>
 		<hr class="row" style="margin-top: 16px;">
 		<div class="row">
-			<a class="loginWith" href="https://stibarc.com/oauth/?client_id=b5543b27a9fac3ad509d0168cee7d8cf&response_type=token&scope=all">
+			<a class="loginWith" href="https://stibarc.com/oauth/authorize/?client_id=b5543b27a9fac3ad509d0168cee7d8cf&response_type=token&scope=all" alt="Login with STiBaRC OAuth">
 				<img src="./img/Login-with-STiBaRC.png" alt="Login with STiBaRC" title="Login with STiBaRC OAuth">
 			</a>
 		</div>
