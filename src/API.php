@@ -13,6 +13,7 @@ class API
 	private $pfp;
 	private $banner;
 	private $private;
+	public $oauthClientUrl;
 
 	public function __construct($environment = false, $debug = true)
 	{
@@ -25,14 +26,17 @@ class API
 			case "development":
 				$this->host = "https://api-dev.stibarc.com";
 				$this->cdn = "https://cdn-dev.stibarc.com";
+				$this->oauthClientUrl = "https://dev.stibarc.com/oauth/authorize/?client_id=16ff1471b084a90f692a4188758b7777&response_type=token&scope=all";
 				break;
 			case "staging":
 				$this->host = "https://api-staging.stibarc.com";
 				$this->cdn = "https://cdn-staging.stibarc.com";
+				$this->oauthClientUrl = "https://stibarc.com/oauth/authorize/?client_id=b5543b27a9fac3ad509d0168cee7d8cf&response_type=token&scope=all";
 				break;
 			case "production":
 				$this->host = "https://api.stibarc.com";
 				$this->cdn = "https://cdn.stibarc.com";
+				$this->oauthClientUrl = "https://stibarc.com/oauth/authorize/?client_id=b5543b27a9fac3ad509d0168cee7d8cf&response_type=token&scope=all";
 				break;
 		}
 
@@ -109,10 +113,6 @@ class API
 				$headers[] = 'Origin: https://stibarc.com';
 				curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
 				$fileContent = file_get_contents($file["tmp_name"]);
-				if ($this->debug) {
-					var_dump($fileContent);
-					echo '==';
-				}
 				curl_setopt($ch, CURLOPT_POSTFIELDS, $fileContent);
 			} else {
 				curl_setopt($ch, CURLOPT_HTTPHEADER, ['Content-Type: application/json', 'Origin: https://stibarc.com']);
