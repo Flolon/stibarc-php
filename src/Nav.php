@@ -17,9 +17,9 @@ class Nav
 		$navHTML = '
 		<nav class="mainNav">
 			<ul>
-				<li class="logo"><a href="./"><img src="./img/logo_32.png" height="25px" alt="STiBaRC Home"></a></li>
+				<li class="logo"><a href="/"><img src="/img/logo_32.png" height="25px" alt="STiBaRC Home"></a></li>
 				<li>
-					<form action="search.php">
+					<form action="/search.php">
 					<input type="search" name="q" placeholder="Search" value="'
 			. ($this->searchQuery ? $this->searchQuery : '') . '">
 					<button type="submit">Search</button>
@@ -28,16 +28,16 @@ class Nav
 			</ul>
 			<ul class="right">';
 		if (empty($_SESSION['sess'])) {
-			$navHTML .= '<li><a class="button primary" href="./login.php">Login</a></li>';
+			$navHTML .= '<li><a class="button primary" href="/login.php">Login</a></li>';
 		} else {
 			$navHTML .= '<li class="navUser" title="Logged in as '
-				. htmlspecialchars($_SESSION['username']) . '"><a href="./user.php?username='
+				. htmlspecialchars($_SESSION['username']) . '"><a href="/user.php?username='
 				. htmlspecialchars($_SESSION['username']) . '"><img class="pfp" src="'
 				. $_SESSION['pfp'] . '" height="25px" width="25px"><span>'
 				. htmlspecialchars($_SESSION['username']) . '</span></a></li>
-				<li><a class="button" href="./editProfile.php">Edit Profile</a></li>
+				<li><a class="button" href="/editProfile.php">Edit Profile</a></li>
 				<li class="spacer">|</li>
-				<li><a class="button primary" href="./newPost.php">New Post</a></li>';
+				<li><a class="button primary" href="/newPost.php">New Post</a></li>';
 		}
 		$navHTML .= '
 			</ul>

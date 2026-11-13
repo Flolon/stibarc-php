@@ -26,6 +26,8 @@ class Footer
 					<li><a href="https://stibarc.com/privacy.html">Privacy</a></li>
 					<li class="spacer">|</li>
 					<li><a href="https://stibarc.com/tos.html">Terms</a></li>
+					<li class="spacer">|</li>
+					<li><a href="/developer">Developer</a></li>
 				</ul>
 			</footer>
 		';
