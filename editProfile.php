@@ -44,7 +44,7 @@ if ($newPfp) {
 	if (!empty($pfpUrl->error))
 		$error = $pfpUrl->error . ', Error code: ' . $pfpUrl->errorCode;
 	if (empty($pfpUrl->error))
-		$newPfp = $pfpUrl;
+		$newPfp = $pfpUrl->file;
 }
 // banner
 $bannerUrl = '';
@@ -52,12 +52,12 @@ $newBanner = false;
 if (!empty($_FILES['newBanner']['tmp_name'])) {
 	$newBanner = $_FILES['newBanner'];
 }
-if ($newPfp) {
+if ($newBanner) {
 	$bannerUrl = $api->uploadFile($newBanner, "banner");
 	if (!empty($bannerUrl->error))
 		$error = $bannerUrl->error . ', Error code: ' . $bannerUrl->errorCode;
 	if (empty($bannerUrl->error))
-		$newBanner = $bannerUrl;
+		$newBanner = $bannerUrl->file;
 }
 
 
@@ -95,7 +95,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 	if (!empty($editProfile->error))
 		$error = $editProfile->error . ', Error code: ' . $editProfile->errorCode;
 	if ($editProfile->status == "ok") {
-		// header('Location: ./');
+		// header('Location: ./editProfile.php');
 	}
 }
 ?>
@@ -170,7 +170,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		</div>
 		<div style="margin-bottom: 8px;">
 			<label for="pronounsInput">Pronouns:</label>
-			<input list="commonPronouns" id="pronounsInput" type="text" placeholder="she/kit" autocomplete="off"
+			<input list="commonPronouns" name="pronouns" id="pronounsInput" type="text" placeholder="she/kit" autocomplete="off"
 				autocapitalize="none" maxlength="40" value="<?= ($user->pronouns ? htmlspecialchars($user->pronouns) : "") ?>">
 			<datalist id="commonPronouns">
 				<option value="she/her"></option>
@@ -184,7 +184,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		</div>
 		<div style="margin-bottom: 8px;">
 			<label for="name">Email:</label>
-			<input type="text" id="email" name="email" placeholder="jimbo@domain.tld" value="<?= ($user->email) ? htmlspecialchars($user->email) : '' ?>">
+			<input type="email" id="email" name="email" placeholder="jimbo@domain.tld" value="<?= ($user->email) ? htmlspecialchars($user->email) : '' ?>">
 			<span><label for="displayEmail">Show Email:</label>
 				<input type="checkbox" name="displayEmail" id="displayEmail"
 					<?= ((isset($displayEmail) && $displayEmail) || $user->displayEmail) ? 'checked' : '' ?>></span>

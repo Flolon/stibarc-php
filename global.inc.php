@@ -4,7 +4,7 @@ session_start();
     Config
 */
 // API to use
-$apiTarget = "production";
+$apiTarget = "development";
 // show attachments in post previews
 $showAttachments = true;
 
@@ -24,4 +24,4 @@ function fixFilesArray($arr)
 	return $new;
 }
 
-require('./src/Attachment.php');
+require('src/Attachment.php');
