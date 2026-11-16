@@ -30,29 +30,32 @@ if (!empty($userData->user) && !$error) {
 		$birthday = strtotime($user->birthday);
 		$birthdayValue = date("Y-m-d", $birthday);
 	}
+
 }
 
 // POST
 // pfp
 $pfpUrl = '';
-$newPfp = false;
+$newPfp = null;
 if (!empty($_FILES['newPfp']['tmp_name'])) {
 	$newPfp = $_FILES['newPfp'];
 }
-if ($newPfp) {
+if (isset($newPfp)) {
 	$pfpUrl = $api->uploadFile($newPfp, "pfp");
 	if (!empty($pfpUrl->error))
 		$error = $pfpUrl->error . ', Error code: ' . $pfpUrl->errorCode;
 	if (empty($pfpUrl->error))
 		$newPfp = $pfpUrl->file;
 }
+
 // banner
 $bannerUrl = '';
-$newBanner = false;
+$newBanner = null;
+$removeBanner = $_POST['removeBanner'] ?? false;
 if (!empty($_FILES['newBanner']['tmp_name'])) {
 	$newBanner = $_FILES['newBanner'];
 }
-if ($newBanner) {
+if (!$removeBanner && isset($newBanner)) {
 	$bannerUrl = $api->uploadFile($newBanner, "banner");
 	if (!empty($bannerUrl->error))
 		$error = $bannerUrl->error . ', Error code: ' . $bannerUrl->errorCode;
@@ -62,16 +65,16 @@ if ($newBanner) {
 
 
 $name = $_POST['name'] ?? '';
-$removeBanner = $_POST['removeBanner'] ?? false;
-$displayName = $_POST['displayName'] ?? false;
+$displayName = $_POST['displayName'] ?? null;
 $pronouns = $_POST['pronouns'] ?? '';
-$displayPronouns = $_POST['displayPronouns'] ?? false;
+$displayPronouns = $_POST['displayPronouns'] ?? null;
 $email = $_POST['email'] ?? '';
-$displayEmail = $_POST['displayEmail'] ?? false;
+$displayEmail = $_POST['displayEmail'] ?? null;
 $birthday = $_POST['birthday'] ?? '';
-$displayBirthday = $_POST['displayBirthday'] ?? false;
+$displayBirthday = $_POST['displayBirthday'] ?? null;
 $bio = $_POST['bio'] ?? '';
-$displayBio = $_POST['displayBio'] ?? false;
+$displayBio = $_POST['displayBio'] ?? null;
+$privateProfile = $_POST['privateProfile'] ?? null;
 
 if ($removeBanner) {
 	$newBanner = '';
@@ -90,12 +93,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		displayEmail: $displayEmail,
 		displayBirthday: $displayBirthday,
 		displayPronouns: $displayPronouns,
-		displayBio: $displayBio
+		displayBio: $displayBio,
+		privateProfile: $privateProfile
 	);
 	if (!empty($editProfile->error))
 		$error = $editProfile->error . ', Error code: ' . $editProfile->errorCode;
 	if ($editProfile->status == "ok") {
-		// header('Location: ./editProfile.php');
+		header('Location: ./editProfile.php');
 	}
 }
 ?>
@@ -146,8 +150,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 				<input type="file" id="newBanner" name="newBanner" accept="image/*" />
 			</div>
 			<span><label for="removeBanner">Remove banner:</label>
-				<input type="checkbox" name="removeBanner" id="removeBanner"
-					<?= ((isset($removeBanner) && $removeBanner) || !$user->banner) ? 'checked' : '' ?>></span>
+				<input type="checkbox" name="removeBanner" id="removeBanner"></span>
 			<div style="margin-top: 8px;">
 				<a href="<?= $user->pfp ?>" target="_blank"><img class="pfp" width="50px" height="50px" src="<?= $user->pfp ?>"></a>
 			</div>
@@ -205,7 +208,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 					<?= ((isset($displayBio) && $displayBio) || $user->displayBio) ? 'checked' : '' ?>>
 			</div>
 		</div>
-		<div style="margin-bottom: 8px;">
+		<div style="margin-bottom: 8px">
+			<?= ((isset($privateProfile) && $privateProfile) || $user->private) ? '
+			<img class="icon" src="/img/icon/lock.png" height="14px" alt="Private User" title="Private User"><span>Private User' : '' ?>
+		</div>
+		<div style="margin-bottom: 8px; margin-top: 3px">
 			<button type="submit" class="button primary">Save</button>
 			<a class="button" href="./">Cancel</a>
 		</div>

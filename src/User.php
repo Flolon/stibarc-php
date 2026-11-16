@@ -17,6 +17,7 @@ class UserBlock
 		$api = new API();
 		$user = $this->userData;
 		$username = $this->userData->username;
+		$birthday = null;
 		if ($user->birthday)
 			$birthday = strtotime($user->birthday);
 		$followerUsernames = [];

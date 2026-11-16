@@ -443,7 +443,7 @@ class API
 		$content = "",
 		$attachments = false,
 		$deleted = false,
-		$privatePost = ""
+		$privatePost = null
 	) {
 
 		$body = [
@@ -488,7 +488,7 @@ class API
 		echo '==uploading file==';
 
 		$response = $this->request($this->host . "/v4/uploadfile.sjs", "POST", file: $file, headers: $headers);
-		
+
 		print_r($response);
 		$responseJSON = json_decode($response);
 
@@ -500,71 +500,48 @@ class API
 	}
 
 	public function editProfile(
-		$pfp = false,
-		$banner = '',
+		$pfp = null,
+		$banner = null,
 		$name = '',
 		$email = '',
 		$birthday = '',
 		$bio = '',
 		$pronouns = '',
-		$displayName = false,
-		$displayEmail = false,
-		$displayBirthday = false,
-		$displayBio = false,
-		$displayPronouns = false,
-		$block = false,
-		$displayBlock = false,
-		$privateProfile = false,
-		$changePostVisibility = false
+		$displayName = null,
+		$displayEmail = null,
+		$displayBirthday = null,
+		$displayBio = null,
+		$displayPronouns = null,
+		$block = null,
+		$displayBlock = null,
+		$privateProfile = null,
+		$changePostVisibility = null
 	) {
 
 		$body = [
 			"session" => $this->session,
 		];
 
-		if ($pfp)
+		if (isset($pfp))
 			$body["pfp"] = $pfp;
-		if ($banner)
+		if (isset($banner))
 			$body["banner"] = $banner;
+		$body["name"] = $name;
+		$body["email"] = $email;
+		$body["birthday"] = $birthday;
+		$body["bio"] = $bio;
+		$body["pronouns"] = $pronouns;
+		$body["block"] = $block;
 
-			$body["name"] = $name;
-
-			$body["email"] = $email;
-
-			$body["birthday"] = $birthday;
-
-			$body["bio"] = $bio;
-
-			$body["pronouns"] = $pronouns;
-
-			$body["block"] = $displayBlock;
-
-		$body["displayBlock"] = $displayBlock;
-		$body["displayName"] = $displayName;
-		$body["displayEmail"] = $displayEmail;
-		$body["displayBirthday"] = $displayBirthday;
-		$body["displayBio"] = $displayBio;
-		$body["displayPronouns"] = $displayPronouns;
-		if ($displayBlock == 'on')
-			$body["displayBlock"] = true;
-		if ($displayName == 'on')
-			$body["displayName"] = true;
-		if ($displayEmail == 'on')
-			$body["displayEmail"] = true;
-		if ($displayBirthday == 'on')
-			$body["displayBirthday"] = true;
-		if ($displayBio == 'on')
-			$body["displayBio"] = true;
-		if ($displayPronouns == 'on')
-			$body["displayPronouns"] = true;
-
-		if ($privateProfile == 'on')
-			$body["private"] = true;
-		$body["changePostVisibility"] = $changePostVisibility;
-		if ($changePostVisibility == 'on')
-			$body["changePostVisibility"] = true;
-
-		print_r(json_encode($body));
+		// True or false
+		$body["displayName"] = $displayName || false;
+		$body["displayEmail"] = $displayEmail || false;
+		$body["displayBirthday"] = $displayBirthday || false;
+		$body["displayBio"] = $displayBio || false;
+		$body["displayPronouns"] = $displayPronouns || false;
+		$body["private"] = $privateProfile || false;
+		$body["displayBlock"] = $displayBlock || false;
+		$body["changePostVisibility"] = $changePostVisibility || false;
 
 		$response = $this->request($this->host . "/v4/editprofile.sjs", "POST", $body);
 

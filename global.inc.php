@@ -16,6 +16,7 @@ $url =  "https://{$_SERVER['HTTP_HOST']}{$_SERVER['REQUEST_URI']}";
 
 function fixFilesArray($arr)
 {
+	$new = null;
 	foreach ($arr as $key => $all) {
 		foreach ($all as $i => $val) {
 			$new[$i][$key] = $val;
