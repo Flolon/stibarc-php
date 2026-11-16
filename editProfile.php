@@ -210,7 +210,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		</div>
 		<div style="margin-bottom: 8px">
 			<?= ((isset($privateProfile) && $privateProfile) || $user->private) ? '
-			<img class="icon" src="/img/icon/lock.png" height="14px" alt="Private User" title="Private User"><span>Private User' : '' ?>
+			<img class="icon" src="/img/icon/lock.png" height="14px" alt="Private User" title="Private User"><span>Private User</span>' : '' ?>
 		</div>
 		<div style="margin-bottom: 8px; margin-top: 3px">
 			<button type="submit" class="button primary">Save</button>

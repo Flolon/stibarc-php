@@ -50,7 +50,12 @@ class UserBlock
 			<span class="right">
 				<a class="button primary" href="./do.php?action=follow&username='
 			. htmlspecialchars($username) . '" title="' . $followBtnText . ' user">' . $followBtnText . '</a>
-			</span>	
+			</span>
+			<div style="margin-top: 4px;">
+				' . ($user->private ? '
+					<img class="icon" src="/img/icon/lock.png" height="14px" alt="Private User" title="Private User">
+					<span>Private User</span>' : '') . '
+			</div>
 			<div>
 				' . ($user->displayName && $user->name ? '<div>Name: ' . htmlspecialchars($user->name) . '</div>' : '') . '
 				' . ($user->displayBio && $user->bio ? '<div class="bio">' . htmlspecialchars($user->bio) . '</div>' : '') . '
