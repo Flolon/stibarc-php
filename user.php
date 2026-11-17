@@ -25,6 +25,18 @@ if ($username) {
 	if (!empty($userData->user))
 		$userData = $userData->user;
 }
+$sort = null;
+if (!empty($_GET['sort']))
+	$sort = $_GET['sort'];
+$posts = null;
+//$posts = $userData->posts;
+if (empty($sort)) {
+	$posts = $userData->posts;
+} else if ($sort == 'date-des') {
+	$posts = sort($userData->posts);
+} else {
+	$posts = rsort($userData->posts);
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -60,15 +72,18 @@ if ($username) {
 	if (!$error && $username && $userData) {
 		$userBlockObj = new STiBaRC\UserBlock($userData);
 		echo $userBlockObj->user();
-
-		if ($userData->posts) {
+		
+		if ($posts) {
 			echo '<h2 style="display: inline-block;">' . count($userData->posts) . ' Post' . ((count($userData->posts) == 1) ? '' : 's') . '</h2>';
 			echo '
 			<form class="right" style="display: inline-block;margin: 20px 0;">
 				<input type="hidden" value="' . $username . '" name="username">
-				<select class="button" name="sort">
+				<select class="button" name="sort" >
 					<option value="">Sort By</option>
-					<option value="date-asc">Date Ascending</option>
+					<option value="date-asc"' .
+					((!empty($sort) && $sort == 'date-asc') ? 'selected' : '' ) . '>Date Ascending</option>
+					<option value="date-des"' .
+					((!empty($sort) && $sort == 'date-des') ? 'selected' : '' ) . '>Date Descending</option>
 				</select>
 				<button class="button primary" type="submit">Go</button>
 			</form>

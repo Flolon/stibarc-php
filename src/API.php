@@ -197,7 +197,7 @@ class API
 		return $responseJSON ?? false;
 	}
 
-	public function getUser($username)
+	public function getUser($username = '')
 	{
 		$body = [
 			"username" => $username
