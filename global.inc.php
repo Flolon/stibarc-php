@@ -4,17 +4,28 @@ session_start();
     Config
 */
 // API to use
-$apiTarget = "development";
+$apiTarget = "production";
 // show attachments in post previews
 $showAttachments = true;
-
+// thumbnail file type
+$thumbType = 'png';
 
 /*
     Common shit
 */
-$url =  "https://{$_SERVER['HTTP_HOST']}{$_SERVER['REQUEST_URI']}";
+if (isset($_SERVER['HTTPS']) &&
+    ($_SERVER['HTTPS'] == 'on' || $_SERVER['HTTPS'] == 1) ||
+    isset($_SERVER['HTTP_X_FORWARDED_PROTO']) &&
+    $_SERVER['HTTP_X_FORWARDED_PROTO'] == 'https') {
+  $protocol = 'https://';
+}
+else {
+  $protocol = 'http://';
+}
 
-function fixFilesArray($arr)
+$url =  "{$protocol}{$_SERVER['HTTP_HOST']}{$_SERVER['REQUEST_URI']}";
+
+function fixFilesArray($arr = [])
 {
 	$new = null;
 	foreach ($arr as $key => $all) {

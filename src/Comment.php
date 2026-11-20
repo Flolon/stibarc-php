@@ -8,18 +8,23 @@ class Comment
 	private $comment;
 	private $postId;
 	private $loggedIn;
+	private $thumbType;
 
-	public function __construct($commentData, $postId, $loggedIn = false)
+	public function __construct($commentData = null, $postId = null, $loggedIn = false, $thumbType = 'png')
 	{
 		$this->comment = $commentData;
 		$this->postId = $postId;
 		$this->loggedIn = $loggedIn;
+		$this->thumbType = $thumbType;
 	}
 
 	public function comment()
 	{
 		$poster = $this->comment->poster;
 		$date = strtotime($this->comment->date);
+		$pfpUrl = $this->comment->poster->pfp;
+		//$pfp = $pfpUrl . '.thumb.' . $this->thumbType;
+		$pfp = preg_replace('/\.[^.]+$/', '.', $pfpUrl) . $this->thumbType;
 
 		$commentHTML = '
 		<div class="commentBlock" id="comment-' . $this->comment->id . '">

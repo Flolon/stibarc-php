@@ -109,7 +109,7 @@ if ($postId && ($comment || $attachments)) {
 		$attachmentObj = new STiBaRC\Attachment($attachment, true);
 		$attachmentObj->type;
 	?>
-		<meta property="og:<?= $type ?>" content="<?= $attachment ?>" />
+		<meta property="og:<?= $attachmentObj->type ?>" content="<?= $attachment ?>" />
 		<meta name="twitter:image" content="<?= $attachment ?>" />
 	<?php } else { ?>
 		<meta name="twitter:image" content="<?= ($pfp) ? htmlspecialchars($pfp) : '' ?>" />

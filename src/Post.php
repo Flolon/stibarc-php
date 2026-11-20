@@ -7,17 +7,22 @@ class Post
 
 	private $post;
 	private $loggedIn;
+	private $thumbType;
 
-	public function __construct($postData, $loggedIn)
+	public function __construct($postData = null, $loggedIn = false, $thumbType = 'png')
 	{
 		$this->post = $postData;
 		$this->loggedIn = $loggedIn;
+		$this->thumbType = $thumbType;
 	}
 
 	public function post()
 	{
 
 		$poster = $this->post->poster;
+		//$pfp = $this->post->poster->fullPfp . '.thumb.' . $this->thumbType;
+		$pfpUrl = $this->post->poster->pfp;
+		$pfp = preg_replace('/\.[^.]+$/', '.', $pfpUrl) . $this->thumbType;
 		$date = strtotime($this->post->date);
 
 		$postHTML = '

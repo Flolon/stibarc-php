@@ -8,18 +8,23 @@ class PostBlock
 	private $post;
 	private $showAttachments;
 	private $maxCharLength;
+	private $thumbType;
 
-	public function __construct($postData, $showAttachments = true, $maxCharLength = 150)
+	public function __construct($postData = null, $showAttachments = true, $maxCharLength = 150, $thumbType = 'png')
 	{
 		$this->post = $postData;
 		$this->showAttachments = $showAttachments;
 		$this->maxCharLength = $maxCharLength;
+		$this->thumbType = $thumbType;
 	}
 
 	public function post()
 	{
 
 		$poster = $this->post->poster;
+		//$pfp = $this->post->poster->fullPfp . '.thumb.' . $this->thumbType;
+		$pfpUrl = $this->post->poster->pfp;
+		$pfp = preg_replace('/\.[^.]+$/', '.', $pfpUrl) . $this->thumbType;
 		$date = strtotime($this->post->date);
 		$title = $this->post->title;
 		$contentPreview = $this->post->content;
@@ -36,7 +41,7 @@ class PostBlock
 			. htmlspecialchars($title) . '</a></div>
 				<div><a class="userLink" href="user.php?username=' . htmlspecialchars($poster->username) . '" 
 				title="' . htmlspecialchars($poster->username) . '">
-					<img class="pfp" width="30px" height="30px" src="' . $poster->pfp . '">
+					<img class="pfp" width="30px" height="30px" src="' . $pfp . '">
 					<span class="username">' . htmlspecialchars($poster->username) . '</span>
 					' . ($poster->verified ? '<span class="verified" title="Verified user">
 					<img class="icon" src="./img/icon/verified.png" height="14px" alt="Verified"></span>' : '') . '

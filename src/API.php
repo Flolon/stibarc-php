@@ -14,12 +14,14 @@ class API
 	private $banner;
 	private $private;
 	public $oauthClientUrl;
+	private $thumbType;
 
-	public function __construct($environment = false, $debug = true)
+	public function __construct($environment = false, $debug = true, $thumbType = 'pfp')
 	{
 		// debug vars
 		$this->debug = $debug;
 		$this->debug ? error_reporting(E_ALL) : "";
+		$this->thumbType = $thumbType;
 
 		switch ($environment) {
 			default:
@@ -323,7 +325,9 @@ class API
 		}
 		if (!$errorText) {
 			$this->username = $responseJSON->user->username;
-			$this->pfp = $responseJSON->user->pfp;
+			$pfpUrl = $responseJSON->user->pfp;;
+			//$pfp = $pfpUrl . '.thumb.' . $this->thumbType;
+			$this->pfp = preg_replace('/\.[^.]+$/', '.', $pfpUrl) . $this->thumbType;
 			$this->banner = $responseJSON->user->banner;
 			$this->private = $responseJSON->user->private;
 			$_SESSION["sess"] = $this->session;

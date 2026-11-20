@@ -141,7 +141,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		<?= ($error) ? '<div class="errorBlock">' . $error . '</div>' : '' ?>
 		<div style="margin-bottom: 8px;">
 			<div>
-				<a classs="bannerLink" <?= ($user->banner && $user->banner !== $api->defaultBannerUrl()) ? 'href="'. $user->banner . '"' : '' ?>" title="User banner image">
+				<a classs="bannerLink" <?= ($user->banner && $user->banner !== $api->defaultBannerUrl()) ? 'href="'. $user->fullBanner . '"' : '' ?>" title="User banner image">
 					<img class="banner" src="<?= ($user->banner && $user->banner !== $api->defaultBannerUrl()) ? $user->banner : '' ?>" width="100%" height="175px">
 				</a>
 			</div>
@@ -152,7 +152,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 			<span><label for="removeBanner">Remove banner:</label>
 				<input type="checkbox" name="removeBanner" id="removeBanner"></span>
 			<div style="margin-top: 8px;">
-				<a href="<?= $user->pfp ?>" target="_blank"><img class="pfp" width="50px" height="50px" src="<?= $user->pfp ?>"></a>
+				<a href="<?= $user->fullPfp ?>" target="_blank"><img class="pfp" width="50px" height="50px" src="<?= $user->pfp ?>"></a>
 			</div>
 			<div style="margin-top: 8px;">
 				<span class="username"><?= htmlspecialchars($user->username) ?></span>

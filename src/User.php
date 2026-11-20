@@ -36,10 +36,10 @@ class UserBlock
 
 		$userHTML = '
 		<div class="userBlock">'
-			. (($user->banner && $bannerFilename !== $defaultBannerFilename) ? '<a class="bannerLink" href="' . $user->banner . '" target="_blank" title="User banner image">
+			. (($user->banner && $bannerFilename !== $defaultBannerFilename) ? '<a class="bannerLink" href="' . $user->fullBanner . '" target="_blank" title="User banner image">
 			<img class="banner" width="100%" height="175px" src="' . $user->banner . '"></a>' : '')
 			. '<div class="userLink" title="' . htmlspecialchars($username) . '">
-				<a href="' . $user->pfp . '" target="_blank"><img class="pfp" width="50px" height="50px" src="' . $user->pfp . '"></a>
+				<a href="' . $user->fullPfp . '" target="_blank"><img class="pfp" width="50px" height="50px" src="' . $user->fullPfp . '"></a>
 				<span class="username">' . htmlspecialchars($username) . '</span>
 				' . ($user->verified ? '<span class="verified" title="Verified user">
 				<img class="icon" src="./img/icon/verified.png" height="14px" alt="Verified"></span>' : '') . '

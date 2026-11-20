@@ -9,15 +9,18 @@ class Attachment
 	private $attachmentHTML;
 	private $isPost;
 	public $type;
+	private $thumbType;
 
-	public function __construct($attachment, $isPost = false)
+	public function __construct($attachment = '', $isPost = false, $thumbType = 'png')
 	{
 		$this->attachment = $attachment;
 		$this->isPost = $isPost;
+		$this->thumbType = $thumbType;
 		// file types
 		$images = array("png", "jpg", "gif", "webp", "svg");
 		$videos = array("mov", "mp4", "webm");
 		$audios = array("spx", "m3a", "m4a", "wma", "wav", "mp3");
+
 		if(!is_string($this->attachment))
 			return false;
 		$parts = explode(".", $this->attachment);
@@ -33,16 +36,17 @@ class Attachment
 
 	public function attachmentBlock()
 	{
+		$thumbnail = $this->attachment . '.thumb.' . $this->thumbType;
 		if ($this->type === "image") {
 			if ($this->isPost) {
 				$this->attachmentHTML = '
 				<a class="attachmentLink" href="' . $this->attachment . '" target="_blank" title="Image thumbnail (click for full file)">
-					<img class="attachment" loading="lazy" src="' . $this->attachment . '.thumb.webp" alt="Image attachment thumbnail">
+					<img class="attachment" loading="lazy" src="' . $thumbnail . '" alt="Image attachment thumbnail">
 				</a>';
 			} else {
 				$this->attachmentHTML = '
 				<a class="attachmentLink" href="' . $this->attachment . '" target="_blank" title="Image thumbnail (click for full file)">
-					<img class="imgPreview" loading="lazy" src="' . $this->attachment . '.thumb.webp" alt="Image attachment thumbnail">
+					<img class="imgPreview" loading="lazy" src="' . $thumbnail . '"  alt="Image attachment thumbnail">
 				</a>';
 			}
 		}
@@ -50,13 +54,13 @@ class Attachment
 		if ($this->type === "video") {
 			if ($this->isPost) {
 				$this->attachmentHTML = '
-				<video class="attachment" controls poster="' . $this->attachment . '.thumb.webp">
+				<video class="attachment" controls poster="' . $thumbnail . '">
 					<source src="' . $this->attachment . '"></source>
 				</video>';
 			} else {
 				$this->attachmentHTML = '<a class="attachmentLink videoPreview" href="' . $this->attachment . '"
 				title="Video thumbnail (click for full file)" target="_blank">
-				<img loading="lazy" src="' . $this->attachment . '.thumb.webp" alt="Video attachment thumbnail"></a>';
+				<img loading="lazy" src="' . $thumbnail . '" alt="Video attachment thumbnail"></a>';
 			}
 		}
 
